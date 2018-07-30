@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">MyExample</string>
+    <string name="app_name">MyApp</string>
     <string name="str_main_btn_click">点击测试</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.zhang.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zhang.R;
@@ -20,6 +21,9 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.IMainView {
     @BindView(R.id.btn_main_click)
     Button btn_main_click;
+    @BindView(R.id.tv_main_content)
+    TextView tv_main_content;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +31,28 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
-        presenter.getData();
+
     }
 
     @OnClick(R.id.btn_main_click)
     void onClick() {
-        Toast.makeText(this, "fdasdrrfffffffa", Toast.LENGTH_LONG).show();
+        presenter.getData();
     }
 
     @Override
     public void showContent(List<ProductBean> productBeanList) {
-        showToast(productBeanList.get(0).getName());
+        StringBuilder sb = new StringBuilder();
+        sb.append("调用次数" + (++count) + "\n");
+        for (ProductBean item : productBeanList) {
+            sb.append(item.getName() + "\n");
+        }
+        tv_main_content.setText(sb.toString());
+        count = 0;
     }
 
-
+    @Override
+    protected void onDestroy() {
+        presenter.onFinishActivity();
+        super.onDestroy();
+    }
 }
