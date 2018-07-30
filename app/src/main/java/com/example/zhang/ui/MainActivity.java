@@ -28,7 +28,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
         presenter.getData();
-        //测试
     }
 
     @OnClick(R.id.btn_main_click)
