@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.btn_main_click)
     void onClick() {
-        Toast.makeText(this, "fdasdrrfa", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "fdasdrrfffffffa", Toast.LENGTH_LONG).show();
     }
 
     @Override
