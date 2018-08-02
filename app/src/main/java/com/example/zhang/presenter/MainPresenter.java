@@ -61,6 +61,7 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                     @Override
                     public void onComplete() {
                         LogUtils.error(TAG, "rxJavaCreateExample---:onComplete");
+
                     }
                 });
     }
