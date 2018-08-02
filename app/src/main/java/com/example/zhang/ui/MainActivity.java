@@ -36,7 +36,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.btn_main_click)
     void onClick() {
-        presenter.getData();
+//        presenter.getData();
+        presenter.rxJavaCreateExample();
     }
 
     @Override
