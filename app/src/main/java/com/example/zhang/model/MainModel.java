@@ -1,5 +1,8 @@
 package com.example.zhang.model;
 
+import android.content.res.Resources;
+import android.util.TimeUtils;
+
 import com.example.zhang.bean.ProductBean;
 import com.example.zhang.utils.LogUtils;
 
@@ -22,13 +25,13 @@ public class MainModel {
     public Observable<Integer> getRxJavaCreateExampleData() {
         return Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void subscribe(ObservableEmitter<Integer> emitter) {
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
                 LogUtils.debug(TAG, "getRxJavaCreateExampleData---:" + Thread.currentThread().getName() + "--:" + 1);
                 emitter.onNext(1);
 
                 LogUtils.debug(TAG, "getRxJavaCreateExampleData---:" + Thread.currentThread().getName() + "--:" + 2);
                 emitter.onNext(2);
-
+//                Thread.sleep(5000);
                 LogUtils.debug(TAG, "getRxJavaCreateExampleData---:" + Thread.currentThread().getName() + "--:" + 3);
                 emitter.onNext(3);
                 emitter.onComplete();
@@ -55,6 +58,31 @@ public class MainModel {
 
     public Observable<Integer> getRxJavaDistinctData() {
         return Observable.just(1, 2, 2, 1, 1, 2, 3, 4, 5, 2);
+    }
+
+    public Observable<Integer> getRxJavaDebounceData() {
+        return Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                LogUtils.error(TAG, "getRxJavaDebounceData--:" + Thread.currentThread().getName() + "-emitter-:" + 1);
+                emitter.onNext(1);
+                Thread.sleep(500);
+                LogUtils.error(TAG, "getRxJavaDebounceData--:" + Thread.currentThread().getName() + "-emitter-:" + 2);
+                emitter.onNext(2);
+                Thread.sleep(100);
+                LogUtils.error(TAG, "getRxJavaDebounceData--:" + Thread.currentThread().getName() + "-emitter-:" + 3);
+                emitter.onNext(3);
+                Thread.sleep(200);
+                LogUtils.error(TAG, "getRxJavaDebounceData--:" + Thread.currentThread().getName() + "-emitter-:" + 4);
+                emitter.onNext(4);
+                Thread.sleep(10);
+                LogUtils.error(TAG, "getRxJavaDebounceData--:" + Thread.currentThread().getName() + "-emitter-:" + 5);
+                emitter.onNext(5);
+                Thread.sleep(500);
+                LogUtils.error(TAG, "getRxJavaDebounceData--:" + Thread.currentThread().getName() + "-emitter-:" + 6);
+                emitter.onNext(6);
+            }
+        });
     }
 
     /**

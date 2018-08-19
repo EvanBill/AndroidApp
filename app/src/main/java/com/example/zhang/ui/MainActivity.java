@@ -1,10 +1,8 @@
 package com.example.zhang.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
@@ -44,7 +42,21 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        presenter.rxJavaFlatMapExample();
 //        presenter.rxJavaConcatMapExample();
 //        presenter.rxJavaDistinctExample();
-        presenter.rxJavaFilterExample();
+//        presenter.rxJavaFilterExample();
+//        presenter.rxJavaBufferExample();
+//        presenter.rxJavaTimeExample();
+//        presenter.rxJavaIntervalExample();
+//        presenter.rxJavaDoOnNextExample();
+//        presenter.rxJavaSkipExample();
+//        presenter.rxJavaTakeExample();
+//        presenter.rxJavaSingleExample();
+//        presenter.rxJavaDebounceExample();
+//        presenter.rxJavaDeferExample();
+//        presenter.rxJavaLastExample();
+//        presenter.rxJavaMergeExample();
+//        presenter.rxJavaReduceExample();
+//        presenter.rxJavaScanExample();
+        presenter.rxJavaWindowExample();
     }
 
     @Override
