@@ -1,15 +1,15 @@
 package com.example.zhang.model;
 
-import android.content.res.Resources;
-import android.util.TimeUtils;
-
 import com.example.zhang.bean.ProductBean;
 import com.example.zhang.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -83,6 +83,87 @@ public class MainModel {
                 emitter.onNext(6);
             }
         });
+    }
+
+    public Flowable<Integer> getRxJavaFlowableData() {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-:" + emitter.requested());
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + 1);
+                emitter.onNext(1);
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-:" + emitter.requested());
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + 2);
+                emitter.onNext(2);
+//                Thread.sleep(5000);
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-:" + emitter.requested());
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + 3);
+                emitter.onNext(3);
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-:" + emitter.requested());
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:onComplete");
+                emitter.onComplete();
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-:" + emitter.requested());
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + 4);
+                emitter.onNext(4);
+            }
+        }, BackpressureStrategy.ERROR);
+    }
+
+    public Flowable<Integer> getRxJavaFlowableSizeData() {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            boolean isFlag = false;
+
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-start:" + emitter.requested());
+
+                for (int i = 0; ; i++) {
+                    if (!isFlag) {
+                        LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-emit:" + emitter.requested());
+                        if (emitter.requested() > 0) {
+                            LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + i);
+                            emitter.onNext(i);
+                        } else {
+                            isFlag = true;
+                            LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-emit: end ");
+                        }
+                    }
+
+                }
+
+            }
+        }, BackpressureStrategy.ERROR);
+    }
+
+    public Flowable<Integer> getRxJavaFlowableRealExample() {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                for (int i = 0;i<200 ; i++) {
+                    while (emitter.requested() == 0) {
+                        if (emitter.isCancelled()) {
+                            break;
+                        }
+                    }
+                    LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-emit:" + emitter.requested());
+                    LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + i);
+                    emitter.onNext(i);
+                }
+
+            }
+        }, BackpressureStrategy.ERROR);
+    }
+
+    public Flowable<Integer> getRxJavaFlowable128Data() {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                for (int i = 0; i < 129; i++) {
+                    LogUtils.debug(TAG, "getRxJavaFlowable128Data---:" + Thread.currentThread().getName() + "--:" + i);
+                    emitter.onNext(i);
+                }
+            }
+        }, BackpressureStrategy.ERROR);
     }
 
     /**

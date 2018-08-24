@@ -56,7 +56,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        presenter.rxJavaMergeExample();
 //        presenter.rxJavaReduceExample();
 //        presenter.rxJavaScanExample();
-        presenter.rxJavaWindowExample();
+//        presenter.rxJavaWindowExample();
+//        presenter.rxJavaRangeExample();
+//        presenter.rxJavaRepeatExample();
+//        presenter.rxJavaSchedulersExample();
+//        presenter.rxJavaFlowableCreateExample();
+//        presenter.rxJavaFlowableSizeExample();
+//        presenter.rxJavaFlowableRealExample();
+        presenter.rxJavaFlowableConsumeExample();
+
     }
 
     @Override

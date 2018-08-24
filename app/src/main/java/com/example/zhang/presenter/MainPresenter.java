@@ -7,12 +7,17 @@ import com.example.zhang.model.MainModel;
 import com.example.zhang.model.contract.MainContract;
 import com.example.zhang.utils.LogUtils;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
@@ -479,6 +484,38 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
         compositeDisposable.add(disposable);
     }
 
+    /**
+     * range(final int start, final int count) start 初始值，count发送个数
+     */
+    public void rxJavaRangeExample() {
+        Disposable disposable = Observable.range(-1, 10)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        LogUtils.error(TAG, "rxJavaRangeExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void rxJavaRepeatExample() {
+        Disposable disposable = Observable.just(1, 2, 3)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .repeat()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        LogUtils.error(TAG, "rxJavaRepeatExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
     public void rxJavaScanExample() {
         Disposable disposable = model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
@@ -508,7 +545,7 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                 .subscribe(new Consumer<Observable<Integer>>() {
                     @Override
                     public void accept(Observable<Integer> longObservable) throws Exception {
-                        LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer1-:" );
+                        LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer1-:");
                         Disposable disposable1 = longObservable.subscribeOn(Schedulers.io())
                                 .unsubscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
@@ -519,6 +556,142 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                                     }
                                 });
                         compositeDisposable.add(disposable1);
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void rxJavaSchedulersExample() {
+        Disposable disposable = model.getRxJavaCreateExampleData()
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        LogUtils.error(TAG, "rxJavaSchedulersExample--:" + Thread.currentThread().getName() + "-doOnNext-:" + integer);
+                    }
+                })
+                .observeOn(Schedulers.newThread())
+                .filter(new Predicate<Integer>() {
+                    @Override
+                    public boolean test(Integer integer) throws Exception {
+                        LogUtils.error(TAG, "rxJavaSchedulersExample--:" + Thread.currentThread().getName() + "-filter-:" + integer);
+                        return integer > 2;
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        LogUtils.error(TAG, "rxJavaSchedulersExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void rxJavaFlowableCreateExample() {
+        model.getRxJavaFlowableData()
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new FlowableSubscriber<Integer>() {
+                    Subscription subscription;
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+//                        subscription= s;
+//                        subscription.request(3);
+                        LogUtils.error(TAG, "rxJavaFlowableCreateExample--:" + Thread.currentThread().getName() + "-onSubscribe-:" + "onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        LogUtils.error(TAG, "rxJavaFlowableCreateExample--:" + Thread.currentThread().getName() + "-onNext-:" + integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.error(TAG, "rxJavaFlowableCreateExample--:" + Thread.currentThread().getName() + "-onError-:" + "onError--:0" + t.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtils.error(TAG, "rxJavaFlowableCreateExample--:" + Thread.currentThread().getName() + "-onComplete-:" + "onComplete");
+                    }
+                });
+    }
+
+    public void rxJavaFlowableSizeExample() {
+        model.getRxJavaFlowableSizeData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new FlowableSubscriber<Integer>() {
+                    Subscription s;
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        this.s = s;
+                        s.request(95);
+                        LogUtils.error(TAG, "rxJavaFlowableSizeExample--:" + Thread.currentThread().getName() + "-onSubscribe-:");
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        LogUtils.error(TAG, "rxJavaFlowableSizeExample--:" + Thread.currentThread().getName() + "-onNext-:" + integer);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.error(TAG, "rxJavaFlowableSizeExample--:" + Thread.currentThread().getName() + "-onError-:" + t.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtils.error(TAG, "rxJavaFlowableSizeExample--:" + Thread.currentThread().getName() + "-onComplete-:");
+                    }
+                });
+    }
+
+    public void rxJavaFlowableRealExample() {
+        model.getRxJavaFlowableRealExample()
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new FlowableSubscriber<Integer>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+//                        s.request(96);
+                        LogUtils.error(TAG, "rxJavaFlowableRealExample--:" + Thread.currentThread().getName() + "-onSubscribe-:");
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        LogUtils.error(TAG, "rxJavaFlowableRealExample--:" + Thread.currentThread().getName() + "-onNext-:" + integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.error(TAG, "rxJavaFlowableRealExample--:" + Thread.currentThread().getName() + "-onError-:" + t.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtils.error(TAG, "rxJavaFlowableRealExample--:" + Thread.currentThread().getName() + "-onComplete-:");
+                    }
+                });
+    }
+
+    public void rxJavaFlowableConsumeExample() {
+        Disposable disposable = model.getRxJavaFlowableRealExample()
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        LogUtils.error(TAG, "rxJavaFlowableConsumeExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
         compositeDisposable.add(disposable);
