@@ -1,13 +1,13 @@
-package com.example.zhang.presenter;
+package com.example.zhang.mvp.presenter;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.base.BasePresenter;
-import com.example.zhang.bean.ProductBean;
-import com.example.zhang.model.MainModel;
-import com.example.zhang.model.contract.MainContract;
+import com.example.zhang.mvp.contract.MainContract;
+import com.example.zhang.mvp.model.MainModel;
+import com.example.zhang.mvp.model.bean.MainDataBean;
+import com.example.zhang.mvp.model.bean.ProductBean;
 import com.example.zhang.utils.LogUtils;
 
-import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.io.Serializable;
@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Flowable;
 import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -32,6 +31,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainView> {
     private String TAG = MainPresenter.class.getSimpleName();
@@ -692,6 +692,19 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaFlowableConsumeExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void getMainData() {
+        Disposable disposable = model.getMainData().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MainDataBean>() {
+                    @Override
+                    public void accept(MainDataBean mainDataBean) throws Exception {
+                        LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-Consumer-:" + mainDataBean.toString());
                     }
                 });
         compositeDisposable.add(disposable);

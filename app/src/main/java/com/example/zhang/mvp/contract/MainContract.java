@@ -1,7 +1,7 @@
-package com.example.zhang.model.contract;
+package com.example.zhang.mvp.contract;
 
 import com.example.zhang.base.BaseView;
-import com.example.zhang.bean.ProductBean;
+import com.example.zhang.mvp.model.bean.ProductBean;
 
 import java.util.List;
 

@@ -22,8 +22,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
@@ -34,5 +34,17 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.blankj:utilcode:1.19.0'
+    //network
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    //    implementation 'com.squareup.retrofit2:converter-gson'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //转换器 将结果通过gson将json串转换为model
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //GSON库
+    implementation 'com.google.code.gson:gson:2.8.5'
+
 }
 

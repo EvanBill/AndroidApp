@@ -1,8 +1,12 @@
-package com.example.zhang.model;
+package com.example.zhang.mvp.model;
 
-import com.example.zhang.bean.ProductBean;
+import com.example.zhang.mvp.model.bean.MainDataBean;
+import com.example.zhang.mvp.model.bean.ProductBean;
+import com.example.zhang.mvp.model.service.ServiceManager;
+import com.example.zhang.mvp.model.service.api.MainActivityApi;
 import com.example.zhang.utils.LogUtils;
 
+import java.net.ResponseCache;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +17,11 @@ import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class MainModel {
     private String TAG = MainModel.class.getSimpleName();
@@ -139,7 +148,7 @@ public class MainModel {
         return Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
             public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
-                for (int i = 0;i<200 ; i++) {
+                for (int i = 0; i < 200; i++) {
                     while (emitter.requested() == 0) {
                         if (emitter.isCancelled()) {
                             break;
@@ -164,6 +173,10 @@ public class MainModel {
                 }
             }
         }, BackpressureStrategy.ERROR);
+    }
+
+    public Observable<MainDataBean> getMainData() {
+        return ServiceManager.getInstance().retrofit.create(MainActivityApi.class).getMainData();
     }
 
     /**

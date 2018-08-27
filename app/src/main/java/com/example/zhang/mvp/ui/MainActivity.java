@@ -1,4 +1,4 @@
-package com.example.zhang.ui;
+package com.example.zhang.mvp.ui;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -6,9 +6,9 @@ import android.widget.TextView;
 
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
-import com.example.zhang.bean.ProductBean;
-import com.example.zhang.model.contract.MainContract;
-import com.example.zhang.presenter.MainPresenter;
+import com.example.zhang.mvp.contract.MainContract;
+import com.example.zhang.mvp.model.bean.ProductBean;
+import com.example.zhang.mvp.presenter.MainPresenter;
 
 import java.util.List;
 
@@ -63,8 +63,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        presenter.rxJavaFlowableCreateExample();
 //        presenter.rxJavaFlowableSizeExample();
 //        presenter.rxJavaFlowableRealExample();
-        presenter.rxJavaFlowableConsumeExample();
-
+//        presenter.rxJavaFlowableConsumeExample();
+        presenter.getMainData();
     }
 
     @Override

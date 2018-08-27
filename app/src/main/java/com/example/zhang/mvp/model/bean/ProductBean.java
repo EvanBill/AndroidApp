@@ -1,4 +1,4 @@
-package com.example.zhang.bean;
+package com.example.zhang.mvp.model.bean;
 
 public class ProductBean {
     private String name;
