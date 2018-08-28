@@ -1,17 +1,12 @@
 package com.example.zhang.mvp.model.service;
 
-import android.support.annotation.NonNull;
-
 import com.blankj.utilcode.util.NetworkUtils;
-import com.example.zhang.BuildConfig;
 import com.example.zhang.app.Constants;
-import com.example.zhang.mvp.model.service.api.MainActivityApi;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -24,23 +19,25 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceManager {
-    private static ServiceManager instance;
-    public   static  Retrofit retrofit;
-    private  static OkHttpClient client;
-
+    private static volatile ServiceManager instance;
+    public  Retrofit retrofit;
     private ServiceManager() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.HOST)
+                .client(getOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
     }
 
-    public static synchronized ServiceManager getInstance() {
+    public static  ServiceManager getInstance() {
         if (null == instance) {
-            instance = new ServiceManager();
-            client = getOkHttpClient();
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.HOST)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
+            synchronized (ServiceManager.class) {
+                if (instance == null) {
+                    instance = new ServiceManager();
+                }
+            }
+
         }
         return instance;
     }
@@ -50,7 +47,7 @@ public class ServiceManager {
         if (Constants.ISLOG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addInterceptor(loggingInterceptor);
+            builder.addNetworkInterceptor(loggingInterceptor);
         }
         File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
