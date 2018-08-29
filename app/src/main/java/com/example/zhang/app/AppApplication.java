@@ -7,10 +7,11 @@ import com.example.zhang.utils.LogUtils;
 
 public class AppApplication extends Application {
     private static AppApplication instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        instance=this;
+        instance = this;
         LogUtils.isLogging = true;
         Utils.init(this);//AndroidUtils初始化
     }

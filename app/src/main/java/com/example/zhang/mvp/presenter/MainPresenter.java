@@ -4,15 +4,20 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.base.BasePresenter;
 import com.example.zhang.mvp.contract.MainContract;
 import com.example.zhang.mvp.model.MainModel;
+import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.ProductBean;
+import com.example.zhang.mvp.model.bean.RegistResponseBean;
+import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.utils.LogUtils;
 
 import org.reactivestreams.Subscription;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -705,6 +710,60 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                     @Override
                     public void accept(MainDataBean mainDataBean) throws Exception {
                         LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-Consumer-:" + mainDataBean.toString());
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+
+    public void postRegister(String username, String pwd, String rePwd) {
+        RegisterParamBean registerParamBean = new RegisterParamBean();
+        registerParamBean.setUsername(username);
+        registerParamBean.setPassword(pwd);
+        registerParamBean.setRepassword(rePwd);
+        Disposable disposable = model.postRegister(registerParamBean)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Response<Void>>() {
+                    @Override
+                    public void accept(Response<Void> voidResponse) throws Exception {
+                        LogUtils.error(TAG, "postRegister--:" + Thread.currentThread().getName() + "-Consumer-:" + voidResponse.toString());
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void postRegisterBy(String username, String pwd, String rePwd) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("username", username);
+        params.put("password", pwd);
+        params.put("repassword", rePwd);
+        Disposable disposable = model.postRegister(params)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Response<RegistResponseBean>>() {
+                    @Override
+                    public void accept(Response<RegistResponseBean> registResponseBeanResponse) throws Exception {
+                        LogUtils.error(TAG, "postRegister--:" + Thread.currentThread().getName() + "-Consumer-:" + registResponseBeanResponse.toString());
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void postLogin(String username, String pwd) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", username);
+        params.put("password", pwd);
+        Disposable disposable = model.postLogin(params)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<LoginResponseBean>() {
+                    @Override
+                    public void accept(LoginResponseBean response) throws Exception {
+                        LogUtils.error(TAG, "postLogin--:" + Thread.currentThread().getName() + "-Consumer-:" + response.toString());
                     }
                 });
         compositeDisposable.add(disposable);

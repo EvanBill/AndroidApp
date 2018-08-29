@@ -1,13 +1,17 @@
 package com.example.zhang.mvp.model;
 
+import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.ProductBean;
+import com.example.zhang.mvp.model.bean.RegistResponseBean;
+import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.mvp.model.service.ServiceManager;
 import com.example.zhang.mvp.model.service.api.MainApi;
 import com.example.zhang.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -16,6 +20,7 @@ import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import retrofit2.Response;
 
 public class MainModel {
     private String TAG = MainModel.class.getSimpleName();
@@ -172,6 +177,19 @@ public class MainModel {
     public Observable<MainDataBean> getMainData() {
         return ServiceManager.getInstance().retrofit.create(MainApi.class).getMainData();
     }
+
+    public Observable<LoginResponseBean> postLogin(Map<String,String>map) {
+        return ServiceManager.getInstance().retrofit.create(MainApi.class).postLogin(map);
+    }
+
+    public Observable<Response<Void>> postRegister(RegisterParamBean registerParamBean) {
+        return ServiceManager.getInstance().retrofit.create(MainApi.class).postRegister(registerParamBean);
+    }
+    public Observable<Response<RegistResponseBean>> postRegister(Map<String,String> params) {
+        return ServiceManager.getInstance().retrofit.create(MainApi.class).postRegister(params);
+    }
+
+
 
     /**
      * 获得首页产品数据

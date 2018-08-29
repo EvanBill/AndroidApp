@@ -10,5 +10,5 @@ public class Constants {
             AppApplication.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
     public static final String PATH_CACHE = PATH_DATA + "/NetCache";
 
-    public static final  String HOST = "http://news-at.zhihu.com/api/4/";
+    public static final  String HOST = "http://www.wanandroid.com/";
 }

@@ -65,6 +65,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        presenter.rxJavaFlowableRealExample();
 //        presenter.rxJavaFlowableConsumeExample();
         presenter.getMainData();
+//        presenter.postRegisterBy("zzz123456", "123456", "123456");
+//        presenter.postRegister("zzz123456", "123456", "123456");
+//        presenter.postLogin("zzz123456", "123456");
     }
 
     @Override

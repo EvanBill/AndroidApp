@@ -9,9 +9,13 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -20,7 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceManager {
     private static volatile ServiceManager instance;
-    public  Retrofit retrofit;
+    public Retrofit retrofit;
+
     private ServiceManager() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.HOST)
@@ -30,7 +35,7 @@ public class ServiceManager {
                 .build();
     }
 
-    public static  ServiceManager getInstance() {
+    public static ServiceManager getInstance() {
         if (null == instance) {
             synchronized (ServiceManager.class) {
                 if (instance == null) {
@@ -42,58 +47,20 @@ public class ServiceManager {
         return instance;
     }
 
-    private static OkHttpClient getOkHttpClient() {
+    private OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         if (Constants.ISLOG) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addNetworkInterceptor(loggingInterceptor);
+            builder.addNetworkInterceptor(getHttpLoggingInterceptor());
         }
+        //设置统一的请求头部参数
+        builder.addInterceptor(getHttpHeaderInterceptor());
+        //设置统一的添加参数的拦截器
+        builder.addInterceptor(getHttpParamsInterceptor());
+        //设置缓存
         File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
-        Interceptor cacheInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                if (!NetworkUtils.isConnected()) {
-                    request = request.newBuilder()
-                            .cacheControl(CacheControl.FORCE_CACHE)
-                            .build();
-                }
-                Response response = chain.proceed(request);
-                if (NetworkUtils.isConnected()) {
-                    int maxAge = 0;
-                    // 有网络时, 不缓存, 最大保存时长为0
-                    response.newBuilder()
-                            .header("Cache-Control", "public, max-age=" + maxAge)
-                            .removeHeader("Pragma")
-                            .build();
-                } else {
-                    // 无网络时，设置超时为4周
-                    int maxStale = 60 * 60 * 24 * 28;
-                    response.newBuilder()
-                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                            .removeHeader("Pragma")
-                            .build();
-                }
-                return response;
-            }
-        };
-//        Interceptor apikey = new Interceptor() {
-//            @Override
-//            public Response intercept(Chain chain) throws IOException {
-//                Request request = chain.request();
-//                request = request.newBuilder()
-//                        .addHeader("apikey",Constants.KEY_API)
-//                        .build();
-//                return chain.proceed(request);
-//            }
-//        }
-//        设置统一的请求头部参数
-//        builder.addInterceptor(apikey);
-        //设置缓存
-        builder.addNetworkInterceptor(cacheInterceptor);
-        builder.addInterceptor(cacheInterceptor);
+        builder.addNetworkInterceptor(getHttpCacheInterceptor());
+        builder.addInterceptor(getHttpCacheInterceptor());
         builder.cache(cache);
         //设置超时
         builder.connectTimeout(10, TimeUnit.SECONDS);
@@ -102,5 +69,120 @@ public class ServiceManager {
         //错误重连
         builder.retryOnConnectionFailure(true);
         return builder.build();
+    }
+
+    /**
+     * 获取HTTP 打印log的拦截器
+     *
+     * @return
+     */
+    private HttpLoggingInterceptor getHttpLoggingInterceptor() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
+    }
+
+    /**
+     * 获取HTTP 添加header的拦截器
+     *
+     * @return
+     */
+    private Interceptor getHttpHeaderInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                request = request.newBuilder()
+                        .addHeader("User-Agent", "Android")
+                        .method(request.method(), request.body())
+                        .build();
+                return chain.proceed(request);
+            }
+        };
+    }
+
+    /**
+     * 获取HTTP 添加公共参数的拦截器
+     * 暂时支持get、head请求&Post put patch的表单数据请求
+     *
+     * @return
+     */
+    private Interceptor getHttpParamsInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+
+                if (request.method().equalsIgnoreCase("GET") || request.method().equalsIgnoreCase("HEAD")) {
+                    HttpUrl httpUrl = request.url().newBuilder()
+                            .addQueryParameter("version", "1.1.0")
+                            .addQueryParameter("devices", "android")
+                            .build();
+                    request = request.newBuilder().url(httpUrl).build();
+                } else {
+                    RequestBody originalBody = request.body();
+                    if (originalBody instanceof FormBody) {
+                        FormBody.Builder builder = new FormBody.Builder();
+                        FormBody formBody = (FormBody) originalBody;
+                        for (int i = 0; i < formBody.size(); i++) {
+                            builder.addEncoded(formBody.encodedName(i), formBody.encodedValue(i));
+                        }
+                        FormBody newFormBody = builder.addEncoded("version", "1.1.0")
+                                .addEncoded("devices", "android")
+                                .build();
+                        if (request.method().equalsIgnoreCase("POST")) {
+                            request = request.newBuilder().post(newFormBody).build();
+                        } else if (request.method().equalsIgnoreCase("PATCH")) {
+                            request = request.newBuilder().patch(newFormBody).build();
+                        } else if (request.method().equalsIgnoreCase("PUT")) {
+                            request = request.newBuilder().put(newFormBody).build();
+                        }
+
+                    } else if (originalBody instanceof MultipartBody) {
+
+                    }
+
+                }
+                return chain.proceed(request);
+            }
+        };
+    }
+
+    /**
+     * 获得HTTP 缓存的拦截器
+     *
+     * @return
+     */
+    public Interceptor getHttpCacheInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                // 无网络时，始终使用本地Cache
+                if (!NetworkUtils.isConnected()) {
+                    request = request.newBuilder()
+                            .cacheControl(CacheControl.FORCE_CACHE)
+                            .build();
+                }
+                Response response = chain.proceed(request);
+                if (NetworkUtils.isConnected()) {
+                    // 有网络时，设置缓存过期时间0个小时
+                    int maxAge = 0;
+                    return response.newBuilder()
+                            .header("Cache-Control", "public, max-age=" + maxAge)
+                            .removeHeader("Pragma")
+                            .build();
+                } else {
+                    // 无网络时，设置超时为4周
+                    int maxStale = 60 * 60 * 24 * 28;
+                    return response.newBuilder()
+                            //这里的设置的是我们的没有网络的缓存时间，想设置多少就是多少。
+                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                            .removeHeader("Pragma")
+                            .build();
+                }
+
+            }
+        };
     }
 }
