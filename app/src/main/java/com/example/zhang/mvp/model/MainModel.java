@@ -174,21 +174,29 @@ public class MainModel {
         }, BackpressureStrategy.ERROR);
     }
 
-    public Observable<MainDataBean> getMainData() {
-        return ServiceManager.getInstance().retrofit.create(MainApi.class).getMainData();
+    public Observable<MainDataBean> getMainData(String headerTimestamp, int id, String time, Map<String, String> requestParams) {
+        return ServiceManager.getInstance().retrofit.create(MainApi.class).getMainData(headerTimestamp, id, time, requestParams);
     }
 
-    public Observable<LoginResponseBean> postLogin(Map<String,String>map) {
+    public Observable<Response<Void>> getUrlData(String url) {
+        return ServiceManager.getInstance().retrofit.create(MainApi.class).getUrlData(url);
+    }
+
+    public Observable<LoginResponseBean> postLogin(Map<String, String> map) {
         return ServiceManager.getInstance().retrofit.create(MainApi.class).postLogin(map);
+    }
+
+    public Observable<LoginResponseBean> postLogin(String username, String password,String nick) {
+        return ServiceManager.getInstance().retrofit.create(MainApi.class).postLogin(username, password,nick);
     }
 
     public Observable<Response<Void>> postRegister(RegisterParamBean registerParamBean) {
         return ServiceManager.getInstance().retrofit.create(MainApi.class).postRegister(registerParamBean);
     }
-    public Observable<Response<RegistResponseBean>> postRegister(Map<String,String> params) {
+
+    public Observable<Response<RegistResponseBean>> postRegister(Map<String, String> params) {
         return ServiceManager.getInstance().retrofit.create(MainApi.class).postRegister(params);
     }
-
 
 
     /**

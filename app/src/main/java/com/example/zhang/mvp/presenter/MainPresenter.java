@@ -702,14 +702,36 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
         compositeDisposable.add(disposable);
     }
 
-    public void getMainData() {
-        Disposable disposable = model.getMainData().subscribeOn(Schedulers.io())
+    public void getMainData(String headerTimestamp, int id, String time) {
+        Map<String, String> requestParams = new HashMap<>();
+        requestParams.put("platform", "100");
+        requestParams.put("platform2", "200");
+        Disposable disposable = model.getMainData(headerTimestamp, id, time, requestParams).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MainDataBean>() {
                     @Override
                     public void accept(MainDataBean mainDataBean) throws Exception {
                         LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-Consumer-:" + mainDataBean.toString());
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    /**
+     * 测试retrofit 注解URL 使用方式
+     *
+     * @param url
+     */
+    public void getUrlData(String url) {
+        Disposable disposable = model.getUrlData(url)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Response<Void>>() {
+                    @Override
+                    public void accept(Response<Void> voidResponse) throws Exception {
+
                     }
                 });
         compositeDisposable.add(disposable);
@@ -764,6 +786,20 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                     @Override
                     public void accept(LoginResponseBean response) throws Exception {
                         LogUtils.error(TAG, "postLogin--:" + Thread.currentThread().getName() + "-Consumer-:" + response.toString());
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void postLoginAgain(String username, String password,String nick) {
+        Disposable disposable = model.postLogin(username, password,nick)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<LoginResponseBean>() {
+                    @Override
+                    public void accept(LoginResponseBean loginResponseBean) throws Exception {
+                        LogUtils.error(TAG, "postLoginAgain--:" + Thread.currentThread().getName() + "-Consumer-:" + loginResponseBean.toString());
                     }
                 });
         compositeDisposable.add(disposable);

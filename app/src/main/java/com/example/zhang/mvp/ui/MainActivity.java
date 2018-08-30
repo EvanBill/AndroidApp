@@ -1,9 +1,11 @@
 package com.example.zhang.mvp.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.MainContract;
@@ -32,8 +34,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     }
 
-    @OnClick(R.id.btn_main_click)
-    void onClick() {
+    @OnClick({R.id.btn_main_click})
+    void onClick(View v) {
 //        presenter.getData();
 //        presenter.rxJavaCreateExample();
 //        presenter.rxJavaMapExample();
@@ -64,10 +66,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        presenter.rxJavaFlowableSizeExample();
 //        presenter.rxJavaFlowableRealExample();
 //        presenter.rxJavaFlowableConsumeExample();
-        presenter.getMainData();
+//        presenter.getMainData(TimeUtils.getNowString(), 2, TimeUtils.getNowString());
 //        presenter.postRegisterBy("zzz123456", "123456", "123456");
-//        presenter.postRegister("zzz123456", "123456", "123456");
+        presenter.postRegister("zzz123456", "123456", "123456");
 //        presenter.postLogin("zzz123456", "123456");
+//        presenter.getUrlData("https://www.baidu.com");
+//        presenter.postLoginAgain("zzz123456", "123456","evan");
     }
 
     @Override

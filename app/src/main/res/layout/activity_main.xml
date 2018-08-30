@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".mvp.ui.MainActivity">
 
     <Button
         android:id="@+id/btn_main_click"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/str_main_btn_click" />
+
 
     <TextView
         android:id="@+id/tv_main_content"

@@ -166,10 +166,10 @@ public class ServiceManager {
                 }
                 Response response = chain.proceed(request);
                 if (NetworkUtils.isConnected()) {
-                    // 有网络时，设置缓存过期时间0个小时
-                    int maxAge = 0;
+                    //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
+                    String cacheControl = request.cacheControl().toString();
                     return response.newBuilder()
-                            .header("Cache-Control", "public, max-age=" + maxAge)
+                            .header("Cache-Control", cacheControl)
                             .removeHeader("Pragma")
                             .build();
                 } else {
