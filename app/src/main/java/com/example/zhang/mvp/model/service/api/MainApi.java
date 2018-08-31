@@ -1,10 +1,8 @@
 package com.example.zhang.mvp.model.service.api;
 
-import android.util.Log;
-
 import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
-import com.example.zhang.mvp.model.bean.RegistResponseBean;
+import com.example.zhang.mvp.model.bean.RegisterResponseBean;
 import com.example.zhang.mvp.model.bean.RegisterParamBean;
 
 import java.util.Map;
@@ -18,7 +16,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -63,7 +60,7 @@ public interface MainApi {
      */
     @FormUrlEncoded
     @POST("user/register")
-    Observable<Response<RegistResponseBean>> postRegister(@FieldMap Map<String, String> params);
+    Observable<RegisterResponseBean> postRegister(@FieldMap Map<String, String> params);
 
     /**
      * @param params @FieldMap 表单格式的Body体--配合 @FormUrlEncoded使用

@@ -12,6 +12,13 @@
         android:layout_height="wrap_content"
         android:text="@string/str_main_btn_click" />
 
+    <Button
+        android:id="@+id/btn_main_lifecycle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/btn_main_click"
+        android:text="@string/str_main_btn_lifecycle" />
+
 
     <TextView
         android:id="@+id/tv_main_content"

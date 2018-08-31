@@ -1,5 +1,6 @@
 package com.example.zhang.mvp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,9 +35,32 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     }
 
-    @OnClick({R.id.btn_main_click})
+    @OnClick({R.id.btn_main_click, R.id.btn_main_lifecycle})
     void onClick(View v) {
-//        presenter.getData();
+        switch (v.getId()) {
+            case R.id.btn_main_click:
+                testExample();
+                break;
+            case R.id.btn_main_lifecycle:
+                Intent intent = new Intent(this, RxLifeCycleActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    @Override
+    public void showContent(List<ProductBean> productBeanList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("调用次数" + (++count) + "\n");
+        for (ProductBean item : productBeanList) {
+            sb.append(item.getName() + "\n");
+        }
+        tv_main_content.setText(sb.toString());
+        count = 0;
+    }
+
+    private void testExample() {
+//                presenter.getData();
 //        presenter.rxJavaCreateExample();
 //        presenter.rxJavaMapExample();
 //        presenter.rxJavaZipExample();
@@ -67,27 +91,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        presenter.rxJavaFlowableRealExample();
 //        presenter.rxJavaFlowableConsumeExample();
 //        presenter.getMainData(TimeUtils.getNowString(), 2, TimeUtils.getNowString());
-//        presenter.postRegisterBy("zzz123456", "123456", "123456");
-        presenter.postRegister("zzz123456", "123456", "123456");
+        presenter.postRegisterBy("zzz123456", "123456", "123456");
+//        presenter.postRegister("zzz123456", "123456", "123456");
 //        presenter.postLogin("zzz123456", "123456");
 //        presenter.getUrlData("https://www.baidu.com");
 //        presenter.postLoginAgain("zzz123456", "123456","evan");
-    }
-
-    @Override
-    public void showContent(List<ProductBean> productBeanList) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("调用次数" + (++count) + "\n");
-        for (ProductBean item : productBeanList) {
-            sb.append(item.getName() + "\n");
-        }
-        tv_main_content.setText(sb.toString());
-        count = 0;
-    }
-
-    @Override
-    protected void onDestroy() {
-        presenter.onFinishActivity();
-        super.onDestroy();
     }
 }

@@ -3,7 +3,7 @@ package com.example.zhang.mvp.model;
 import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.ProductBean;
-import com.example.zhang.mvp.model.bean.RegistResponseBean;
+import com.example.zhang.mvp.model.bean.RegisterResponseBean;
 import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.mvp.model.service.ServiceManager;
 import com.example.zhang.mvp.model.service.api.MainApi;
@@ -147,14 +147,14 @@ public class MainModel {
         return Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
             public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
-                for (int i = 0; i < 200; i++) {
-                    while (emitter.requested() == 0) {
-                        if (emitter.isCancelled()) {
-                            break;
-                        }
+                for (int i = 0; ; i++) {
+                    if (emitter.isCancelled()) {
+                        break;
                     }
-                    LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-emit:" + emitter.requested());
-                    LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + i);
+                    while (emitter.requested() == 0) {
+                    }
+                    LogUtils.debug(TAG, "getRxJavaFlowableRealExample---:" + Thread.currentThread().getName() + "-request-emit:" + emitter.requested());
+                    LogUtils.debug(TAG, "getRxJavaFlowableRealExample---:" + Thread.currentThread().getName() + "--:" + i);
                     emitter.onNext(i);
                 }
 
@@ -194,7 +194,7 @@ public class MainModel {
         return ServiceManager.getInstance().retrofit.create(MainApi.class).postRegister(registerParamBean);
     }
 
-    public Observable<Response<RegistResponseBean>> postRegister(Map<String, String> params) {
+    public Observable<RegisterResponseBean> postRegister(Map<String, String> params) {
         return ServiceManager.getInstance().retrofit.create(MainApi.class).postRegister(params);
     }
 

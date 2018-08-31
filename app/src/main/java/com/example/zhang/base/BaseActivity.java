@@ -2,9 +2,10 @@ package com.example.zhang.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
-public class BaseActivity<T> extends AppCompatActivity implements BaseView {
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+public class BaseActivity<T> extends RxAppCompatActivity implements BaseView {
     protected T presenter;
 
     @Override

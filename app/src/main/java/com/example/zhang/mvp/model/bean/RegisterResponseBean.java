@@ -2,7 +2,7 @@ package com.example.zhang.mvp.model.bean;
 
 import java.util.List;
 
-public class RegistResponseBean {
+public class RegisterResponseBean {
 
     /**
      * data : {"collectIds":[],"email":"","icon":"","id":9812,"password":"123456","token":"","type":0,"username":"zzz123456"}
@@ -36,6 +36,15 @@ public class RegistResponseBean {
 
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterResponseBean{" +
+                "data=" + data +
+                ", errorCode=" + errorCode +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
     }
 
     public static class DataBean {
@@ -121,6 +130,20 @@ public class RegistResponseBean {
 
         public void setCollectIds(List<?> collectIds) {
             this.collectIds = collectIds;
+        }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "email='" + email + '\'' +
+                    ", icon='" + icon + '\'' +
+                    ", id=" + id +
+                    ", password='" + password + '\'' +
+                    ", token='" + token + '\'' +
+                    ", type=" + type +
+                    ", username='" + username + '\'' +
+                    ", collectIds=" + collectIds +
+                    '}';
         }
     }
 }

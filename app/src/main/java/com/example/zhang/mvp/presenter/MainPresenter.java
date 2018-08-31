@@ -1,5 +1,7 @@
 package com.example.zhang.mvp.presenter;
 
+import android.annotation.SuppressLint;
+
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.base.BasePresenter;
 import com.example.zhang.mvp.contract.MainContract;
@@ -7,9 +9,11 @@ import com.example.zhang.mvp.model.MainModel;
 import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.ProductBean;
-import com.example.zhang.mvp.model.bean.RegistResponseBean;
+import com.example.zhang.mvp.model.bean.RegisterResponseBean;
 import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.utils.LogUtils;
+import com.example.zhang.utils.RxLifeCycleUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.reactivestreams.Subscription;
 
@@ -28,7 +32,6 @@ import io.reactivex.Observer;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
@@ -38,14 +41,14 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainView> {
+public class MainPresenter extends BasePresenter<MainContract.IMainView, MainModel> {
     private String TAG = MainPresenter.class.getSimpleName();
-    private CompositeDisposable compositeDisposable;
+
 
     public MainPresenter(MainContract.IMainView view) {
         super(view);
         model = new MainModel();
-        compositeDisposable = new CompositeDisposable();
+
     }
 
     /**
@@ -56,6 +59,7 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Observer<Integer>() {
                     private Disposable disposable;
 
@@ -90,8 +94,9 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
     /**
      * RxJava -Map语法练习
      */
+    @SuppressLint("CheckResult")
     public void rxJavaMapExample() {
-        Disposable subscribe = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .map(new Function<Integer, String>() {
@@ -102,20 +107,22 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
+//                .compose(RxLifeCycleUtils.<String>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         LogUtils.error(TAG, "rxJavaMapExample--Consumer--:" + Thread.currentThread().getName() + "--:" + s);
                     }
                 });
-        compositeDisposable.add(subscribe);
+
     }
 
     /**
      * RxJava-zip语法练习
      */
+    @SuppressLint("CheckResult")
     public void rxJavaZipExample() {
-        Disposable subscribe = Observable.zip(model.getRxJavaCreateExampleData().subscribeOn(Schedulers.io()), model.getRxJavaStringData().subscribeOn(Schedulers.io())
+        Observable.zip(model.getRxJavaCreateExampleData().subscribeOn(Schedulers.io()), model.getRxJavaStringData().subscribeOn(Schedulers.io())
                 , new BiFunction<Integer, String, String>() {
                     @Override
                     public String apply(Integer integer, String s) throws Exception {
@@ -123,38 +130,42 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         return "this is zip method --:" + integer + "--:" + s;
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<String>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         LogUtils.error(TAG, "rxJavaZipExample--Consumer--:" + Thread.currentThread().getName() + "--:" + s);
                     }
                 });
-        compositeDisposable.add(subscribe);
+
 
     }
 
     /**
      * RxJava语法-Concat练习
      */
+    @SuppressLint("CheckResult")
     public void rxJavaConcatExample() {
-        Disposable disposable = Observable.concat(model.getRxJavaCreateExampleData().subscribeOn(Schedulers.io()), model.getRxJavaStringData().subscribeOn(Schedulers.io()))
+        Observable.concat(model.getRxJavaCreateExampleData().subscribeOn(Schedulers.io()), model.getRxJavaStringData().subscribeOn(Schedulers.io()))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Serializable>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Serializable>() {
                     @Override
                     public void accept(Serializable serializable) throws Exception {
                         LogUtils.error(TAG, "rxJavaConcatExample--Consumer--:" + Thread.currentThread().getName() + "--:" + serializable);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * RxJava语法-FlatMap练习
      */
+    @SuppressLint("CheckResult")
     public void rxJavaFlatMapExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .flatMap(new Function<Integer, ObservableSource<String>>() {
@@ -169,20 +180,22 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         return Observable.fromIterable(list).delay(delayTime, TimeUnit.SECONDS);
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<String>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         LogUtils.error(TAG, "rxJavaFlatMapExample--Consumer--:" + Thread.currentThread().getName() + "--:" + s);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * RxJava语法-ConcatMap练习
      */
+    @SuppressLint("CheckResult")
     public void rxJavaConcatMapExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .concatMap(new Function<Integer, ObservableSource<String>>() {
@@ -197,38 +210,42 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         return Observable.fromIterable(list).delay(delayTime, TimeUnit.SECONDS);//delay方法内部切换了线程
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<String>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         LogUtils.error(TAG, "rxJavaConcatMapExample--Consumer--:" + Thread.currentThread().getName() + "--:" + s);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * RxJava语法-distinct练习
      */
+    @SuppressLint("CheckResult")
     public void rxJavaDistinctExample() {
-        Disposable disposable = model.getRxJavaDistinctData()
+        model.getRxJavaDistinctData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .distinct()
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaDistinctExample--Consumer--:" + Thread.currentThread().getName() + "--:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * RxJava语法-filter练习
      */
+    @SuppressLint("CheckResult")
     public void rxJavaFilterExample() {
-        Disposable disposable = model.getRxJavaDistinctData()
+        model.getRxJavaDistinctData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .filter(new Predicate<Integer>() {
@@ -238,24 +255,27 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         return integer > 1;
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaFilterExample--Consumer--:" + Thread.currentThread().getName() + "--:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * RxJava语法-buffer
      */
+    @SuppressLint("CheckResult")
     public void rxJavaBufferExample() {
-        Disposable disposable = model.getRxJavaDistinctData()
+        model.getRxJavaDistinctData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .buffer(3, 2)
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<List<Integer>>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<List<Integer>>() {
                     @Override
                     public void accept(List<Integer> integers) throws Exception {
@@ -265,48 +285,53 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         }
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * RxJava语法-time练习
      */
+    @SuppressLint("CheckResult")
     public void rxJavaTimeExample() {
         LogUtils.error(TAG, "rxJavaTimeExample--start--:" + Thread.currentThread().getName() + "--:" + TimeUtils.getNowString());
-        Disposable disposable = Observable.timer(4, TimeUnit.SECONDS)
+        Observable.timer(4, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Long>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
                         LogUtils.error(TAG, "rxJavaTimeExample--end--:" + Thread.currentThread().getName() + "--:" + TimeUtils.getNowString() + "---long:" + aLong);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * rxJava-interval
      */
+    @SuppressLint("CheckResult")
     public void rxJavaIntervalExample() {
         LogUtils.error(TAG, "rxJavaIntervalExample--start--:" + Thread.currentThread().getName() + "--:" + TimeUtils.getNowString());
-        Disposable disposable = Observable.interval(3, 2, TimeUnit.SECONDS)
+        Observable.interval(3, 2, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Long>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
                         LogUtils.error(TAG, "rxJavaIntervalExample--end--:" + Thread.currentThread().getName() + "--:" + TimeUtils.getNowString() + "---long:" + aLong);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * RxJava -doOnNext
      */
+    @SuppressLint("CheckResult")
     public void rxJavaDoOnNextExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .doOnNext(new Consumer<Integer>() {
@@ -333,49 +358,54 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         LogUtils.error(TAG, "rxJavaDoOnNextExample--:" + Thread.currentThread().getName() + "-doFinally-:");
                     }
                 })
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaDoOnNextExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * skip(long count) count 跳过count个
      */
+    @SuppressLint("CheckResult")
     public void rxJavaSkipExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .skip(2)
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaSkipExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * take(long count) count 能接收的最多count个数据
      */
+    @SuppressLint("CheckResult")
     public void rxJavaTakeExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .take(2)
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaTakeExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     public void rxJavaSingleExample() {
@@ -384,6 +414,7 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new SingleObserver<Integer>() {
                     Disposable disposable;
 
@@ -407,23 +438,26 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
 
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaDebounceExample() {
-        Disposable disposable = model.getRxJavaDebounceData()
+        model.getRxJavaDebounceData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .debounce(150, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaDebounceExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaDeferExample() {
-        Disposable disposable = Observable.defer(new Callable<ObservableSource<?>>() {
+        Observable.defer(new Callable<ObservableSource<?>>() {
             @Override
             public ObservableSource<?> call() throws Exception {
                 return model.getRxJavaCreateExampleData();
@@ -431,46 +465,52 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
         }).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Object>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Exception {
                         LogUtils.error(TAG, "rxJavaDeferExample--:" + Thread.currentThread().getName() + "-consumer-:" + o.toString());
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaLastExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .last(4)
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaDeferExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaMergeExample() {
-        Disposable disposable = Observable.merge(model.getRxJavaCreateExampleData().subscribeOn(Schedulers.io()), model.getRxJavaStringData().subscribeOn(Schedulers.io()))
+        Observable.merge(model.getRxJavaCreateExampleData().subscribeOn(Schedulers.io()), model.getRxJavaStringData().subscribeOn(Schedulers.io()))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Serializable>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Serializable>() {
                     @Override
                     public void accept(Serializable serializable) throws Exception {
                         LogUtils.error(TAG, "rxJavaMergeExample--:" + Thread.currentThread().getName() + "-consumer-:" + serializable);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaReduceExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .reduce(new BiFunction<Integer, Integer, Integer>() {
@@ -480,49 +520,55 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         return integer + integer2;
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
      * range(final int start, final int count) start 初始值，count发送个数
      */
+    @SuppressLint("CheckResult")
     public void rxJavaRangeExample() {
-        Disposable disposable = Observable.range(-1, 10)
+        Observable.range(-1, 10)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaRangeExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaRepeatExample() {
-        Disposable disposable = Observable.just(1, 2, 3)
+        Observable.just(1, 2, 3)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .repeat()
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaRepeatExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaScanExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .scan(new BiFunction<Integer, Integer, Integer>() {
@@ -532,42 +578,47 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         return integer + integer2;
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaWindowExample() {
-        Disposable disposable = model.getRxJavaDistinctData()
+        model.getRxJavaDistinctData()
                 .window(3)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Observable<Integer>>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Observable<Integer>>() {
                     @Override
                     public void accept(Observable<Integer> longObservable) throws Exception {
                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer1-:");
-                        Disposable disposable1 = longObservable.subscribeOn(Schedulers.io())
+                        longObservable.subscribeOn(Schedulers.io())
                                 .unsubscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
+                                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                                 .subscribe(new Consumer<Integer>() {
                                     @Override
                                     public void accept(Integer integer) throws Exception {
                                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer2-:" + integer);
                                     }
                                 });
-                        compositeDisposable.add(disposable1);
+
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaSchedulersExample() {
-        Disposable disposable = model.getRxJavaCreateExampleData()
+        model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -585,13 +636,14 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                         return integer > 2;
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaSchedulersExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     public void rxJavaFlowableCreateExample() {
@@ -599,6 +651,7 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new FlowableSubscriber<Integer>() {
                     Subscription subscription;
 
@@ -630,6 +683,7 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
         model.getRxJavaFlowableSizeData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new FlowableSubscriber<Integer>() {
                     Subscription s;
 
@@ -664,6 +718,7 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new FlowableSubscriber<Integer>() {
                     @Override
                     public void onSubscribe(Subscription s) {
@@ -688,34 +743,38 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
                 });
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaFlowableConsumeExample() {
-        Disposable disposable = model.getRxJavaFlowableRealExample()
+        model.getRxJavaFlowableRealExample()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         LogUtils.error(TAG, "rxJavaFlowableConsumeExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void getMainData(String headerTimestamp, int id, String time) {
         Map<String, String> requestParams = new HashMap<>();
         requestParams.put("platform", "100");
         requestParams.put("platform2", "200");
-        Disposable disposable = model.getMainData(headerTimestamp, id, time, requestParams).subscribeOn(Schedulers.io())
+        model.getMainData(headerTimestamp, id, time, requestParams).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<MainDataBean>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<MainDataBean>() {
                     @Override
                     public void accept(MainDataBean mainDataBean) throws Exception {
                         LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-Consumer-:" + mainDataBean.toString());
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
     /**
@@ -723,103 +782,112 @@ public class MainPresenter extends BasePresenter<MainModel, MainContract.IMainVi
      *
      * @param url
      */
+    @SuppressLint("CheckResult")
     public void getUrlData(String url) {
-        Disposable disposable = model.getUrlData(url)
+        model.getUrlData(url)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Response<Void>>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Response<Void>>() {
                     @Override
                     public void accept(Response<Void> voidResponse) throws Exception {
 
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
-
+    @SuppressLint("CheckResult")
     public void postRegister(String username, String pwd, String rePwd) {
         RegisterParamBean registerParamBean = new RegisterParamBean();
         registerParamBean.setUsername(username);
         registerParamBean.setPassword(pwd);
         registerParamBean.setRepassword(rePwd);
-        Disposable disposable = model.postRegister(registerParamBean)
+        model.postRegister(registerParamBean)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<Response<Void>>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Response<Void>>() {
                     @Override
                     public void accept(Response<Void> voidResponse) throws Exception {
                         LogUtils.error(TAG, "postRegister--:" + Thread.currentThread().getName() + "-Consumer-:" + voidResponse.toString());
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void postRegisterBy(String username, String pwd, String rePwd) {
         HashMap<String, String> params = new HashMap<>();
         params.put("username", username);
         params.put("password", pwd);
         params.put("repassword", rePwd);
-        Disposable disposable = model.postRegister(params)
+        model.postRegister(params)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Response<RegistResponseBean>>() {
+                .compose(RxLifeCycleUtils.<RegisterResponseBean>bindUntilEvent(view, ActivityEvent.DESTROY))
+                .subscribe(new Consumer<RegisterResponseBean>() {
                     @Override
-                    public void accept(Response<RegistResponseBean> registResponseBeanResponse) throws Exception {
-                        LogUtils.error(TAG, "postRegister--:" + Thread.currentThread().getName() + "-Consumer-:" + registResponseBeanResponse.toString());
+                    public void accept(RegisterResponseBean registerResponseBeanResponse) throws Exception {
+                        LogUtils.error(TAG, "postRegisterBy--:" + Thread.currentThread().getName() + "-Consumer-:" + registerResponseBeanResponse.toString());
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void postLogin(String username, String pwd) {
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
         params.put("password", pwd);
-        Disposable disposable = model.postLogin(params)
+        model.postLogin(params)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<LoginResponseBean>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<LoginResponseBean>() {
                     @Override
                     public void accept(LoginResponseBean response) throws Exception {
                         LogUtils.error(TAG, "postLogin--:" + Thread.currentThread().getName() + "-Consumer-:" + response.toString());
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
-    public void postLoginAgain(String username, String password,String nick) {
-        Disposable disposable = model.postLogin(username, password,nick)
+    @SuppressLint("CheckResult")
+    public void postLoginAgain(String username, String password, String nick) {
+        model.postLogin(username, password, nick)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<LoginResponseBean>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<LoginResponseBean>() {
                     @Override
                     public void accept(LoginResponseBean loginResponseBean) throws Exception {
                         LogUtils.error(TAG, "postLoginAgain--:" + Thread.currentThread().getName() + "-Consumer-:" + loginResponseBean.toString());
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
+    @SuppressLint("CheckResult")
     public void getData() {
-        Disposable disposable = model.getProductData()
+        model.getProductData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<List<ProductBean>>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<List<ProductBean>>() {
                     @Override
                     public void accept(List<ProductBean> productBeanList) {
                         view.showContent(productBeanList);
                     }
                 });
-        compositeDisposable.add(disposable);
+
     }
 
-    public void onFinishActivity() {
-        compositeDisposable.dispose();
-    }
+
 }
