@@ -53,11 +53,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (v.getId()) {
             case R.id.btn_main_click:
 //                testExample();
-                checkPermissions();
+//                checkPermissions();
+                checkPermissionRequest();
                 break;
             case R.id.btn_main_lifecycle:
-                Intent intent = new Intent(this, RxLifeCycleActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, RxLifeCycleActivity.class);
+//                startActivity(intent);
+
+                checkPermissionRequestEach();
                 break;
         }
     }
@@ -145,6 +148,62 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                                 LogUtils.error(TAG, "checkPermissions--:" + "-READ_CALENDAR-:" + true);
                             } else {
                                 LogUtils.error(TAG, "checkPermissions--:" + "-READ_CALENDAR-:" + false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    /**
+     * request(String arg...)统一请求权限，返回一个值
+     * 当所有的权限都同意时返回true
+     * 当有一个拒绝时返回false
+     */
+
+    @SuppressLint("CheckResult")
+    public void checkPermissionRequest() {
+        RxPermissions permissions = new RxPermissions(this);
+        permissions.setLogging(true);
+        permissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        LogUtils.error(TAG, "checkPermission22--:" + aBoolean);
+                    }
+                });
+
+    }
+
+    @SuppressLint("CheckResult")
+    public void checkPermissionRequestEach() {
+        RxPermissions permissions = new RxPermissions(this);
+        permissions.setLogging(true);
+        permissions.requestEach(Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR)
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-permission-:" + permission.name + "---------------");
+                        if (permission.name.equalsIgnoreCase(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            if (permission.granted) {
+                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_EXTERNAL_STORAGE-:" + true);
+                            } else {
+                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_EXTERNAL_STORAGE-:" + false);
+                            }
+                        }
+                        if (permission.name.equalsIgnoreCase(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                            if (permission.granted) {
+                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-WRITE_EXTERNAL_STORAGE-:" + true);
+                            } else {
+                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-WRITE_EXTERNAL_STORAGE-:" + false);
+                            }
+                        }
+                        if (permission.name.equalsIgnoreCase(Manifest.permission.READ_CALENDAR)) {
+                            if (permission.granted) {
+                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_CALENDAR-:" + true);
+                            } else {
+                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_CALENDAR-:" + false);
                             }
                         }
                     }
