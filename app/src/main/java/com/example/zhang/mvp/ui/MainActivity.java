@@ -1,5 +1,7 @@
 package com.example.zhang.mvp.ui;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,14 +14,25 @@ import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.MainContract;
 import com.example.zhang.mvp.model.bean.ProductBean;
 import com.example.zhang.mvp.presenter.MainPresenter;
+import com.example.zhang.utils.LogUtils;
+import com.example.zhang.utils.RxLifeCycleUtils;
+import com.jakewharton.rxbinding2.view.RxView;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.IMainView {
+    private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.btn_main_click)
     Button btn_main_click;
     @BindView(R.id.tv_main_content)
@@ -32,14 +45,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
-
+        LogUtils.error(TAG, "MainActivity--:" + getExternalCacheDir().getAbsolutePath());
     }
 
     @OnClick({R.id.btn_main_click, R.id.btn_main_lifecycle})
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_click:
-                testExample();
+//                testExample();
+                checkPermissions();
                 break;
             case R.id.btn_main_lifecycle:
                 Intent intent = new Intent(this, RxLifeCycleActivity.class);
@@ -91,10 +105,49 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        presenter.rxJavaFlowableRealExample();
 //        presenter.rxJavaFlowableConsumeExample();
 //        presenter.getMainData(TimeUtils.getNowString(), 2, TimeUtils.getNowString());
-        presenter.postRegisterBy("zzz123456", "123456", "123456");
+//        presenter.postRegisterBy("zzz123456", "123456", "123456");
 //        presenter.postRegister("zzz123456", "123456", "123456");
 //        presenter.postLogin("zzz123456", "123456");
 //        presenter.getUrlData("https://www.baidu.com");
 //        presenter.postLoginAgain("zzz123456", "123456","evan");
+    }
+
+    /**
+     * 检查权限
+     */
+    @SuppressLint("CheckResult")
+    public void checkPermissions() {
+        final RxPermissions permissions = new RxPermissions(this);
+        permissions.setLogging(true);
+        Observable.timer(100, TimeUnit.MILLISECONDS)
+                .compose(permissions.ensureEach(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR))
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        LogUtils.error(TAG, "checkPermissions--:" + "-permission-:" + permission.name + "---------------");
+                        if (permission.name.equalsIgnoreCase(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            if (permission.granted) {
+                                LogUtils.error(TAG, "checkPermissions--:" + "-READ_EXTERNAL_STORAGE-:" + true);
+                            } else {
+                                LogUtils.error(TAG, "checkPermissions--:" + "-READ_EXTERNAL_STORAGE-:" + false);
+                            }
+                        }
+                        if (permission.name.equalsIgnoreCase(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                            if (permission.granted) {
+                                LogUtils.error(TAG, "checkPermissions--:" + "-WRITE_EXTERNAL_STORAGE-:" + true);
+                            } else {
+                                LogUtils.error(TAG, "checkPermissions--:" + "-WRITE_EXTERNAL_STORAGE-:" + false);
+                            }
+                        }
+                        if (permission.name.equalsIgnoreCase(Manifest.permission.READ_CALENDAR)) {
+                            if (permission.granted) {
+                                LogUtils.error(TAG, "checkPermissions--:" + "-READ_CALENDAR-:" + true);
+                            } else {
+                                LogUtils.error(TAG, "checkPermissions--:" + "-READ_CALENDAR-:" + false);
+                            }
+                        }
+                    }
+                });
     }
 }
