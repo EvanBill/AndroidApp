@@ -1,36 +1,35 @@
 package com.example.zhang.mvp.ui;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.MainContract;
 import com.example.zhang.mvp.model.bean.ProductBean;
 import com.example.zhang.mvp.presenter.MainPresenter;
-import com.example.zhang.utils.LogUtils;
-import com.example.zhang.utils.RxLifeCycleUtils;
-import com.jakewharton.rxbinding2.view.RxView;
-import com.tbruyelle.rxpermissions2.Permission;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.IMainView {
     private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.btn_main_click)
@@ -45,7 +44,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
-        LogUtils.error(TAG, "MainActivity--:" + getExternalCacheDir().getAbsolutePath());
+
     }
 
     @OnClick({R.id.btn_main_click, R.id.btn_main_lifecycle})
@@ -53,14 +52,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (v.getId()) {
             case R.id.btn_main_click:
 //                testExample();
-//                checkPermissions();
-                checkPermissionRequest();
+                MainActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(this);
                 break;
             case R.id.btn_main_lifecycle:
-//                Intent intent = new Intent(this, RxLifeCycleActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
 
-                checkPermissionRequestEach();
                 break;
         }
     }
@@ -115,98 +112,56 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        presenter.postLoginAgain("zzz123456", "123456","evan");
     }
 
-    /**
-     * 检查权限
-     */
-    @SuppressLint("CheckResult")
-    public void checkPermissions() {
-        final RxPermissions permissions = new RxPermissions(this);
-        permissions.setLogging(true);
-        Observable.timer(100, TimeUnit.MILLISECONDS)
-                .compose(permissions.ensureEach(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR))
-                .subscribe(new Consumer<Permission>() {
-                    @Override
-                    public void accept(Permission permission) throws Exception {
-                        LogUtils.error(TAG, "checkPermissions--:" + "-permission-:" + permission.name + "---------------");
-                        if (permission.name.equalsIgnoreCase(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                            if (permission.granted) {
-                                LogUtils.error(TAG, "checkPermissions--:" + "-READ_EXTERNAL_STORAGE-:" + true);
-                            } else {
-                                LogUtils.error(TAG, "checkPermissions--:" + "-READ_EXTERNAL_STORAGE-:" + false);
-                            }
-                        }
-                        if (permission.name.equalsIgnoreCase(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                            if (permission.granted) {
-                                LogUtils.error(TAG, "checkPermissions--:" + "-WRITE_EXTERNAL_STORAGE-:" + true);
-                            } else {
-                                LogUtils.error(TAG, "checkPermissions--:" + "-WRITE_EXTERNAL_STORAGE-:" + false);
-                            }
-                        }
-                        if (permission.name.equalsIgnoreCase(Manifest.permission.READ_CALENDAR)) {
-                            if (permission.granted) {
-                                LogUtils.error(TAG, "checkPermissions--:" + "-READ_CALENDAR-:" + true);
-                            } else {
-                                LogUtils.error(TAG, "checkPermissions--:" + "-READ_CALENDAR-:" + false);
-                            }
-                        }
-                    }
-                });
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     /**
-     * request(String arg...)统一请求权限，返回一个值
-     * 当所有的权限都同意时返回true
-     * 当有一个拒绝时返回false
+     * 只有全部成功时，才会调用
      */
-
-    @SuppressLint("CheckResult")
-    public void checkPermissionRequest() {
-        RxPermissions permissions = new RxPermissions(this);
-        permissions.setLogging(true);
-        permissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        LogUtils.error(TAG, "checkPermission22--:" + aBoolean);
-                    }
-                });
-
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR})
+    public void requestPermission() {
+        ToastUtils.showShort("申请权限成功");
     }
 
-    @SuppressLint("CheckResult")
-    public void checkPermissionRequestEach() {
-        RxPermissions permissions = new RxPermissions(this);
-        permissions.setLogging(true);
-        permissions.requestEach(Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR)
-                .subscribe(new Consumer<Permission>() {
-                    @Override
-                    public void accept(Permission permission) throws Exception {
-                        LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-permission-:" + permission.name + "---------------");
-                        if (permission.name.equalsIgnoreCase(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                            if (permission.granted) {
-                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_EXTERNAL_STORAGE-:" + true);
-                            } else {
-                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_EXTERNAL_STORAGE-:" + false);
-                            }
-                        }
-                        if (permission.name.equalsIgnoreCase(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                            if (permission.granted) {
-                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-WRITE_EXTERNAL_STORAGE-:" + true);
-                            } else {
-                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-WRITE_EXTERNAL_STORAGE-:" + false);
-                            }
-                        }
-                        if (permission.name.equalsIgnoreCase(Manifest.permission.READ_CALENDAR)) {
-                            if (permission.granted) {
-                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_CALENDAR-:" + true);
-                            } else {
-                                LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_CALENDAR-:" + false);
-                            }
-                        }
-                    }
-                });
+    /**
+     * 只要有一个权限没有申请成功，且没有选择"以后不再询问"，则提示失败
+     */
+    @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR})
+    public void requestPermissionDenied() {
+        ToastUtils.showShort("申请权限失败");
     }
+
+    /**
+     * 申请失败后，再申请则调用
+     *
+     * @param permissionRequest
+     */
+    @OnShowRationale({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR})
+    public void requestPermissionShowRationale(final PermissionRequest permissionRequest) {
+        new AlertDialog.Builder(this).setMessage("申请读取存储权限")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {//确定后，则弹出申请权限的提示
+                        permissionRequest.proceed();
+                    }
+                })
+                .setNegativeButton("取笑", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {//取消后，调用requestPermissionDenied
+                        permissionRequest.cancel();
+                    }
+                }).show();
+    }
+
+    /**
+     * 只要有一个申请失败，且选择了"以后不再询问"，则提示
+     */
+    @OnNeverAskAgain({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR})
+    public void requestPermissionNeverAskAgain() {
+        ToastUtils.showShort("申请权限失败，且不再提示");
+    }
+
 }
