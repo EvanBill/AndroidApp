@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,27 +7,34 @@
     tools:context=".mvp.ui.MainActivity">
 
     <Button
-        android:id="@+id/btn_main_click"
+        android:id="@+id/btn_main_rxjava"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/str_main_btn_click" />
+        android:text="@string/str_main_rxjava"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_main_lifecycle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/btn_main_click"
-        android:text="@string/str_main_btn_lifecycle" />
+        android:layout_toRightOf="@id/btn_main_rxjava"
+        android:text="@string/str_main_rxlifecycle"
+        android:textAllCaps="false" />
 
-
-    <TextView
-        android:id="@+id/tv_main_content"
+    <Button
+        android:id="@+id/btn_main_permissions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_toRightOf="@id/btn_main_lifecycle"
+        android:text="@string/str_main_permission"
+        android:textAllCaps="false" />
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_main_glide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_main_permissions"
+        android:text="@string/str_main_glide"
+        android:textAllCaps="false" />
+
+</RelativeLayout>

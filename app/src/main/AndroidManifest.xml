@@ -29,11 +29,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".mvp.ui.RxJavaActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.PermissionsActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".mvp.ui.RxLifeCycleActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.SettingActivity"
+            android:name=".mvp.ui.GlideActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
     </application>

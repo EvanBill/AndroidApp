@@ -3,6 +3,7 @@ package com.example.zhang.mvp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.webkit.PermissionRequest;
 
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
@@ -33,7 +34,7 @@ public class RxLifeCycleActivity extends BaseActivity<RxLifeCyclePresenter> impl
 
     @OnClick(R.id.btn_rxlifecycle_click)
     public void onClick() {
-        Intent intent = new Intent(this, SettingActivity.class);
+        Intent intent = new Intent(this, PermissionsActivity.class);
         startActivity(intent);
     }
 
