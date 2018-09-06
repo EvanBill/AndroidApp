@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.zhang.GlideApp;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
@@ -33,6 +34,6 @@ public class GlideActivity extends BaseActivity<GlidePresenter> implements Glide
     @OnClick(R.id.btn_glide_test)
     public void onClick() {
 //        Glide.with(this).load(url).into(iv_glide);
-        GlideApp.with(this).load(url).into(iv_glide);
+        GlideApp.with(this).load(url).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(iv_glide);
     }
 }

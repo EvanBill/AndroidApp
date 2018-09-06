@@ -26,7 +26,7 @@ public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJ
     }
 
     private void testExample() {
-        presenter.rxJavaCreateExample();
+//        presenter.rxJavaCreateExample();
 //        presenter.rxJavaMapExample();
 //        presenter.rxJavaZipExample();
 //        presenter.rxJavaConcatExample();
@@ -60,7 +60,7 @@ public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJ
 //        presenter.postRegister("zzz123456", "123456", "123456");
 //        presenter.postLogin("zzz123456", "123456");
 //        presenter.getUrlData("https://www.baidu.com");
-//        presenter.postLoginAgain("zzz123456", "123456","evan");
+        presenter.postLoginAgain("zzz123456", "123456","evan");
     }
 
 }

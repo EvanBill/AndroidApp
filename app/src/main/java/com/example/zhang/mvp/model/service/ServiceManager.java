@@ -49,13 +49,15 @@ public class ServiceManager {
 
     private OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        if (Constants.ISLOG) {
+        if (Constants.ISLOGING) {
             builder.addNetworkInterceptor(getHttpLoggingInterceptor());
         }
         //设置统一的请求头部参数
         builder.addInterceptor(getHttpHeaderInterceptor());
         //设置统一的添加参数的拦截器
         builder.addInterceptor(getHttpParamsInterceptor());
+        //添加Stetho调试工具
+//        builder.addNetworkInterceptor(new StethoInterceptor());
         //设置缓存
         File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);

@@ -5,7 +5,7 @@ import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.mvp.model.bean.RegisterResponseBean;
 import com.example.zhang.mvp.model.service.ServiceManager;
-import com.example.zhang.mvp.model.service.api.RxJavaApi;
+import com.example.zhang.mvp.model.service.api.RxJavaService;
 import com.example.zhang.utils.LogUtils;
 
 import java.util.Map;
@@ -172,27 +172,27 @@ public class RxJavaModel {
     }
 
     public Observable<MainDataBean> getMainData(String headerTimestamp, int id, String time, Map<String, String> requestParams) {
-        return ServiceManager.getInstance().retrofit.create(RxJavaApi.class).getMainData(headerTimestamp, id, time, requestParams);
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getMainData(headerTimestamp, id, time, requestParams);
     }
 
     public Observable<Response<Void>> getUrlData(String url) {
-        return ServiceManager.getInstance().retrofit.create(RxJavaApi.class).getUrlData(url);
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getUrlData(url);
     }
 
     public Observable<LoginResponseBean> postLogin(Map<String, String> map) {
-        return ServiceManager.getInstance().retrofit.create(RxJavaApi.class).postLogin(map);
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).postLogin(map);
     }
 
     public Observable<LoginResponseBean> postLogin(String username, String password, String nick) {
-        return ServiceManager.getInstance().retrofit.create(RxJavaApi.class).postLogin(username, password, nick);
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).postLogin(username, password, nick);
     }
 
     public Observable<Response<Void>> postRegister(RegisterParamBean registerParamBean) {
-        return ServiceManager.getInstance().retrofit.create(RxJavaApi.class).postRegister(registerParamBean);
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).postRegister(registerParamBean);
     }
 
     public Observable<RegisterResponseBean> postRegister(Map<String, String> params) {
-        return ServiceManager.getInstance().retrofit.create(RxJavaApi.class).postRegister(params);
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).postRegister(params);
     }
 
 }

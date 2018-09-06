@@ -1,5 +1,5 @@
 package com.example.zhang.mvp.model.service.api;
 
-public interface MainApi {
+public interface MainService {
 
 }

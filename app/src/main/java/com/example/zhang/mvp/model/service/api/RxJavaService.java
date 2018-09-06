@@ -22,7 +22,7 @@ import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
-public interface RxJavaApi {
+public interface RxJavaService {
     /**
      * [@Headers 添加固定头部信息]
      *

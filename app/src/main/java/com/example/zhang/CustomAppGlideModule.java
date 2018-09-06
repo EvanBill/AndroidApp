@@ -10,14 +10,14 @@ import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.module.AppGlideModule;
 
 @GlideModule
-public class CustomGlideModel extends AppGlideModule {
+public class CustomAppGlideModule extends AppGlideModule {
 
     @Override
     public void applyOptions(@NonNull Context context, @NonNull GlideBuilder builder) {
         int memoryCacheSizeBytes = 1024 * 1024 * 20; // 20mb
-        builder.setMemoryCache(new LruResourceCache(memoryCacheSizeBytes));
         int diskCacheSizeBytes = 1024 * 1024 * 100;  //100 MB
-        builder.setDiskCache(new InternalCacheDiskCacheFactory(context, diskCacheSizeBytes));
+        builder.setMemoryCache(new LruResourceCache(memoryCacheSizeBytes))
+                .setDiskCache(new InternalCacheDiskCacheFactory(context, diskCacheSizeBytes));
     }
 
     @Override
