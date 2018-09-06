@@ -1,9 +1,11 @@
 package com.example.zhang.mvp.model.service.api;
 
+import com.example.zhang.mvp.model.bean.BannerBean;
 import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.mvp.model.bean.RegisterResponseBean;
+import com.example.zhang.mvp.model.bean.UrlRequestBean;
 
 import java.util.Map;
 
@@ -28,13 +30,12 @@ public interface RxJavaService {
      *
      * @param timestamp @Header 添加动态头部信息
      * @param id        @Path {占位符}
-     * @param time      @Query添加url请求参数
      * @param params    @QueryMap添加url请求参数
      * @return
      */
-    @Headers({"Cache-Control: public, max-age=60"})
+    @Headers({"Cache-Control: public, max-age=10"})
     @GET("article/list/{id}/json")
-    Observable<MainDataBean> getMainData(@Header("timestamp") String timestamp, @Path("id") int id, @Query("time") String time, @QueryMap Map<String, String> params);
+    Observable<MainDataBean> getMainData(@Header("timestamp") String timestamp, @Path("id") int id, @QueryMap Map<String, String> params);
 
     /**
      * [@Url 注解与BaseURL关系]
@@ -44,8 +45,13 @@ public interface RxJavaService {
      *            3、在注解中提供的url是不完整的url，且以 / 开头，则请求的url为baseUrl的主机部分+注解中提供的值
      * @return
      */
+    @Headers({"Cache-Control: public, max-age=10"})
     @GET
-    Observable<Response<Void>> getUrlData(@Url String url);
+    Observable<UrlRequestBean> getUrlData(@Url String url);
+
+    @Headers({"Cache-Control: public, max-age=10"})
+    @GET("banner/json")
+    Observable<BannerBean> getBannersData(@Header("timestamp") String timestamp, @QueryMap Map<String, String> params);
 
     /**
      * @param registerParamBean @Body GSON格式的Body体

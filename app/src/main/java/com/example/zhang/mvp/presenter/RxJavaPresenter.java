@@ -4,12 +4,16 @@ import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.base.BasePresenter;
+import com.example.zhang.http.CustomerSubscribe;
+import com.example.zhang.http.ResponseBean;
 import com.example.zhang.mvp.contract.RxJavaContranct;
 import com.example.zhang.mvp.model.RxJavaModel;
+import com.example.zhang.mvp.model.bean.BannerBean;
 import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.mvp.model.bean.RegisterResponseBean;
+import com.example.zhang.mvp.model.bean.UrlRequestBean;
 import com.example.zhang.utils.LogUtils;
 import com.example.zhang.utils.RxLifeCycleUtils;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -758,18 +762,31 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContranct.IRxJavaView, 
     }
 
     @SuppressLint("CheckResult")
-    public void getMainData(String headerTimestamp, int id, String time) {
+    public void getMainData(String headerTimestamp, int id) {
         Map<String, String> requestParams = new HashMap<>();
         requestParams.put("platform", "100");
         requestParams.put("platform2", "200");
-        model.getMainData(headerTimestamp, id, time, requestParams).subscribeOn(Schedulers.io())
+        model.getMainData(headerTimestamp, id, requestParams)
+                .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifeCycleUtils.<MainDataBean>bindUntilEvent(view, ActivityEvent.DESTROY))
-                .subscribe(new Consumer<MainDataBean>() {
+                .subscribe(new CustomerSubscribe<MainDataBean>() {
                     @Override
-                    public void accept(MainDataBean mainDataBean) throws Exception {
-                        LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-Consumer-:" + mainDataBean.toString());
+                    public void onNext(MainDataBean mainDataBean) {
+                        LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-onNext-:" + mainDataBean.toString());
+                    }
+
+                    @Override
+                    public void onError(ResponseBean responseBean) {
+                        super.onError(responseBean);
+                        LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-responseBean-:" + responseBean.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-Throwable-:" + e.toString());
                     }
                 });
 
@@ -786,14 +803,32 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContranct.IRxJavaView, 
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(RxLifeCycleUtils.<Response<Void>>bindUntilEvent(view, ActivityEvent.DESTROY))
-                .subscribe(new Consumer<Response<Void>>() {
+                .compose(RxLifeCycleUtils.<UrlRequestBean>bindUntilEvent(view, ActivityEvent.DESTROY))
+                .subscribe(new Consumer<UrlRequestBean>() {
                     @Override
-                    public void accept(Response<Void> voidResponse) throws Exception {
-
+                    public void accept(UrlRequestBean urlRequestBeanResponse) throws Exception {
+                        LogUtils.error(TAG, "---------getUrlData-----------" + urlRequestBeanResponse.toString());
                     }
                 });
 
+    }
+
+    @SuppressLint("CheckResult")
+    public void getBanner(String headerTimestamp, String time) {
+        Map<String, String> requestParams = new HashMap<>();
+        requestParams.put("platform", "100");
+        requestParams.put("platform2", "200");
+        model.getBanner(headerTimestamp, time, requestParams)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifeCycleUtils.<BannerBean>bindUntilEvent(view, ActivityEvent.DESTROY))
+                .subscribe(new Consumer<BannerBean>() {
+                    @Override
+                    public void accept(BannerBean bannerBean) throws Exception {
+                        LogUtils.error(TAG, "---------getBanner-----------" + bannerBean.toString());
+                    }
+                });
     }
 
     @SuppressLint("CheckResult")

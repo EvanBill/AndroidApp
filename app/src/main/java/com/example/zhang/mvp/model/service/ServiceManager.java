@@ -2,6 +2,7 @@ package com.example.zhang.mvp.model.service;
 
 import com.blankj.utilcode.util.NetworkUtils;
 import com.example.zhang.app.Constants;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,12 +58,12 @@ public class ServiceManager {
         //设置统一的添加参数的拦截器
         builder.addInterceptor(getHttpParamsInterceptor());
         //添加Stetho调试工具
-//        builder.addNetworkInterceptor(new StethoInterceptor());
+        builder.addNetworkInterceptor(new StethoInterceptor());
         //设置缓存
         File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
-        builder.addNetworkInterceptor(getHttpCacheInterceptor());
         builder.addInterceptor(getHttpCacheInterceptor());
+        builder.addNetworkInterceptor(getHttpCacheInterceptor());
         builder.cache(cache);
         //设置超时
         builder.connectTimeout(10, TimeUnit.SECONDS);
@@ -171,19 +172,18 @@ public class ServiceManager {
                     //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
                     String cacheControl = request.cacheControl().toString();
                     return response.newBuilder()
-                            .header("Cache-Control", cacheControl)
                             .removeHeader("Pragma")
+                            .header("Cache-Control", cacheControl)
                             .build();
                 } else {
                     // 无网络时，设置超时为4周
                     int maxStale = 60 * 60 * 24 * 28;
                     return response.newBuilder()
                             //这里的设置的是我们的没有网络的缓存时间，想设置多少就是多少。
-                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                             .removeHeader("Pragma")
+                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                             .build();
                 }
-
             }
         };
     }

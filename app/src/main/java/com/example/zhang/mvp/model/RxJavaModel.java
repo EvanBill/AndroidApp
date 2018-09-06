@@ -1,9 +1,11 @@
 package com.example.zhang.mvp.model;
 
+import com.example.zhang.mvp.model.bean.BannerBean;
 import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.mvp.model.bean.RegisterResponseBean;
+import com.example.zhang.mvp.model.bean.UrlRequestBean;
 import com.example.zhang.mvp.model.service.ServiceManager;
 import com.example.zhang.mvp.model.service.api.RxJavaService;
 import com.example.zhang.utils.LogUtils;
@@ -171,12 +173,15 @@ public class RxJavaModel {
         }, BackpressureStrategy.ERROR);
     }
 
-    public Observable<MainDataBean> getMainData(String headerTimestamp, int id, String time, Map<String, String> requestParams) {
-        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getMainData(headerTimestamp, id, time, requestParams);
+    public Observable<MainDataBean> getMainData(String headerTimestamp, int id,  Map<String, String> requestParams) {
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getMainData(headerTimestamp, id,  requestParams);
     }
 
-    public Observable<Response<Void>> getUrlData(String url) {
+    public Observable<UrlRequestBean> getUrlData(String url) {
         return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getUrlData(url);
+    }
+    public Observable<BannerBean> getBanner(String headerTimestamp, String time, Map<String, String> requestParams){
+        return  ServiceManager.getInstance().retrofit.create(RxJavaService.class).getBannersData(headerTimestamp,requestParams);
     }
 
     public Observable<LoginResponseBean> postLogin(Map<String, String> map) {
