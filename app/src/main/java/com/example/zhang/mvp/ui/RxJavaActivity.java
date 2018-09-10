@@ -56,7 +56,7 @@ public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJ
 //        presenter.rxJavaFlowableSizeExample();
 //        presenter.rxJavaFlowableRealExample();
 //        presenter.rxJavaFlowableConsumeExample();
-        presenter.getMainData(TimeUtils.getNowString(), 2);
+//        presenter.getMainData(TimeUtils.getNowString(), 2);
 //        presenter.postRegisterBy("zzz123456", "123456", "123456");
 //        presenter.postRegister("zzz123456", "123456", "123456");
 //        presenter.postLogin("zzz123456", "123456");

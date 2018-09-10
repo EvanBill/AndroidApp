@@ -20,7 +20,7 @@ public class CustomAppGlideModule extends AppGlideModule {
     public void applyOptions(@NonNull Context context, @NonNull GlideBuilder builder) {
         int memoryCacheSizeBytes = 1024 * 1024 * 20; // 20mb
         int diskCacheSizeBytes = 1024 * 1024 * 100;  //100 MB
-        String diskCacheDir = context.getExternalCacheDir().getAbsolutePath() + File.separator + "data/Glide/";
+        String diskCacheDir = "data/Glide/";
         builder.setMemoryCache(new LruResourceCache(memoryCacheSizeBytes))
 //                .setDiskCache(new InternalCacheDiskCacheFactory(context, diskCacheSizeBytes));
                 .setDiskCache(new ExternalPreferredCacheDiskCacheFactory(context, diskCacheDir, diskCacheSizeBytes));

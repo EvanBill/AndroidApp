@@ -26,7 +26,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     }
 
-    @OnClick({R.id.btn_main_rxjava, R.id.btn_main_lifecycle, R.id.btn_main_permissions, R.id.btn_main_glide})
+    @OnClick({R.id.btn_main_rxjava, R.id.btn_main_lifecycle, R.id.btn_main_permissions, R.id.btn_main_glide
+            , R.id.btn_main_smart_refresh})
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_rxjava:
@@ -45,6 +46,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 Intent intent_glide = new Intent(this, GlideActivity.class);
                 startActivity(intent_glide);
                 break;
+            case R.id.btn_main_smart_refresh:
+                Intent intent_smart_refresh = new Intent(this, SmartRefreshActivity.class);
+                startActivity(intent_smart_refresh);
+                break;
         }
     }
 
@@ -52,7 +57,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void showContent(List<ProductBean> productBeanList) {
 
     }
-
 
 
 }

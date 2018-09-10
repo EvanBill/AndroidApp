@@ -8,5 +8,5 @@ public class Constants {
             AppApplication.getInstance().getExternalCacheDir().getAbsolutePath() + File.separator + "data";
     public static final String PATH_CACHE = PATH_DATA + "/NetCache";
 
-    public static final  String HOST = "http://www.wanandroid.com/";
+    public static final  String HOST = "http://baobab.kaiyanapp.com/api/";// http://www.wanandroid.com/
 }

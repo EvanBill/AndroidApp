@@ -4,14 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.zhang.GlideApp;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.GlideContract;
 import com.example.zhang.mvp.presenter.GlidePresenter;
-import com.example.zhang.utils.LogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +31,6 @@ public class GlideActivity extends BaseActivity<GlidePresenter> implements Glide
     @OnClick(R.id.btn_glide_test)
     public void onClick() {
 //        Glide.with(this).load(url).into(iv_glide);
-        GlideApp.with(this).load(url).into(iv_glide);
+        GlideApp.with(this).load(url).placeholder(R.mipmap.ic_launcher).circleCrop().into(iv_glide);
     }
 }
