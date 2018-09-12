@@ -1,6 +1,8 @@
 package com.example.zhang.mvp.model.bean;
 
-public class SmartRefreshBean {
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+public class SmartRefreshBean implements MultiItemEntity {
 
     /**
      * id : 24
@@ -21,6 +23,7 @@ public class SmartRefreshBean {
     private String bgColor;
     private String headerImage;
     private int defaultAuthorId;
+    private int itemType=0;
 
     public int getId() {
         return id;
@@ -84,5 +87,14 @@ public class SmartRefreshBean {
 
     public void setDefaultAuthorId(int defaultAuthorId) {
         this.defaultAuthorId = defaultAuthorId;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 }

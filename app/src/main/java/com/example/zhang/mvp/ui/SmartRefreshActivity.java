@@ -6,16 +6,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.SmartRefreshContract;
 import com.example.zhang.mvp.model.bean.SmartRefreshBean;
 import com.example.zhang.mvp.presenter.SmartRefreshPresenter;
 import com.example.zhang.mvp.ui.adapter.SmartRefreshAdapter;
+import com.example.zhang.mvp.ui.adapter.SmartRefreshMultiAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -29,7 +28,8 @@ public class SmartRefreshActivity extends BaseActivity<SmartRefreshPresenter> im
     SmartRefreshLayout srl_smart_refresh;
     @BindView(R.id.rv_smart_refresh)
     RecyclerView rv_smart_refresh;
-    private SmartRefreshAdapter adapter;
+//    private SmartRefreshAdapter adapter;
+    private SmartRefreshMultiAdapter adapter;
     private List<SmartRefreshBean> smartRefreshBeanList = new ArrayList<>();
 
     @Override
@@ -45,7 +45,8 @@ public class SmartRefreshActivity extends BaseActivity<SmartRefreshPresenter> im
             }
         });
         srl_smart_refresh.setEnableLoadMore(false);
-        adapter = new SmartRefreshAdapter(smartRefreshBeanList);
+//        adapter = new SmartRefreshAdapter(smartRefreshBeanList);
+        adapter = new SmartRefreshMultiAdapter(smartRefreshBeanList);
         rv_smart_refresh.setLayoutManager(new LinearLayoutManager(this));
         rv_smart_refresh.setItemAnimator(new DefaultItemAnimator());
         rv_smart_refresh.setHasFixedSize(true);

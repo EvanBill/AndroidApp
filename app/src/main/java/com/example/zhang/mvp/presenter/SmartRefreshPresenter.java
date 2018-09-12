@@ -7,9 +7,11 @@ import com.example.zhang.mvp.model.SmartRefreshModel;
 import com.example.zhang.mvp.model.bean.SmartRefreshBean;
 import com.example.zhang.utils.RxLifeCycleUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class SmartRefreshPresenter extends BasePresenter<SmartRefreshContract.ISmartRefreshView, SmartRefreshModel> {
@@ -24,6 +26,21 @@ public class SmartRefreshPresenter extends BasePresenter<SmartRefreshContract.IS
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifeCycleUtils.<List<SmartRefreshBean>>bindToLifecycle(view))
+                .map(new Function<List<SmartRefreshBean>, List<SmartRefreshBean>>() {
+                    @Override
+                    public List<SmartRefreshBean> apply(List<SmartRefreshBean> smartRefreshBeanList) throws Exception {
+                        List<SmartRefreshBean> list = new ArrayList<>();
+                        for (int i = 0; i < smartRefreshBeanList.size(); i++) {
+                            if (i % 2 == 0) {
+                                smartRefreshBeanList.get(i).setItemType(1);
+                            } else {
+                                smartRefreshBeanList.get(i).setItemType(2);
+                            }
+                            list.add(smartRefreshBeanList.get(i));
+                        }
+                        return list;
+                    }
+                })
                 .subscribe(new CustomerSubscribe<List<SmartRefreshBean>>() {
                     @Override
                     public void onNext(List<SmartRefreshBean> smartRefreshBeans) {
