@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-        applicationId "com.example.zhang"
-        minSdkVersion 14
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -25,49 +24,48 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:support-v13:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'//版本随意（非必须，引用可以解决无法预览问题）
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation rootProject.ext.dependencies["support-v4"]
+    implementation rootProject.ext.dependencies["support-v13"]
+    //UI
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["constraint"]
+    implementation rootProject.ext.dependencies["SmartRefreshLayout"]
+    implementation rootProject.ext.dependencies["SmartRefreshHeader"]//没有使用特殊Header，可以不加这行
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    //BaseRecyclerViewAdapterHelper
+    //RxJava
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["rxlifecycle"]
+    implementation rootProject.ext.dependencies["rxbinding"]
+    //Permissions
+    implementation rootProject.ext.dependencies["rxpermissions"]
+    implementation rootProject.ext.dependencies["permissionsdispatcher"]
+    annotationProcessor rootProject.ext.dependencies["permissionsdispatcher-processor"]
+    //network
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["okhttp-logging-interceptor"]
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+    implementation rootProject.ext.dependencies["glide-okhttp3-integration"]
+    //di
+    implementation rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    //other
+    implementation rootProject.ext.dependencies["multidex"]
+    implementation rootProject.ext.dependencies["utilcode"]
+    // Stetho
+    implementation rootProject.ext.dependencies["stetho"]
+    implementation rootProject.ext.dependencies["stetho-okhttp3"]
+    //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    //SmartRefreshLayout
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'//没有使用特殊Header，可以不加这行
-    //BaseRecyclerViewAdapterHelper
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
-    //工具类
-    implementation 'com.blankj:utilcode:1.19.0'
-    //RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
-    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.1.1'
-    //Permissions
-    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
-    implementation 'com.github.hotchemi:permissionsdispatcher:3.3.1'
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.3.1'
-
-    //network
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    //di
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    //Glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-    implementation 'com.github.bumptech.glide:okhttp3-integration:4.8.0'
-//    Stetho
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    //multidex
-    implementation 'com.android.support:multidex:1.0.3'
 }
 

@@ -7,6 +7,7 @@ import android.support.multidex.MultiDex;
 import com.blankj.utilcode.util.Utils;
 import com.example.zhang.R;
 import com.facebook.stetho.Stetho;
+import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -14,7 +15,6 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 public class AppApplication extends Application {
     private static AppApplication instance;
@@ -26,7 +26,9 @@ public class AppApplication extends Application {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
                 layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);//全局设置主题颜色
-                return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+//                return new ClassicsHeader(context)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+//                        .setTimeFormat(new SimpleDateFormat("上次更新 yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
+                return new MaterialHeader(instance);
             }
         });
         //设置全局的Footer构建器
