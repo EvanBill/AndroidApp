@@ -15,6 +15,7 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.tencent.bugly.Bugly;
 
 public class AppApplication extends Application {
     private static AppApplication instance;
@@ -53,6 +54,7 @@ public class AppApplication extends Application {
         instance = this;
         Utils.init(this);//AndroidUtils初始化
         Stetho.initializeWithDefaults(this);
+        Bugly.init(instance, "9ebbf090a8", false);//测试阶段建议设置成true，发布时设置为false
     }
 
     public static AppApplication getInstance() {

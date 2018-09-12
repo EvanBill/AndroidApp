@@ -3,7 +3,6 @@ package com.example.zhang.mvp.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.RxJavaContranct;

@@ -63,7 +63,8 @@ ext {
             "multidex"                       : "com.android.support:multidex:1.0.3",
             "utilcode"                       : "com.blankj:utilcode:1.19.0",
             "fragmentation"                  : "me.yokeyword:fragmentation:0.10.4",
-            "crashreport"                    : "com.tencent.bugly:crashreport:latest.release",
+            "crashreport"                    : "com.tencent.bugly:crashreport:latest.release",//其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+            "nativecrashreport"              : "com.tencent.bugly:nativecrashreport:latest.release",//其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 
             //stetho 接口调试
             "stetho"                         : "com.facebook.stetho:stetho:1.5.0",
