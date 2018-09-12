@@ -37,12 +37,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.btn_main_lifecycle:
                 Intent intent_lifecycle = new Intent(this, RxLifeCycleActivity.class);
                 startActivity(intent_lifecycle);
-
                 break;
             case R.id.btn_main_permissions:
                 Intent intent_permissions = new Intent(this, PermissionsActivity.class);
                 startActivity(intent_permissions);
-
                 break;
             case R.id.btn_main_glide:
                 Intent intent_glide = new Intent(this, GlideActivity.class);
