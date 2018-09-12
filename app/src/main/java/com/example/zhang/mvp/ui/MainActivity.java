@@ -57,6 +57,4 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void showContent(List<ProductBean> productBeanList) {
 
     }
-
-
 }
