@@ -20,14 +20,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.ui.MainActivity"
+            android:name=".mvp.ui.SplashActivity"
             android:configChanges="orientation|keyboard|screenSize"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".mvp.ui.MainActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.ui.RxJavaActivity"
             android:configChanges="orientation|keyboard|screenSize"
