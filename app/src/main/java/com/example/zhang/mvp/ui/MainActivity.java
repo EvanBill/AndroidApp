@@ -4,19 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.constant.TimeConstants;
+import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.MainContract;
 import com.example.zhang.mvp.model.bean.ProductBean;
 import com.example.zhang.mvp.presenter.MainPresenter;
 
+import java.sql.Time;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.IMainView {
+    private long backTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,5 +63,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void showContent(List<ProductBean> productBeanList) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (TimeUtils.getTimeSpan(TimeUtils.getNowMills(), backTime, TimeConstants.SEC) > 2) {
+            backTime = TimeUtils.getNowMills();
+            ToastUtils.showShort(getString(R.string.str_back_press_info));
+        } else {
+            super.onBackPressed();
+        }
     }
 }
