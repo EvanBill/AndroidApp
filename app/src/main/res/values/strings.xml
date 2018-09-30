@@ -5,6 +5,7 @@
     <string name="str_main_permission">权限管理</string>
     <string name="str_main_glide">glide实例</string>
     <string name="str_main_smart_refresh">SmartRefresh实例</string>
+    <string name="str_main_web_view">WebView实例</string>
     <string name="str_test">测试</string>
     <string name="str_back_press_info">再按一次，就退出应用了!</string>
 

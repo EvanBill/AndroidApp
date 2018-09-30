@@ -23,7 +23,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class PermissionsActivity extends BaseActivity<PermissionsPresenter> implements PermissionsContract.ISettingView {
+public class PermissionsActivity extends BaseActivity<PermissionsPresenter> implements PermissionsContract.IPermissionsView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

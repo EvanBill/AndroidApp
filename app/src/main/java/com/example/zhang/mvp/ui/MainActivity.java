@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @OnClick({R.id.btn_main_rxjava, R.id.btn_main_lifecycle, R.id.btn_main_permissions, R.id.btn_main_glide
-            , R.id.btn_main_smart_refresh})
+            , R.id.btn_main_smart_refresh, R.id.btn_main_web_view})
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_rxjava:
@@ -56,6 +56,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.btn_main_smart_refresh:
                 Intent intent_smart_refresh = new Intent(this, SmartRefreshActivity.class);
                 startActivity(intent_smart_refresh);
+                break;
+            case R.id.btn_main_web_view:
+                Intent intent_web_view = new Intent(this, WebViewActivity.class);
+                startActivity(intent_web_view);
                 break;
         }
     }
