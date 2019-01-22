@@ -5,13 +5,13 @@ import android.support.annotation.Nullable;
 
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
-import com.example.zhang.mvp.contract.RxJavaContranct;
+import com.example.zhang.mvp.contract.RxJavaContract;
 import com.example.zhang.mvp.presenter.RxJavaPresenter;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJavaContranct.IRxJavaView {
+public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJavaContract.IRxJavaView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,7 @@ public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJ
 //        presenter.rxJavaZipExample();
 //        presenter.rxJavaConcatExample();
 //        presenter.rxJavaFlatMapExample();
-//        presenter.rxJavaConcatMapExample();
+        presenter.rxJavaConcatMapExample();
 //        presenter.rxJavaDistinctExample();
 //        presenter.rxJavaFilterExample();
 //        presenter.rxJavaBufferExample();

@@ -12,9 +12,4 @@ public class BaseActivity<T> extends RxAppCompatActivity implements BaseView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    @Override
-    public void showToast(String msg) {
-
-    }
 }

@@ -2,7 +2,7 @@ package com.example.zhang.mvp.contract;
 
 import com.example.zhang.base.BaseView;
 
-public interface RxJavaContranct {
+public interface RxJavaContract {
     interface IRxJavaView extends BaseView {
 
     }

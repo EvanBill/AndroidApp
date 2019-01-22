@@ -6,7 +6,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.base.BasePresenter;
 import com.example.zhang.http.CustomerSubscribe;
 import com.example.zhang.http.ResponseBean;
-import com.example.zhang.mvp.contract.RxJavaContranct;
+import com.example.zhang.mvp.contract.RxJavaContract;
 import com.example.zhang.mvp.model.RxJavaModel;
 import com.example.zhang.mvp.model.bean.BannerBean;
 import com.example.zhang.mvp.model.bean.LoginResponseBean;
@@ -45,10 +45,10 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 
-public class RxJavaPresenter extends BasePresenter<RxJavaContranct.IRxJavaView, RxJavaModel> {
+public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, RxJavaModel> {
     private static final String TAG = RxJavaPresenter.class.getSimpleName();
 
-    public RxJavaPresenter(RxJavaContranct.IRxJavaView view) {
+    public RxJavaPresenter(RxJavaContract.IRxJavaView view) {
         super(view);
         model = new RxJavaModel();
     }
@@ -74,9 +74,9 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContranct.IRxJavaView, 
                     @Override
                     public void onNext(Integer integer) {
                         LogUtils.error(TAG, "rxJavaCreateExample---:" + integer);
-                        if (integer == 2) {
-                            disposable.dispose();
-                        }
+//                        if (integer == 2) {
+//                            disposable.dispose();
+//                        }
                     }
 
                     @Override
@@ -203,7 +203,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContranct.IRxJavaView, 
                 .concatMap(new Function<Integer, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(Integer integer) throws Exception {
-                        LogUtils.error(TAG, "rxJavaConcatMapExample--flatmap--:" + Thread.currentThread().getName() + "--:" + integer);
+                        LogUtils.error(TAG, "rxJavaConcatMapExample--concatMap--:" + Thread.currentThread().getName() + "--:" + integer);
                         List<String> list = new ArrayList<>();
                         for (int i = 0; i < 3; i++) {
                             list.add("this is ConcatMap--" + integer + "---i--:" + i);

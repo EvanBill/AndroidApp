@@ -4,46 +4,23 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentActivity;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.base.BasePresenter;
 import com.example.zhang.mvp.contract.MainContract;
 import com.example.zhang.mvp.model.MainModel;
-import com.example.zhang.mvp.model.bean.LoginResponseBean;
-import com.example.zhang.mvp.model.bean.MainDataBean;
 import com.example.zhang.mvp.model.bean.ProductBean;
-import com.example.zhang.mvp.model.bean.RegisterResponseBean;
-import com.example.zhang.mvp.model.bean.RegisterParamBean;
 import com.example.zhang.utils.LogUtils;
 import com.example.zhang.utils.RxLifeCycleUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import org.reactivestreams.Subscription;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 
 public class MainPresenter extends BasePresenter<MainContract.IMainView, MainModel> {
     private String TAG = MainPresenter.class.getSimpleName();
@@ -52,7 +29,6 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
     public MainPresenter(MainContract.IMainView view) {
         super(view);
         model = new MainModel();
-
     }
 
 
