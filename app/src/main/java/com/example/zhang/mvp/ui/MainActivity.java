@@ -13,12 +13,10 @@ import com.example.zhang.mvp.contract.MainContract;
 import com.example.zhang.mvp.model.bean.ProductBean;
 import com.example.zhang.mvp.presenter.MainPresenter;
 
-import java.sql.Time;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.IMainView {
@@ -33,7 +31,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @OnClick({R.id.btn_main_rxjava, R.id.btn_main_lifecycle, R.id.btn_main_permissions, R.id.btn_main_glide
-            , R.id.btn_main_smart_refresh, R.id.btn_main_web_view})
+            , R.id.btn_main_smart_refresh, R.id.btn_main_web_view,R.id.btn_main_touch})
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_rxjava:
@@ -59,6 +57,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.btn_main_web_view:
                 Intent intent_web_view = new Intent(this, WebViewActivity.class);
                 startActivity(intent_web_view);
+                break;
+            case R.id.btn_main_touch:
+                Intent intent_touch = new Intent(this, TouchActivity.class);
+                startActivity(intent_touch);
                 break;
         }
     }

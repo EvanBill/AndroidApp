@@ -31,7 +31,7 @@ public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJ
 //        presenter.rxJavaZipExample();
 //        presenter.rxJavaConcatExample();
 //        presenter.rxJavaFlatMapExample();
-        presenter.rxJavaConcatMapExample();
+//        presenter.rxJavaConcatMapExample();
 //        presenter.rxJavaDistinctExample();
 //        presenter.rxJavaFilterExample();
 //        presenter.rxJavaBufferExample();
@@ -54,7 +54,7 @@ public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJ
 //        presenter.rxJavaFlowableCreateExample();
 //        presenter.rxJavaFlowableSizeExample();
 //        presenter.rxJavaFlowableRealExample();
-//        presenter.rxJavaFlowableConsumeExample();
+        presenter.rxJavaFlowableConsumeExample();
 //        presenter.getMainData(TimeUtils.getNowString(), 2);
 //        presenter.postRegisterBy("zzz123456", "123456", "123456");
 //        presenter.postRegister("zzz123456", "123456", "123456");

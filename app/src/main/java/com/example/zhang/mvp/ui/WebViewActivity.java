@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class WebViewActivity extends BaseActivity {
     @BindView(R.id.wv_web_view)
     WebView wv_web_view;
-    private String loadUrl = "http://www.baidu.com";
+    private String loadUrl = "https://www.baidu.com";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +47,6 @@ public class WebViewActivity extends BaseActivity {
         settings.setDisplayZoomControls(false); //隐藏原生的缩放控件
 
         //其他细节操作
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存
         settings.setAllowFileAccess(true); //设置可以访问文件
         settings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         settings.setLoadsImagesAutomatically(true); //支持自动加载图片

@@ -31,7 +31,7 @@ ext {
             "constraint"                     : "com.android.support.constraint:constraint-layout:1.1.2",
             "SmartRefreshLayout"             : "com.scwang.smartrefresh:SmartRefreshLayout:${dependVersion.smart}",
             "SmartRefreshHeader"             : "com.scwang.smartrefresh:SmartRefreshHeader:${dependVersion.smart}",
-            "BaseRecyclerViewAdapterHelper"  : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42",
+            "BaseRecyclerViewAdapterHelper"  : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46",
 
             //rx
             "rxjava"                         : "io.reactivex.rxjava2:rxjava:2.2.1",

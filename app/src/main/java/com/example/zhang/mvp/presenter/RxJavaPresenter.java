@@ -724,7 +724,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .subscribe(new FlowableSubscriber<Integer>() {
                     @Override
                     public void onSubscribe(Subscription s) {
-//                        s.request(96);
+                        s.request(96);
                         LogUtils.error(TAG, "rxJavaFlowableRealExample--:" + Thread.currentThread().getName() + "-onSubscribe-:");
                     }
 

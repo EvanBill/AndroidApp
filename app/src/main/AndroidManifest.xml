@@ -57,6 +57,10 @@
             android:name=".mvp.ui.WebViewActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.TouchActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

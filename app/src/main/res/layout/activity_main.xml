@@ -53,6 +53,12 @@
         android:layout_toRightOf="@id/btn_main_smart_refresh"
         android:text="@string/str_main_web_view"
         android:textAllCaps="false" />
-
+    <Button
+        android:id="@+id/btn_main_touch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_main_glide"
+        android:text="@string/str_main_touch"
+        android:textAllCaps="false" />
 
 </RelativeLayout>
