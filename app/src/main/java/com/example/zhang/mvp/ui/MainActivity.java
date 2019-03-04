@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
+import com.example.zhang.client.AidlClientActivity;
 import com.example.zhang.mvp.contract.MainContract;
 import com.example.zhang.mvp.model.bean.ProductBean;
 import com.example.zhang.mvp.presenter.MainPresenter;
@@ -31,7 +32,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @OnClick({R.id.btn_main_rxjava, R.id.btn_main_lifecycle, R.id.btn_main_permissions, R.id.btn_main_glide
-            , R.id.btn_main_smart_refresh, R.id.btn_main_web_view,R.id.btn_main_touch})
+            , R.id.btn_main_smart_refresh, R.id.btn_main_web_view, R.id.btn_main_touch, R.id.btn_main_aidl_client})
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_rxjava:
@@ -61,6 +62,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.btn_main_touch:
                 Intent intent_touch = new Intent(this, TouchActivity.class);
                 startActivity(intent_touch);
+                break;
+            case R.id.btn_main_aidl_client:
+                Intent btn_main_aidl_client = new Intent(this, AidlClientActivity.class);
+                startActivity(btn_main_aidl_client);
                 break;
         }
     }

@@ -9,6 +9,7 @@
     <string name="str_main_touch">touch实例</string>
     <string name="str_test">测试</string>
     <string name="str_back_press_info">再按一次，就退出应用了!</string>
+    <string name="str_main_aidl">aidl</string>
 
 
 </resources>

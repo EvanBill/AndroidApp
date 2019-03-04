@@ -60,5 +60,12 @@
         android:layout_below="@id/btn_main_glide"
         android:text="@string/str_main_touch"
         android:textAllCaps="false" />
-
+    <Button
+        android:id="@+id/btn_main_aidl_client"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_main_glide"
+        android:layout_toRightOf="@id/btn_main_touch"
+        android:text="@string/str_main_aidl"
+        android:textAllCaps="false" />
 </RelativeLayout>

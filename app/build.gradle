@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    compileSdkVersion 28
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -13,7 +13,7 @@ android {
         multiDexEnabled true
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi' , 'x86' //, 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi', 'x86' //, 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
     }
     buildTypes {
@@ -22,7 +22,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    buildToolsVersion '28.0.3'
 }
 
 dependencies {
@@ -36,7 +36,8 @@ dependencies {
     implementation rootProject.ext.dependencies["recyclerview-v7"]
     implementation rootProject.ext.dependencies["constraint"]
     implementation rootProject.ext.dependencies["SmartRefreshLayout"]
-    implementation rootProject.ext.dependencies["SmartRefreshHeader"]//没有使用特殊Header，可以不加这行
+    implementation rootProject.ext.dependencies["SmartRefreshHeader"]
+    //没有使用特殊Header，可以不加这行
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
     //BaseRecyclerViewAdapterHelper
     //RxJava
@@ -64,9 +65,10 @@ dependencies {
     //other
     implementation rootProject.ext.dependencies["multidex"]
     implementation rootProject.ext.dependencies["utilcode"]
-    implementation rootProject.ext.dependencies["crashreport"]//bugly上传崩溃日志
-    implementation rootProject.ext.dependencies["nativecrashreport"]//bugly上传ndk崩溃日志
-
+    implementation rootProject.ext.dependencies["crashreport"]
+    //bugly上传崩溃日志
+    implementation rootProject.ext.dependencies["nativecrashreport"]
+    //bugly上传ndk崩溃日志
     // Stetho
     implementation rootProject.ext.dependencies["stetho"]
     implementation rootProject.ext.dependencies["stetho-okhttp3"]

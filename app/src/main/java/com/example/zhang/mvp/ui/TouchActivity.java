@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
@@ -38,6 +39,7 @@ public class TouchActivity extends BaseActivity<TouchPresenter> implements Touch
                 return true;
             }
         });
+
     }
 
     @OnClick({R.id.ll_touch, R.id.button1, R.id.button2})
