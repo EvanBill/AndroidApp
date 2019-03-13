@@ -54,7 +54,7 @@ public class AidlClientActivity extends BaseActivity {
                 try {
                     iMyAidlInterface.addBook(book);
                     tv_aidl_client.setText(iMyAidlInterface.getBookList().toString());
-                } catch (RemoteException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
