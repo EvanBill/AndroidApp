@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".app.AppApplication"
         android:allowBackup="true"
@@ -59,6 +60,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.ui.TouchActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.CustomerFlowLayoutActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity

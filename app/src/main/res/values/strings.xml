@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MyApp</string>
+    <string name="str_click">点击</string>
     <string name="str_main_rxjava">rxjava实例</string>
     <string name="str_main_rxlifecycle">rxlifecycle实例</string>
     <string name="str_main_permission">权限管理</string>
@@ -10,6 +11,6 @@
     <string name="str_test">测试</string>
     <string name="str_back_press_info">再按一次，就退出应用了!</string>
     <string name="str_main_aidl">aidl</string>
-
+    <string name="str_main_customer_flow_layout">customer flowLayout</string>
 
 </resources>

@@ -32,7 +32,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @OnClick({R.id.btn_main_rxjava, R.id.btn_main_lifecycle, R.id.btn_main_permissions, R.id.btn_main_glide
-            , R.id.btn_main_smart_refresh, R.id.btn_main_web_view, R.id.btn_main_touch, R.id.btn_main_aidl_client})
+            , R.id.btn_main_smart_refresh, R.id.btn_main_web_view, R.id.btn_main_touch, R.id.btn_main_aidl_client
+    ,R.id.btn_main_customer_flow_layout})
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_rxjava:
@@ -66,6 +67,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.btn_main_aidl_client:
                 Intent btn_main_aidl_client = new Intent(this, AidlClientActivity.class);
                 startActivity(btn_main_aidl_client);
+                break;
+            case R.id.btn_main_customer_flow_layout:
+                Intent btn_main_customer_flow_layout = new Intent(this, CustomerFlowLayoutActivity.class);
+                startActivity(btn_main_customer_flow_layout);
                 break;
         }
     }
