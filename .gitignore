@@ -1,7 +1,6 @@
 .gradle/
 .idea/
 build/
-app.iml
 MyApp.iml
 product.iml
 local.properties
