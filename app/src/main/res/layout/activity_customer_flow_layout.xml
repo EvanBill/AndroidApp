@@ -17,4 +17,53 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/str_main_customer_flow_layout" />
+
+    <com.example.zhang.widget.FlowLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingRight="@dimen/dp_4"
+        android:background="#9988ff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:background="@drawable/shape_flow_bg"
+            android:text="发了啥"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:background="@drawable/shape_flow_bg"
+            android:text="发了啥2"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:visibility="invisible"
+            android:background="@drawable/shape_flow_bg"
+            android:text="发了啥3"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:background="@drawable/shape_flow_bg"
+            android:text="发了啥444444444444444444444"
+            android:textColor="@color/colorWhite" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:background="@drawable/shape_flow_bg"
+            android:visibility="gone"
+            android:text="发了啥44445554"
+            android:textColor="@color/colorWhite" />
+    </com.example.zhang.widget.FlowLayout>
 </LinearLayout>
