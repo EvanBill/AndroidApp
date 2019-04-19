@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlowLayout extends ViewGroup {
-    private List<List<View>> allChildViews = new ArrayList<>();
-    private List<View> lineViews = new ArrayList<>();
-    private List<Integer> lineHeights = new ArrayList<>();
+    private List<List<View>> allChildViews = new ArrayList<>();//存储所有的子view，按行列表存储
+    private List<View> lineViews = new ArrayList<>();//每行子view集合
+    private List<Integer> lineHeights = new ArrayList<>();//每行行高
 
     public FlowLayout(Context context) {
         super(context);
@@ -52,26 +52,30 @@ public class FlowLayout extends ViewGroup {
         for (int i = 0; i < childCount; i++) {
             View childView = getChildAt(i);
             if (childView.getVisibility() != View.GONE) {
+                measureChild(childView, widthMeasureSpec, heightMeasureSpec);
                 MarginLayoutParams marginLayoutParams = (MarginLayoutParams) childView.getLayoutParams();
                 int leftMargin = marginLayoutParams.leftMargin;
                 int rightMargin = marginLayoutParams.rightMargin;
                 int topMargin = marginLayoutParams.topMargin;
                 int bottomMargin = marginLayoutParams.bottomMargin;
 
-                measureChild(childView, widthMeasureSpec, heightMeasureSpec);
+
                 if (lineWidth + leftMargin + rightMargin + childView.getMeasuredWidth() > widthSize- getPaddingRight() - getPaddingLeft()) {//换行
+                    height += lineHeight;
                     lineHeight = childView.getMeasuredHeight() + topMargin + bottomMargin;
                     lineWidth = leftMargin + rightMargin + childView.getMeasuredWidth();
-                    height += lineHeight;
+
                 } else {
                     lineWidth += leftMargin + rightMargin + childView.getMeasuredWidth();
                     lineHeight = Math.max(lineHeight, childView.getMeasuredHeight() + topMargin + bottomMargin);
-                    height = Math.max(lineHeight, height);
+
                 }
                 width = Math.max(lineWidth, width);
             }
 
+
         }
+        height += lineHeight;
         //设置FlowLayout的宽高
         setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize : width + getPaddingLeft() + getPaddingRight(),
                 heightMode == MeasureSpec.EXACTLY ? heightSize : height + getPaddingBottom() + getPaddingTop());
