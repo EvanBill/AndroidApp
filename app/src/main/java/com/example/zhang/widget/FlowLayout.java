@@ -38,6 +38,16 @@ public class FlowLayout extends ViewGroup {
     }
 
     @Override
+    protected LayoutParams generateLayoutParams(LayoutParams p) {
+        return new MarginLayoutParams(p);
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -54,21 +64,16 @@ public class FlowLayout extends ViewGroup {
             if (childView.getVisibility() != View.GONE) {
                 measureChild(childView, widthMeasureSpec, heightMeasureSpec);
                 MarginLayoutParams marginLayoutParams = (MarginLayoutParams) childView.getLayoutParams();
-                int leftMargin = marginLayoutParams.leftMargin;
-                int rightMargin = marginLayoutParams.rightMargin;
-                int topMargin = marginLayoutParams.topMargin;
-                int bottomMargin = marginLayoutParams.bottomMargin;
+                int childWidth=childView.getMeasuredWidth()+ marginLayoutParams.leftMargin+marginLayoutParams.rightMargin;
+                int childHeight=childView.getMeasuredHeight()+ marginLayoutParams.topMargin+marginLayoutParams.bottomMargin;
 
-
-                if (lineWidth + leftMargin + rightMargin + childView.getMeasuredWidth() > widthSize- getPaddingRight() - getPaddingLeft()) {//换行
+                if (lineWidth + childWidth> widthSize - getPaddingRight() - getPaddingLeft()) {//换行
                     height += lineHeight;
-                    lineHeight = childView.getMeasuredHeight() + topMargin + bottomMargin;
-                    lineWidth = leftMargin + rightMargin + childView.getMeasuredWidth();
-
+                    lineHeight = childHeight;
+                    lineWidth =childWidth;
                 } else {
-                    lineWidth += leftMargin + rightMargin + childView.getMeasuredWidth();
-                    lineHeight = Math.max(lineHeight, childView.getMeasuredHeight() + topMargin + bottomMargin);
-
+                    lineWidth += childWidth;
+                    lineHeight = Math.max(lineHeight, childHeight);
                 }
                 width = Math.max(lineWidth, width);
             }
@@ -86,7 +91,7 @@ public class FlowLayout extends ViewGroup {
         allChildViews.clear();
         lineViews.clear();
         lineHeights.clear();
-        int width =getMeasuredWidth();//FlowLayout总宽度
+        int width = getMeasuredWidth();//FlowLayout总宽度
         int lineWidth = 0;
         int lineHeight = 0;
         int childCount = getChildCount();
@@ -95,11 +100,9 @@ public class FlowLayout extends ViewGroup {
             View child = getChildAt(ii);
             if (child.getVisibility() != View.GONE) {
                 MarginLayoutParams params = (MarginLayoutParams) child.getLayoutParams();
-                int leftMargin = params.leftMargin;
-                int rightMargin = params.rightMargin;
-                int topMargin = params.topMargin;
-                int bottomMargin = params.bottomMargin;
-                if (lineWidth + child.getMeasuredWidth() + leftMargin + rightMargin > width - getPaddingRight() - getPaddingLeft()) {//换行
+                int childWidth=child.getMeasuredWidth()+ params.leftMargin+params.rightMargin;
+                int childHeight=child.getMeasuredHeight()+ params.topMargin+params.bottomMargin;
+                if (lineWidth + childWidth > width - getPaddingRight() - getPaddingLeft()) {//换行
                     lineHeights.add(lineHeight);
                     allChildViews.add(lineViews);
                     lineViews = new ArrayList<>();//需要新创建对象，如果只是lineViews.clear()是不可以的，因为，list是引用数据类型，会把之前的数据清除掉
@@ -107,8 +110,8 @@ public class FlowLayout extends ViewGroup {
                     lineWidth = 0;
 
                 }
-                lineWidth += leftMargin + rightMargin + child.getMeasuredWidth();
-                lineHeight = Math.max(lineHeight, child.getMeasuredHeight() + topMargin + bottomMargin);
+                lineWidth += childWidth;
+                lineHeight = Math.max(lineHeight, childHeight);
                 lineViews.add(child);
             }
         }
