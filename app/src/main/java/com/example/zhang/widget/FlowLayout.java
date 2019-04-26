@@ -86,7 +86,7 @@ public class FlowLayout extends ViewGroup {
         allChildViews.clear();
         lineViews.clear();
         lineHeights.clear();
-        int width = getWidth();//FlowLayout总宽度
+        int width =getMeasuredWidth();//FlowLayout总宽度
         int lineWidth = 0;
         int lineHeight = 0;
         int childCount = getChildCount();
