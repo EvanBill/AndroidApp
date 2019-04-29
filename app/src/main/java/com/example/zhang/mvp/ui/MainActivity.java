@@ -89,4 +89,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             super.onBackPressed();
         }
     }
+
 }

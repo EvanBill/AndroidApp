@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/str_main_rxjava"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_main_lifecycle"
@@ -19,61 +21,70 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/btn_main_rxjava"
         android:text="@string/str_main_rxlifecycle"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_rxjava"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_main_permissions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/btn_main_lifecycle"
         android:text="@string/str_main_permission"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_lifecycle"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_main_glide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_main_permissions"
         android:text="@string/str_main_glide"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxjava" />
 
     <Button
         android:id="@+id/btn_main_smart_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_main_permissions"
-        android:layout_toRightOf="@id/btn_main_glide"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_glide"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxjava"
         android:text="@string/str_main_smart_refresh"
         android:textAllCaps="false" />
+
     <Button
         android:id="@+id/btn_main_web_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_main_permissions"
-        android:layout_toRightOf="@id/btn_main_smart_refresh"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_smart_refresh"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxjava"
         android:text="@string/str_main_web_view"
         android:textAllCaps="false" />
+
     <Button
         android:id="@+id/btn_main_touch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_main_glide"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_glide"
         android:text="@string/str_main_touch"
         android:textAllCaps="false" />
+
     <Button
         android:id="@+id/btn_main_aidl_client"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_main_glide"
-        android:layout_toRightOf="@id/btn_main_touch"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_touch"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_glide"
         android:text="@string/str_main_aidl"
         android:textAllCaps="false" />
+
     <Button
         android:id="@+id/btn_main_customer_flow_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_main_glide"
-        android:layout_toRightOf="@id/btn_main_aidl_client"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_aidl_client"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_glide"
         android:text="@string/str_main_customer_flow_layout"
         android:textAllCaps="false" />
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
