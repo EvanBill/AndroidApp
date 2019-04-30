@@ -29,11 +29,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
+
     }
 
     @OnClick({R.id.btn_main_rxjava, R.id.btn_main_lifecycle, R.id.btn_main_permissions, R.id.btn_main_glide
             , R.id.btn_main_smart_refresh, R.id.btn_main_web_view, R.id.btn_main_touch, R.id.btn_main_aidl_client
-    ,R.id.btn_main_customer_flow_layout})
+            , R.id.btn_main_customer_flow_layout})
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_rxjava:
