@@ -7,10 +7,10 @@
     tools:context=".mvp.ui.MainActivity">
 
     <Button
-        android:id="@+id/btn_main_rxjava"
+        android:id="@+id/btn_main_rxJava"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/str_main_rxjava"
+        android:text="@string/str_main_rxJava"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,11 +19,12 @@
         android:id="@+id/btn_main_lifecycle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/btn_main_rxjava"
-        android:text="@string/str_main_rxlifecycle"
+        android:layout_toRightOf="@id/btn_main_rxJava"
+        android:text="@string/str_main_rxLifecycle"
         android:textAllCaps="false"
-        app:layout_constraintLeft_toRightOf="@id/btn_main_rxjava"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toRightOf="@id/btn_main_rxJava"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_toEndOf="@id/btn_main_rxJava" />
 
     <Button
         android:id="@+id/btn_main_permissions"
@@ -41,14 +42,14 @@
         android:text="@string/str_main_glide"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_main_rxjava" />
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxJava" />
 
     <Button
         android:id="@+id/btn_main_smart_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/btn_main_glide"
-        app:layout_constraintTop_toBottomOf="@id/btn_main_rxjava"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxJava"
         android:text="@string/str_main_smart_refresh"
         android:textAllCaps="false" />
 
@@ -57,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/btn_main_smart_refresh"
-        app:layout_constraintTop_toBottomOf="@id/btn_main_rxjava"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxJava"
         android:text="@string/str_main_web_view"
         android:textAllCaps="false" />
 

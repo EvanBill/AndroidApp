@@ -26,16 +26,19 @@ import java.lang.reflect.Method;
 /**
  * @author zzh
  */
+
 public class AppApplication extends Application {
     private static AppApplication instance;
 
     //static 代码段可以防止内存泄露
     static {
         //设置全局的Header构建器
+
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+
             @NonNull
             @Override
-            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+            public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
                 //全局设置主题颜色
                 layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
                 //指定为经典Header，默认是 贝塞尔雷达Header
@@ -81,6 +84,7 @@ public class AppApplication extends Application {
     /**
      * 在MIUI 10升级到 Android P 后 每次进入程序都会弹一个提醒弹窗
      */
+    @SuppressWarnings("unchecked")
     private void closeAndroidPDialog() {
         try {
             @SuppressLint("PrivateApi") Class aClass = Class.forName("android.content.pm.PackageParser$Package");

@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_rxjava_test"
+        android:id="@+id/btn_rxJava_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/str_test" />

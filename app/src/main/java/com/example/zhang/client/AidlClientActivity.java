@@ -57,7 +57,7 @@ public class AidlClientActivity extends BaseActivity {
     void onClick(View view) {
         if (view.getId() == R.id.btn_aidl_client) {
             Random random = new Random();
-            Book book = new Book("adsa" + random.nextInt(10));
+            Book book = new Book("abc" + random.nextInt(10));
             try {
                 iMyAidlInterface.addBook(book);
                 tvAidlClient.setText(iMyAidlInterface.getBookList().toString());

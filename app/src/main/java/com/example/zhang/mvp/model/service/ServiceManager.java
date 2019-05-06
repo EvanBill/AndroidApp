@@ -60,7 +60,7 @@ public class ServiceManager {
 
     private OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        if (Constants.ISLOGING) {
+        if (Constants.IS_LOGIN) {
             builder.addNetworkInterceptor(getHttpLoggingInterceptor());
         }
         //设置统一的请求头部参数

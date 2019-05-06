@@ -44,11 +44,11 @@ public class HandleResponse {
      * 未知错误
      */
     private static final int UNKNOWN = 1000;
-    private static final int TIMEDOUT = 1002;
+    private static final int TIMEOUT = 1002;
     /**
      * 网络错误
      */
-    private static final int NETWORD_ERROR = 1003;
+    private static final int NETWORK_ERROR = 1003;
 
     /**
      * 处理异常，统一封装返回结果
@@ -84,9 +84,9 @@ public class HandleResponse {
                 || e instanceof ParseException) {
             responseBean = new ResponseBean(PARSE_ERROR, "解析错误");
         } else if (e instanceof ConnectException) {
-            responseBean = new ResponseBean(NETWORD_ERROR, " 网络竟然崩溃了");
+            responseBean = new ResponseBean(NETWORK_ERROR, " 网络竟然崩溃了");
         } else if (e instanceof SocketTimeoutException) {
-            responseBean = new ResponseBean(TIMEDOUT, " 网络竟然崩溃了");
+            responseBean = new ResponseBean(TIMEOUT, " 网络竟然崩溃了");
         } else {
             responseBean = new ResponseBean(UNKNOWN, "未知错误");
         }

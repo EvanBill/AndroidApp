@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 public class WebViewActivity extends BaseActivity {
     @BindView(R.id.wv_web_view)
     WebView wvWebView;
-    private String loadUrl = "https://www.baidu.com";
+    private final String loadUrl = "https://www.baidu.com";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,14 +73,14 @@ public class WebViewActivity extends BaseActivity {
     @SuppressLint("SetJavaScriptEnabled")
     private void setBaseWebSettings(WebView webView) {
         WebSettings settings = webView.getSettings();
-        //如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
+        //如果访问的页面中要与Javascript交互，则webView必须设置支持Javascript
         settings.setJavaScriptEnabled(true);
         // 若加载的 html 里有JS 在执行动画等操作，会造成资源浪费（CPU、电量）
         // 在 onStop 和 onResume 里分别把 setJavaScriptEnabled() 给设置成 false 和 true 即可
 
 
         //设置自适应屏幕，两者合用
-        //将图片调整到适合webview的大小
+        //将图片调整到适合webView的大小
         settings.setUseWideViewPort(true);
         // 缩放至屏幕的大小
         settings.setLoadWithOverviewMode(true);

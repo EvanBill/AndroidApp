@@ -16,11 +16,12 @@ public class MainModel {
     /**
      * 获得首页产品数据
      *
-     * @return Flowable<List<ProductBean>>
+     * @return Flowable<List       <       ProductBean>>
      */
     public Flowable<List<ProductBean>> getProductData() {
         List<ProductBean> productBeanList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        int count = 4;
+        for (int i = 0; i < count; i++) {
             ProductBean productBean = new ProductBean("productName-" + i);
             productBeanList.add(productBean);
         }

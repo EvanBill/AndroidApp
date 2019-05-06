@@ -19,7 +19,7 @@ public class RxLifeCycleModel {
             @Override
             public void subscribe(FlowableEmitter<Integer> emitter) {
                 for (int i = 1; ; i++) {
-                    LogUtils.error(TAG, "getIntervalData--emitter--:" + Thread.currentThread().getName() + "--:" + i + "-----iscancelled:" + emitter.isCancelled());
+                    LogUtils.error(TAG, "getIntervalData--emitter--:" + Thread.currentThread().getName() + "--:" + i + "-----isCancelled:" + emitter.isCancelled());
                     LogUtils.error(TAG, "getIntervalData--emitter--:" + Thread.currentThread().getName() + "--:" + TimeUtils.getNowString() + "-----request:" + emitter.requested());
                     if (emitter.isCancelled()) {
                         break;

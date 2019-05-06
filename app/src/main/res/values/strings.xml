@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">MyApp</string>
     <string name="str_click">点击</string>
-    <string name="str_main_rxjava">rxjava实例</string>
-    <string name="str_main_rxlifecycle">rxlifecycle实例</string>
+    <string name="str_main_rxJava">rxJava实例</string>
+    <string name="str_main_rxLifecycle">rxLifecycle实例</string>
     <string name="str_main_permission">权限管理</string>
     <string name="str_main_glide">glide实例</string>
     <string name="str_main_smart_refresh">SmartRefresh实例</string>
@@ -15,5 +15,15 @@
     <string name="button1">button1</string>
     <string name="button2">button2</string>
     <string name="string_click">click</string>
+    <string name="banner">banner</string>
+    <string name="button">Button</string>
+    <string name="tv_bottom_1">tv_bottom_1</string>
+    <string name="tv_bottom_2">tv_bottom_2</string>
+    <string name="tv_bottom_3">tv_bottom_3</string>
+    <string name="str_flow_content_1">发了啥</string>
+    <string name="str_flow_content_2">发了啥2</string>
+    <string name="str_flow_content_3">发了啥3</string>
+    <string name="str_flow_content_4">发了啥444444444444444444444</string>
+    <string name="str_flow_content_45">发了啥44445554</string>
 
 </resources>

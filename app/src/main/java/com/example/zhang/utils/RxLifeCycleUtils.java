@@ -9,7 +9,9 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
 import com.trello.rxlifecycle2.components.support.RxDialogFragment;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
-
+/**
+ * @author zzh
+ */
 public class RxLifeCycleUtils {
 
     /**
@@ -17,7 +19,7 @@ public class RxLifeCycleUtils {
      *
      * @param baseView activity 或fragment继承的接口view
      * @param <L>      RxJava数据泛型
-     * @return
+     * @return  LifecycleTransformer
      */
     public static <L> LifecycleTransformer<L> bindToLifecycle(BaseView baseView) {
         if (baseView != null) {
@@ -45,7 +47,7 @@ public class RxLifeCycleUtils {
      * @param baseView activity 继承的接口view
      * @param event    activity的生命周期
      * @param <L>      RxJava数据泛型
-     * @return
+     * @return  LifecycleTransformer
      */
     public static <L> LifecycleTransformer<L> bindUntilEvent(BaseView baseView, ActivityEvent event) {
         if (baseView != null) {
@@ -67,7 +69,7 @@ public class RxLifeCycleUtils {
      * @param baseView fragment继承的接口view
      * @param event    fragment的生命周期
      * @param <L>      RxJava数据泛型
-     * @return
+     * @return  LifecycleTransformer
      */
     public static <L> LifecycleTransformer<L> bindUntilEvent(BaseView baseView, FragmentEvent event) {
         if (baseView != null) {

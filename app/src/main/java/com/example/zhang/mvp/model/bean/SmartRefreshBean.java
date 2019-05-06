@@ -1,7 +1,9 @@
 package com.example.zhang.mvp.model.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-
+/**
+ * @author zzh
+ */
 public class SmartRefreshBean implements MultiItemEntity {
 
     /**

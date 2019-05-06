@@ -10,7 +10,7 @@ ext {
 
     ]
     def dependVersion = [
-            support    : "27.1.1",
+            support    : "28.0.0",
             retrofit   : "2.4.0",
             okhttp     : "3.11.0",
             butterknife: "8.8.1",
@@ -22,6 +22,8 @@ ext {
             //base
             "support-v4"                     : "com.android.support:support-v4:${dependVersion.support}",
             "support-v13"                    : "com.android.support:support-v13:${dependVersion.support}",
+            "support-annotations"            : "com.android.support:support-annotations:${dependVersion.support}",
+
             "appcompat-v7"                   : "com.android.support:appcompat-v7:${dependVersion.support}",
             "cardview-v7"                    : "com.android.support:cardview-v7:${dependVersion.support}",
             "recyclerview-v7"                : "com.android.support:recyclerview-v7:${dependVersion.support}",

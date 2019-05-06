@@ -369,6 +369,7 @@ public class MainDataBean {
                 private String name;
                 private String url;
 
+                @NonNull
                 @Override
                 public String toString() {
                     return "TagsBean{" +

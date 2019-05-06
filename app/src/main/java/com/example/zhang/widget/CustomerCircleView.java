@@ -7,6 +7,9 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
+/**
+ * @author zzh
+ */
 public class CustomerCircleView extends View {
     public CustomerCircleView(Context context) {
         super(context);

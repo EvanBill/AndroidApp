@@ -1,7 +1,11 @@
 package com.example.zhang.mvp.model.bean;
 
-import java.util.List;
+import android.support.annotation.NonNull;
 
+import java.util.List;
+/**
+ * @author zzh
+ */
 public class LoginResponseBean {
 
     /**
@@ -38,6 +42,7 @@ public class LoginResponseBean {
         this.errorMsg = errorMsg;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "LoginResponseBean{" +
@@ -132,6 +137,7 @@ public class LoginResponseBean {
             this.collectIds = collectIds;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "DataBean{" +

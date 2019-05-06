@@ -23,7 +23,7 @@ public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJ
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.btn_rxjava_test)
+    @OnClick(R.id.btn_rxJava_test)
     public void onClick() {
         testExample();
     }

@@ -1,5 +1,10 @@
 package com.example.zhang.mvp.model.bean;
 
+import android.support.annotation.NonNull;
+
+/**
+ * @author zzh
+ */
 public class RegisterParamBean {
     private String username;
     private String password;
@@ -29,6 +34,7 @@ public class RegisterParamBean {
         this.repassword = repassword;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "RegisterParamBean{" +

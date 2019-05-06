@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -182,12 +183,13 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .flatMap(new Function<Integer, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(Integer integer) {
-                        LogUtils.error(TAG, "rxJavaFlatMapExample--flatmap--:" + Thread.currentThread().getName() + "--:" + integer);
+                        LogUtils.error(TAG, "rxJavaFlatMapExample--flatMap--:" + Thread.currentThread().getName() + "--:" + integer);
                         List<String> list = new ArrayList<>();
-                        for (int i = 0; i < 3; i++) {
+                        int count = 3;
+                        for (int i = 0; i < count; i++) {
                             list.add("this is flatMap--" + integer + "---i--:" + i);
                         }
-                        long delayTime = 1 + (int) (10 * Math.random());
+                        long delayTime = 1 + new Random().nextInt(10);
                         return Observable.fromIterable(list).delay(delayTime, TimeUnit.SECONDS);
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
@@ -215,10 +217,11 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                     public ObservableSource<String> apply(Integer integer) {
                         LogUtils.error(TAG, "rxJavaConcatMapExample--concatMap--:" + Thread.currentThread().getName() + "--:" + integer);
                         List<String> list = new ArrayList<>();
-                        for (int i = 0; i < 3; i++) {
+                        int count = 3;
+                        for (int i = 0; i < count; i++) {
                             list.add("this is ConcatMap--" + integer + "---i--:" + i);
                         }
-                        long delayTime = 1 + (int) (10 * Math.random());
+                        long delayTime = 1 + new Random().nextInt(10);
                         //delay方法内部切换了线程
                         return Observable.fromIterable(list).delay(delayTime, TimeUnit.SECONDS);
                     }
@@ -779,7 +782,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
 
     @SuppressLint("CheckResult")
     public void getMainData(String headerTimestamp, int id) {
-        Map<String, String> requestParams = new HashMap<>();
+        Map<String, String> requestParams = new HashMap<>(2);
         requestParams.put("platform", "100");
         requestParams.put("platform2", "200");
         model.getMainData(headerTimestamp, id, requestParams)
@@ -831,7 +834,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
 
     @SuppressLint("CheckResult")
     public void getBanner(String headerTimestamp, String time) {
-        Map<String, String> requestParams = new HashMap<>();
+        Map<String, String> requestParams = new HashMap<>(2);
         requestParams.put("platform", "100");
         requestParams.put("platform2", "200");
         model.getBanner(headerTimestamp, time, requestParams)
@@ -869,7 +872,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
 
     @SuppressLint("CheckResult")
     public void postRegisterBy(String username, String pwd, String rePwd) {
-        HashMap<String, String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>(3);
         params.put("username", username);
         params.put("password", pwd);
         params.put("repassword", rePwd);
@@ -889,7 +892,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
 
     @SuppressLint("CheckResult")
     public void postLogin(String username, String pwd) {
-        Map<String, String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>(2);
         params.put("username", username);
         params.put("password", pwd);
         model.postLogin(params)

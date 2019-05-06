@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_customer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ll_customer_layout"
     android:orientation="vertical">
+
     <com.example.zhang.widget.FlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#9988ff"
+        android:paddingLeft="@dimen/dp_4"
         android:paddingTop="@dimen/dp_4"
-        android:paddingRight="@dimen/dp_4"
-        android:background="#9988ff">
+        android:paddingRight="@dimen/dp_4">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_4"
             android:background="@drawable/shape_flow_bg"
-            android:text="发了啥"
+            android:text="@string/str_flow_content_1"
             android:textColor="@color/colorWhite" />
 
         <TextView
@@ -24,16 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_4"
             android:background="@drawable/shape_flow_bg"
-            android:text="发了啥2"
-            android:textColor="@color/colorWhite" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_4"
-            android:visibility="gone"
-            android:background="@drawable/shape_flow_bg"
-            android:text="发了啥3"
+            android:text="@string/str_flow_content_2"
             android:textColor="@color/colorWhite" />
 
         <TextView
@@ -41,14 +34,24 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_4"
             android:background="@drawable/shape_flow_bg"
-            android:text="发了啥444444444444444444444"
-            android:textColor="@color/colorWhite" />
+            android:text="@string/str_flow_content_3"
+            android:textColor="@color/colorWhite"
+            android:visibility="gone" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_4"
             android:background="@drawable/shape_flow_bg"
-            android:text="发了啥44445554"
+            android:text="@string/str_flow_content_4"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:background="@drawable/shape_flow_bg"
+            android:text="@string/str_flow_content_45"
             android:textColor="@color/colorWhite" />
     </com.example.zhang.widget.FlowLayout>
 </LinearLayout>

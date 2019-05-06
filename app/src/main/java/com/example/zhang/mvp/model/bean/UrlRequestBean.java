@@ -1,7 +1,12 @@
 package com.example.zhang.mvp.model.bean;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
+/**
+ * @author zzh
+ */
 public class UrlRequestBean {
 
     /**
@@ -14,6 +19,7 @@ public class UrlRequestBean {
     private String errorMsg;
     private List<DataBean> data;
 
+    @NonNull
     @Override
     public String toString() {
         return "UrlRequestBean{" +
@@ -62,6 +68,7 @@ public class UrlRequestBean {
         private int order;
         private int visible;
 
+        @NonNull
         @Override
         public String toString() {
             return "DataBean{" +
