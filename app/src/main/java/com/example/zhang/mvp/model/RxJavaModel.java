@@ -1,5 +1,7 @@
 package com.example.zhang.mvp.model;
 
+import android.annotation.SuppressLint;
+
 import com.example.zhang.mvp.model.bean.BannerBean;
 import com.example.zhang.mvp.model.bean.LoginResponseBean;
 import com.example.zhang.mvp.model.bean.MainDataBean;
@@ -21,18 +23,21 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import retrofit2.Response;
 
+/**
+ * @author zzh
+ */
 public class RxJavaModel {
-    private String TAG = RxJavaModel.class.getSimpleName();
+    private final String TAG = RxJavaModel.class.getSimpleName();
 
     /**
      * 获得创建RxJava数据
      *
-     * @return
+     * @return Observable<Integer>
      */
     public Observable<Integer> getRxJavaCreateExampleData() {
         return Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<Integer> emitter) {
                 LogUtils.debug(TAG, "getRxJavaCreateExampleData---:" + Thread.currentThread().getName() + "--:" + 1);
                 emitter.onNext(1);
 
@@ -52,7 +57,7 @@ public class RxJavaModel {
     public Observable<String> getRxJavaStringData() {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<String> emitter) {
                 LogUtils.debug(TAG, "getRxJavaStringData---:" + Thread.currentThread().getName() + "--:A");
                 emitter.onNext("A");
                 LogUtils.debug(TAG, "getRxJavaStringData---:" + Thread.currentThread().getName() + "--:B");
@@ -92,17 +97,18 @@ public class RxJavaModel {
         });
     }
 
+
     public Flowable<Integer> getRxJavaFlowableData() {
         return Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
-            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+            public void subscribe(FlowableEmitter<Integer> emitter) {
                 LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-:" + emitter.requested());
                 LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + 1);
                 emitter.onNext(1);
                 LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-:" + emitter.requested());
                 LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + 2);
                 emitter.onNext(2);
-//                Thread.sleep(5000);
+                // Thread.sleep(5000);
                 LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-:" + emitter.requested());
                 LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "--:" + 3);
                 emitter.onNext(3);
@@ -120,8 +126,9 @@ public class RxJavaModel {
         return Flowable.create(new FlowableOnSubscribe<Integer>() {
             boolean isFlag = false;
 
+            @SuppressWarnings("InfiniteLoopStatement")
             @Override
-            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+            public void subscribe(FlowableEmitter<Integer> emitter) {
                 LogUtils.debug(TAG, "getRxJavaFlowableData---:" + Thread.currentThread().getName() + "-request-start:" + emitter.requested());
 
                 for (int i = 0; ; i++) {
@@ -145,7 +152,7 @@ public class RxJavaModel {
     public Flowable<Integer> getRxJavaFlowableRealExample() {
         return Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
-            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+            public void subscribe(FlowableEmitter<Integer> emitter) {
                 for (int i = 0; ; i++) {
                     if (emitter.isCancelled()) {
                         break;
@@ -161,11 +168,13 @@ public class RxJavaModel {
         }, BackpressureStrategy.ERROR);
     }
 
+    @SuppressLint("all")
     public Flowable<Integer> getRxJavaFlowable128Data() {
+        final int count = 129;
         return Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
-            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
-                for (int i = 0; i < 129; i++) {
+            public void subscribe(FlowableEmitter<Integer> emitter) {
+                for (int i = 0; i < count; i++) {
                     LogUtils.debug(TAG, "getRxJavaFlowable128Data---:" + Thread.currentThread().getName() + "--:" + i);
                     emitter.onNext(i);
                 }
@@ -173,15 +182,16 @@ public class RxJavaModel {
         }, BackpressureStrategy.ERROR);
     }
 
-    public Observable<MainDataBean> getMainData(String headerTimestamp, int id,  Map<String, String> requestParams) {
-        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getMainData(headerTimestamp, id,  requestParams);
+    public Observable<MainDataBean> getMainData(String headerTimestamp, int id, Map<String, String> requestParams) {
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getMainData(headerTimestamp, id, requestParams);
     }
 
     public Observable<UrlRequestBean> getUrlData(String url) {
         return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getUrlData(url);
     }
-    public Observable<BannerBean> getBanner(String headerTimestamp, String time, Map<String, String> requestParams){
-        return  ServiceManager.getInstance().retrofit.create(RxJavaService.class).getBannersData(headerTimestamp,requestParams);
+
+    public Observable<BannerBean> getBanner(String headerTimestamp, String time, Map<String, String> requestParams) {
+        return ServiceManager.getInstance().retrofit.create(RxJavaService.class).getBannersData(headerTimestamp, time, requestParams);
     }
 
     public Observable<LoginResponseBean> postLogin(Map<String, String> map) {

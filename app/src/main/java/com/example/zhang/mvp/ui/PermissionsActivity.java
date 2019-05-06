@@ -2,9 +2,11 @@ package com.example.zhang.mvp.ui;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -22,6 +24,9 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
+/**
+ * @author zzh
+ */
 @RuntimePermissions
 public class PermissionsActivity extends BaseActivity<PermissionsPresenter> implements PermissionsContract.IPermissionsView {
     @Override
@@ -46,6 +51,7 @@ public class PermissionsActivity extends BaseActivity<PermissionsPresenter> impl
     /**
      * 只有全部成功时，才会调用
      */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR})
     public void requestPermission() {
         ToastUtils.showShort("申请权限成功");
@@ -54,6 +60,7 @@ public class PermissionsActivity extends BaseActivity<PermissionsPresenter> impl
     /**
      * 只要有一个权限没有申请成功，且没有选择"以后不再询问"，则提示失败
      */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR})
     public void requestPermissionDenied() {
         ToastUtils.showShort("申请权限失败");
@@ -62,8 +69,9 @@ public class PermissionsActivity extends BaseActivity<PermissionsPresenter> impl
     /**
      * 申请失败后，再申请则调用
      *
-     * @param permissionRequest
+     * @param permissionRequest 权限请求
      */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @OnShowRationale({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR})
     public void requestPermissionShowRationale(final PermissionRequest permissionRequest) {
         new AlertDialog.Builder(this).setMessage("申请读取存储权限")
@@ -84,6 +92,7 @@ public class PermissionsActivity extends BaseActivity<PermissionsPresenter> impl
     /**
      * 只要有一个申请失败，且选择了"以后不再询问"，则提示
      */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @OnNeverAskAgain({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR})
     public void requestPermissionNeverAskAgain() {
         ToastUtils.showShort("申请权限失败，且不再提示");

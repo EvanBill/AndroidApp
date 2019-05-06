@@ -5,7 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-public class BaseActivity<T> extends RxAppCompatActivity implements BaseView {
+/**
+ * @author zzh
+ */
+public abstract class BaseActivity<T> extends RxAppCompatActivity implements BaseView {
     protected T presenter;
 
     @Override

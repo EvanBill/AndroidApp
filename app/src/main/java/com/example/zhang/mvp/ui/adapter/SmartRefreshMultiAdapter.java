@@ -10,6 +10,9 @@ import com.example.zhang.mvp.model.bean.SmartRefreshBean;
 
 import java.util.List;
 
+/**
+ * @author zzh
+ */
 public class SmartRefreshMultiAdapter extends BaseMultiItemQuickAdapter<SmartRefreshBean, BaseViewHolder> {
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -32,6 +35,8 @@ public class SmartRefreshMultiAdapter extends BaseMultiItemQuickAdapter<SmartRef
                 break;
             case 2:
                 helper.setText(R.id.tv_item_smart_refresh_2, item.getName());
+                break;
+            default:
                 break;
         }
     }

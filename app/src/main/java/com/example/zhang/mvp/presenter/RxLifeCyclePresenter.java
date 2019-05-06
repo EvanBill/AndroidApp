@@ -11,10 +11,12 @@ import com.example.zhang.utils.RxLifeCycleUtils;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * @author zzh
+ */
 public class RxLifeCyclePresenter extends BasePresenter<RxLifeCycleContract.IRxLifeCycleView, RxLifeCycleModel> {
     private static final String TAG = RxLifeCycleActivity.class.getSimpleName();
 
@@ -23,6 +25,7 @@ public class RxLifeCyclePresenter extends BasePresenter<RxLifeCycleContract.IRxL
         model = new RxLifeCycleModel();
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void interval() {
         model.getIntervalData()
@@ -31,12 +34,13 @@ public class RxLifeCyclePresenter extends BasePresenter<RxLifeCycleContract.IRxL
                 .compose(RxLifeCycleUtils.<Integer>bindToLifecycle(view))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer aLong) throws Exception {
+                    public void accept(Integer aLong) {
                         LogUtils.error(TAG, "rxJavaConcatExample--Consumer--:" + Thread.currentThread().getName() + "--:" + aLong);
                     }
                 });
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void intervalRxLifeCycle(ActivityEvent event) {
         model.getIntervalData()
@@ -45,7 +49,7 @@ public class RxLifeCyclePresenter extends BasePresenter<RxLifeCycleContract.IRxL
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, event))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer aLong) throws Exception {
+                    public void accept(Integer aLong)  {
                         LogUtils.error(TAG, "rxJavaConcatExample--Consumer--:" + Thread.currentThread().getName() + "--:" + aLong);
                     }
                 });

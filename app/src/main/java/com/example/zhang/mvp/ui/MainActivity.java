@@ -20,6 +20,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
+/**
+ * @author zzh
+ */
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.IMainView {
     private long backTime = 0;
 
@@ -38,40 +41,42 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_rxjava:
-                Intent intent_rxjava = new Intent(this, RxJavaActivity.class);
-                startActivity(intent_rxjava);
+                Intent intentRxJava = new Intent(this, RxJavaActivity.class);
+                startActivity(intentRxJava);
                 break;
             case R.id.btn_main_lifecycle:
-                Intent intent_lifecycle = new Intent(this, RxLifeCycleActivity.class);
-                startActivity(intent_lifecycle);
+                Intent intentLifecycle = new Intent(this, RxLifeCycleActivity.class);
+                startActivity(intentLifecycle);
                 break;
             case R.id.btn_main_permissions:
-                Intent intent_permissions = new Intent(this, PermissionsActivity.class);
-                startActivity(intent_permissions);
+                Intent intentPermissions = new Intent(this, PermissionsActivity.class);
+                startActivity(intentPermissions);
                 break;
             case R.id.btn_main_glide:
-                Intent intent_glide = new Intent(this, GlideActivity.class);
-                startActivity(intent_glide);
+                Intent intentGlide = new Intent(this, GlideActivity.class);
+                startActivity(intentGlide);
                 break;
             case R.id.btn_main_smart_refresh:
-                Intent intent_smart_refresh = new Intent(this, SmartRefreshActivity.class);
-                startActivity(intent_smart_refresh);
+                Intent intentSmartRefresh = new Intent(this, SmartRefreshActivity.class);
+                startActivity(intentSmartRefresh);
                 break;
             case R.id.btn_main_web_view:
-                Intent intent_web_view = new Intent(this, WebViewActivity.class);
-                startActivity(intent_web_view);
+                Intent intentWebView = new Intent(this, WebViewActivity.class);
+                startActivity(intentWebView);
                 break;
             case R.id.btn_main_touch:
-                Intent intent_touch = new Intent(this, TouchActivity.class);
-                startActivity(intent_touch);
+                Intent intentTouch = new Intent(this, TouchActivity.class);
+                startActivity(intentTouch);
                 break;
             case R.id.btn_main_aidl_client:
-                Intent btn_main_aidl_client = new Intent(this, AidlClientActivity.class);
-                startActivity(btn_main_aidl_client);
+                Intent btnMainAidlClient = new Intent(this, AidlClientActivity.class);
+                startActivity(btnMainAidlClient);
                 break;
             case R.id.btn_main_customer_flow_layout:
-                Intent btn_main_customer_flow_layout = new Intent(this, CustomerFlowLayoutActivity.class);
-                startActivity(btn_main_customer_flow_layout);
+                Intent btnMainCustomerFlowLayout = new Intent(this, CustomerFlowLayoutActivity.class);
+                startActivity(btnMainCustomerFlowLayout);
+                break;
+            default:
                 break;
         }
     }
@@ -83,7 +88,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void onBackPressed() {
-        if (TimeUtils.getTimeSpan(TimeUtils.getNowMills(), backTime, TimeConstants.SEC) > 2) {
+        int backTimeInterval = 2;
+        if (TimeUtils.getTimeSpan(TimeUtils.getNowMills(), backTime, TimeConstants.SEC) > backTimeInterval) {
             backTime = TimeUtils.getNowMills();
             ToastUtils.showShort(getString(R.string.str_back_press_info));
         } else {

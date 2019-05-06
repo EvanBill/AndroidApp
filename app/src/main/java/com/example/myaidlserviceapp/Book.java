@@ -2,7 +2,11 @@ package com.example.myaidlserviceapp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
+/**
+ * @author zzh
+ */
 public class Book implements Parcelable {
     private String name;
 
@@ -36,6 +40,7 @@ public class Book implements Parcelable {
         dest.writeString(name);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Book{" +

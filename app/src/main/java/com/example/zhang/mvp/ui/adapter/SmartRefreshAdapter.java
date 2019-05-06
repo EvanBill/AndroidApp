@@ -11,6 +11,9 @@ import com.example.zhang.mvp.model.bean.SmartRefreshBean;
 
 import java.util.List;
 
+/**
+ * @author zzh
+ */
 public class SmartRefreshAdapter extends BaseQuickAdapter<SmartRefreshBean, BaseViewHolder> {
     public SmartRefreshAdapter(@Nullable List data) {
         super(R.layout.item_smart_refresh, data);

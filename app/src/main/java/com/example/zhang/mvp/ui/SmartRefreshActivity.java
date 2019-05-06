@@ -11,7 +11,6 @@ import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.SmartRefreshContract;
 import com.example.zhang.mvp.model.bean.SmartRefreshBean;
 import com.example.zhang.mvp.presenter.SmartRefreshPresenter;
-import com.example.zhang.mvp.ui.adapter.SmartRefreshAdapter;
 import com.example.zhang.mvp.ui.adapter.SmartRefreshMultiAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -23,12 +22,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @author zzh
+ */
 public class SmartRefreshActivity extends BaseActivity<SmartRefreshPresenter> implements SmartRefreshContract.ISmartRefreshView {
     @BindView(R.id.srl_smart_refresh)
-    SmartRefreshLayout srl_smart_refresh;
+    SmartRefreshLayout srlSmartRefresh;
     @BindView(R.id.rv_smart_refresh)
-    RecyclerView rv_smart_refresh;
-//    private SmartRefreshAdapter adapter;
+    RecyclerView rvSmartRefresh;
+    // private SmartRefreshAdapter adapter;
+
     private SmartRefreshMultiAdapter adapter;
     private List<SmartRefreshBean> smartRefreshBeanList = new ArrayList<>();
 
@@ -38,26 +41,26 @@ public class SmartRefreshActivity extends BaseActivity<SmartRefreshPresenter> im
         setContentView(R.layout.activity_smart_refresh);
         ButterKnife.bind(this);
         presenter = new SmartRefreshPresenter(this);
-        srl_smart_refresh.setOnRefreshListener(new OnRefreshListener() {
+        srlSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 presenter.getData();
             }
         });
-        srl_smart_refresh.setEnableLoadMore(false);
+        srlSmartRefresh.setEnableLoadMore(false);
 //        adapter = new SmartRefreshAdapter(smartRefreshBeanList);
         adapter = new SmartRefreshMultiAdapter(smartRefreshBeanList);
-        rv_smart_refresh.setLayoutManager(new LinearLayoutManager(this));
-        rv_smart_refresh.setItemAnimator(new DefaultItemAnimator());
-        rv_smart_refresh.setHasFixedSize(true);
-        rv_smart_refresh.setAdapter(adapter);
-        srl_smart_refresh.autoRefresh();
+        rvSmartRefresh.setLayoutManager(new LinearLayoutManager(this));
+        rvSmartRefresh.setItemAnimator(new DefaultItemAnimator());
+        rvSmartRefresh.setHasFixedSize(true);
+        rvSmartRefresh.setAdapter(adapter);
+        srlSmartRefresh.autoRefresh();
     }
 
     @Override
     public void showContent(List<SmartRefreshBean> smartRefreshBeans) {
-        srl_smart_refresh.finishRefresh();
-        srl_smart_refresh.finishLoadMore();
+        srlSmartRefresh.finishRefresh();
+        srlSmartRefresh.finishLoadMore();
         smartRefreshBeanList.clear();
         smartRefreshBeanList.addAll(smartRefreshBeans);
         adapter.notifyDataSetChanged();

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.zhang.base.BasePresenter;
-import com.example.zhang.http.CustomerSubscribe;
+import com.example.zhang.http.AbstractCustomerSubscribe;
 import com.example.zhang.http.ResponseBean;
 import com.example.zhang.mvp.contract.RxJavaContract;
 import com.example.zhang.mvp.model.RxJavaModel;
@@ -45,17 +45,23 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 
+/**
+ * @author zzh
+ */
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, RxJavaModel> {
     private static final String TAG = RxJavaPresenter.class.getSimpleName();
 
     public RxJavaPresenter(RxJavaContract.IRxJavaView view) {
         super(view);
         model = new RxJavaModel();
+        rxJavaMapExample();
     }
 
     /**
      * 练习RxJava创建过程
      */
+    @SuppressLint("CheckResult")
     public void rxJavaCreateExample() {
         model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
@@ -97,13 +103,14 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
      * RxJava -Map语法练习
      */
     @SuppressLint("CheckResult")
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void rxJavaMapExample() {
         model.getRxJavaCreateExampleData()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .map(new Function<Integer, String>() {
                     @Override
-                    public String apply(Integer integer) throws Exception {
+                    public String apply(Integer integer) {
                         LogUtils.error(TAG, "rxJavaMapExample--Function--:" + Thread.currentThread().getName() + "--:" + integer);
                         return "this is from map " + integer;
                     }
@@ -112,7 +119,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
 //                .compose(RxLifeCycleUtils.<String>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<String>() {
                     @Override
-                    public void accept(String s) throws Exception {
+                    public void accept(String s) {
                         LogUtils.error(TAG, "rxJavaMapExample--Consumer--:" + Thread.currentThread().getName() + "--:" + s);
                     }
                 });
@@ -127,7 +134,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
         Observable.zip(model.getRxJavaCreateExampleData().subscribeOn(Schedulers.io()), model.getRxJavaStringData().subscribeOn(Schedulers.io())
                 , new BiFunction<Integer, String, String>() {
                     @Override
-                    public String apply(Integer integer, String s) throws Exception {
+                    public String apply(Integer integer, String s) {
                         LogUtils.error(TAG, "rxJavaZipExample--zip--:" + Thread.currentThread().getName() + "--:" + integer + "--:" + s);
                         return "this is zip method --:" + integer + "--:" + s;
                     }
@@ -135,7 +142,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<String>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<String>() {
                     @Override
-                    public void accept(String s) throws Exception {
+                    public void accept(String s) {
                         LogUtils.error(TAG, "rxJavaZipExample--Consumer--:" + Thread.currentThread().getName() + "--:" + s);
                     }
                 });
@@ -146,6 +153,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
     /**
      * RxJava语法-Concat练习
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void rxJavaConcatExample() {
         Observable.concat(model.getRxJavaCreateExampleData().subscribeOn(Schedulers.io()), model.getRxJavaStringData().subscribeOn(Schedulers.io()))
@@ -155,7 +163,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Serializable>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Serializable>() {
                     @Override
-                    public void accept(Serializable serializable) throws Exception {
+                    public void accept(Serializable serializable) {
                         LogUtils.error(TAG, "rxJavaConcatExample--Consumer--:" + Thread.currentThread().getName() + "--:" + serializable);
                     }
                 });
@@ -165,6 +173,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
     /**
      * RxJava语法-FlatMap练习
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void rxJavaFlatMapExample() {
         model.getRxJavaCreateExampleData()
@@ -172,7 +181,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .unsubscribeOn(Schedulers.io())
                 .flatMap(new Function<Integer, ObservableSource<String>>() {
                     @Override
-                    public ObservableSource<String> apply(Integer integer) throws Exception {
+                    public ObservableSource<String> apply(Integer integer) {
                         LogUtils.error(TAG, "rxJavaFlatMapExample--flatmap--:" + Thread.currentThread().getName() + "--:" + integer);
                         List<String> list = new ArrayList<>();
                         for (int i = 0; i < 3; i++) {
@@ -185,7 +194,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<String>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<String>() {
                     @Override
-                    public void accept(String s) throws Exception {
+                    public void accept(String s) {
                         LogUtils.error(TAG, "rxJavaFlatMapExample--Consumer--:" + Thread.currentThread().getName() + "--:" + s);
                     }
                 });
@@ -195,6 +204,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
     /**
      * RxJava语法-ConcatMap练习
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void rxJavaConcatMapExample() {
         model.getRxJavaCreateExampleData()
@@ -202,20 +212,21 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .unsubscribeOn(Schedulers.io())
                 .concatMap(new Function<Integer, ObservableSource<String>>() {
                     @Override
-                    public ObservableSource<String> apply(Integer integer) throws Exception {
+                    public ObservableSource<String> apply(Integer integer) {
                         LogUtils.error(TAG, "rxJavaConcatMapExample--concatMap--:" + Thread.currentThread().getName() + "--:" + integer);
                         List<String> list = new ArrayList<>();
                         for (int i = 0; i < 3; i++) {
                             list.add("this is ConcatMap--" + integer + "---i--:" + i);
                         }
                         long delayTime = 1 + (int) (10 * Math.random());
-                        return Observable.fromIterable(list).delay(delayTime, TimeUnit.SECONDS);//delay方法内部切换了线程
+                        //delay方法内部切换了线程
+                        return Observable.fromIterable(list).delay(delayTime, TimeUnit.SECONDS);
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifeCycleUtils.<String>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<String>() {
                     @Override
-                    public void accept(String s) throws Exception {
+                    public void accept(String s) {
                         LogUtils.error(TAG, "rxJavaConcatMapExample--Consumer--:" + Thread.currentThread().getName() + "--:" + s);
                     }
                 });
@@ -235,7 +246,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaDistinctExample--Consumer--:" + Thread.currentThread().getName() + "--:" + integer);
                     }
                 });
@@ -252,7 +263,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .unsubscribeOn(Schedulers.io())
                 .filter(new Predicate<Integer>() {
                     @Override
-                    public boolean test(Integer integer) throws Exception {
+                    public boolean test(Integer integer) {
                         LogUtils.error(TAG, "rxJavaFilterExample--filter--:" + Thread.currentThread().getName() + "--:" + integer);
                         return integer > 1;
                     }
@@ -260,7 +271,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaFilterExample--Consumer--:" + Thread.currentThread().getName() + "--:" + integer);
                     }
                 });
@@ -280,7 +291,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<List<Integer>>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<List<Integer>>() {
                     @Override
-                    public void accept(List<Integer> integers) throws Exception {
+                    public void accept(List<Integer> integers) {
                         LogUtils.error(TAG, "rxJavaBufferExample--Consumer--:" + Thread.currentThread().getName() + "--size:" + integers.size());
                         for (int integer : integers) {
                             LogUtils.error(TAG, "rxJavaBufferExample--Consumer--:" + Thread.currentThread().getName() + "--value:" + integer + "\n");
@@ -303,7 +314,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Long>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Long>() {
                     @Override
-                    public void accept(Long aLong) throws Exception {
+                    public void accept(Long aLong) {
                         LogUtils.error(TAG, "rxJavaTimeExample--end--:" + Thread.currentThread().getName() + "--:" + TimeUtils.getNowString() + "---long:" + aLong);
                     }
                 });
@@ -321,7 +332,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Long>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Long>() {
                     @Override
-                    public void accept(Long aLong) throws Exception {
+                    public void accept(Long aLong) {
                         LogUtils.error(TAG, "rxJavaIntervalExample--end--:" + Thread.currentThread().getName() + "--:" + TimeUtils.getNowString() + "---long:" + aLong);
                     }
                 });
@@ -338,32 +349,32 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .unsubscribeOn(Schedulers.io())
                 .doOnNext(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaDoOnNextExample--:" + Thread.currentThread().getName() + "-doOnNext-:" + integer);
                     }
                 })
                 .doAfterNext(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaDoOnNextExample--:" + Thread.currentThread().getName() + "-doAfterNext-:" + integer);
                     }
                 })
                 .doOnComplete(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
                         LogUtils.error(TAG, "rxJavaDoOnNextExample--:" + Thread.currentThread().getName() + "-doOnComplete-:");
                     }
                 })
                 .doFinally(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
                         LogUtils.error(TAG, "rxJavaDoOnNextExample--:" + Thread.currentThread().getName() + "-doFinally-:");
                     }
                 })
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaDoOnNextExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
@@ -383,7 +394,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaSkipExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
@@ -403,15 +414,15 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaTakeExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
 
     }
 
+    @SuppressLint("CheckResult")
     public void rxJavaSingleExample() {
-
         Single.just(1)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -440,6 +451,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
 
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void rxJavaDebounceExample() {
         model.getRxJavaDebounceData()
@@ -450,27 +462,28 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaDebounceExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
 
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void rxJavaDeferExample() {
         Observable.defer(new Callable<ObservableSource<?>>() {
             @Override
-            public ObservableSource<?> call() throws Exception {
+            public ObservableSource<?> call() {
                 return model.getRxJavaCreateExampleData();
             }
         }).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(RxLifeCycleUtils.<Object>bindUntilEvent(view, ActivityEvent.DESTROY))
+                .compose(RxLifeCycleUtils.bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Object>() {
                     @Override
-                    public void accept(Object o) throws Exception {
+                    public void accept(Object o) {
                         LogUtils.error(TAG, "rxJavaDeferExample--:" + Thread.currentThread().getName() + "-consumer-:" + o.toString());
                     }
                 });
@@ -487,7 +500,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaDeferExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
@@ -503,7 +516,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Serializable>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Serializable>() {
                     @Override
-                    public void accept(Serializable serializable) throws Exception {
+                    public void accept(Serializable serializable) {
                         LogUtils.error(TAG, "rxJavaMergeExample--:" + Thread.currentThread().getName() + "-consumer-:" + serializable);
                     }
                 });
@@ -517,7 +530,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .unsubscribeOn(Schedulers.io())
                 .reduce(new BiFunction<Integer, Integer, Integer>() {
                     @Override
-                    public Integer apply(Integer integer, Integer integer2) throws Exception {
+                    public Integer apply(Integer integer, Integer integer2) {
                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-reduce-:" + integer + "---" + integer2);
                         return integer + integer2;
                     }
@@ -525,7 +538,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
@@ -544,7 +557,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaRangeExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
@@ -561,7 +574,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaRepeatExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
@@ -575,7 +588,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .unsubscribeOn(Schedulers.io())
                 .scan(new BiFunction<Integer, Integer, Integer>() {
                     @Override
-                    public Integer apply(Integer integer, Integer integer2) throws Exception {
+                    public Integer apply(Integer integer, Integer integer2) {
                         LogUtils.error(TAG, "rxJavaScanExample--:" + Thread.currentThread().getName() + "-scan-:" + integer + "---" + integer2);
                         return integer + integer2;
                     }
@@ -583,7 +596,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer-:" + integer);
                     }
                 });
@@ -600,7 +613,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Observable<Integer>>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Observable<Integer>>() {
                     @Override
-                    public void accept(Observable<Integer> longObservable) throws Exception {
+                    public void accept(Observable<Integer> longObservable) {
                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer1-:");
                         longObservable.subscribeOn(Schedulers.io())
                                 .unsubscribeOn(Schedulers.io())
@@ -608,7 +621,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                                 .subscribe(new Consumer<Integer>() {
                                     @Override
-                                    public void accept(Integer integer) throws Exception {
+                                    public void accept(Integer integer) {
                                         LogUtils.error(TAG, "rxJavaReduceExample--:" + Thread.currentThread().getName() + "-consumer2-:" + integer);
                                     }
                                 });
@@ -626,14 +639,14 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaSchedulersExample--:" + Thread.currentThread().getName() + "-doOnNext-:" + integer);
                     }
                 })
                 .observeOn(Schedulers.newThread())
                 .filter(new Predicate<Integer>() {
                     @Override
-                    public boolean test(Integer integer) throws Exception {
+                    public boolean test(Integer integer) {
                         LogUtils.error(TAG, "rxJavaSchedulersExample--:" + Thread.currentThread().getName() + "-filter-:" + integer);
                         return integer > 2;
                     }
@@ -641,13 +654,14 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaSchedulersExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
 
     }
 
+    @SuppressLint("all")
     public void rxJavaFlowableCreateExample() {
         model.getRxJavaFlowableData()
                 .subscribeOn(Schedulers.io())
@@ -655,7 +669,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new FlowableSubscriber<Integer>() {
-                    Subscription subscription;
+                    // Subscription subscription;
 
                     @Override
                     public void onSubscribe(Subscription s) {
@@ -681,6 +695,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 });
     }
 
+    @SuppressLint("all")
     public void rxJavaFlowableSizeExample() {
         model.getRxJavaFlowableSizeData()
                 .subscribeOn(Schedulers.io())
@@ -715,6 +730,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 });
     }
 
+    @SuppressLint("all")
     public void rxJavaFlowableRealExample() {
         model.getRxJavaFlowableRealExample()
                 .subscribeOn(Schedulers.io())
@@ -754,7 +770,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Integer>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void accept(Integer integer) {
                         LogUtils.error(TAG, "rxJavaFlowableConsumeExample--:" + Thread.currentThread().getName() + "-Consumer-:" + integer);
                     }
                 });
@@ -771,7 +787,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifeCycleUtils.<MainDataBean>bindUntilEvent(view, ActivityEvent.DESTROY))
-                .subscribe(new CustomerSubscribe<MainDataBean>() {
+                .subscribe(new AbstractCustomerSubscribe<MainDataBean>() {
                     @Override
                     public void onNext(MainDataBean mainDataBean) {
                         LogUtils.error(TAG, "getMainData--:" + Thread.currentThread().getName() + "-onNext-:" + mainDataBean.toString());
@@ -795,7 +811,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
     /**
      * 测试retrofit 注解URL 使用方式
      *
-     * @param url
+     * @param url url地址
      */
     @SuppressLint("CheckResult")
     public void getUrlData(String url) {
@@ -806,7 +822,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<UrlRequestBean>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<UrlRequestBean>() {
                     @Override
-                    public void accept(UrlRequestBean urlRequestBeanResponse) throws Exception {
+                    public void accept(UrlRequestBean urlRequestBeanResponse) {
                         LogUtils.error(TAG, "---------getUrlData-----------" + urlRequestBeanResponse.toString());
                     }
                 });
@@ -825,7 +841,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<BannerBean>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<BannerBean>() {
                     @Override
-                    public void accept(BannerBean bannerBean) throws Exception {
+                    public void accept(BannerBean bannerBean) {
                         LogUtils.error(TAG, "---------getBanner-----------" + bannerBean.toString());
                     }
                 });
@@ -844,7 +860,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<Response<Void>>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<Response<Void>>() {
                     @Override
-                    public void accept(Response<Void> voidResponse) throws Exception {
+                    public void accept(Response<Void> voidResponse) {
                         LogUtils.error(TAG, "postRegister--:" + Thread.currentThread().getName() + "-Consumer-:" + voidResponse.toString());
                     }
                 });
@@ -864,7 +880,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<RegisterResponseBean>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<RegisterResponseBean>() {
                     @Override
-                    public void accept(RegisterResponseBean registerResponseBeanResponse) throws Exception {
+                    public void accept(RegisterResponseBean registerResponseBeanResponse) {
                         LogUtils.error(TAG, "postRegisterBy--:" + Thread.currentThread().getName() + "-Consumer-:" + registerResponseBeanResponse.toString());
                     }
                 });
@@ -883,7 +899,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<LoginResponseBean>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<LoginResponseBean>() {
                     @Override
-                    public void accept(LoginResponseBean response) throws Exception {
+                    public void accept(LoginResponseBean response) {
                         LogUtils.error(TAG, "postLogin--:" + Thread.currentThread().getName() + "-Consumer-:" + response.toString());
                     }
                 });
@@ -899,7 +915,7 @@ public class RxJavaPresenter extends BasePresenter<RxJavaContract.IRxJavaView, R
                 .compose(RxLifeCycleUtils.<LoginResponseBean>bindUntilEvent(view, ActivityEvent.DESTROY))
                 .subscribe(new Consumer<LoginResponseBean>() {
                     @Override
-                    public void accept(LoginResponseBean loginResponseBean) throws Exception {
+                    public void accept(LoginResponseBean loginResponseBean) {
                         LogUtils.error(TAG, "postLoginAgain--:" + Thread.currentThread().getName() + "-Consumer-:" + loginResponseBean.toString());
                     }
                 });

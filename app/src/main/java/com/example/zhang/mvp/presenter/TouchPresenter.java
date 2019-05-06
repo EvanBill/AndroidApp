@@ -4,6 +4,9 @@ import com.example.zhang.base.BasePresenter;
 import com.example.zhang.mvp.contract.TouchContract;
 import com.example.zhang.mvp.model.TouchModel;
 
+/**
+ * @author zzh
+ */
 public class TouchPresenter extends BasePresenter<TouchContract.ITouchView, TouchModel> {
     public TouchPresenter(TouchContract.ITouchView view) {
         super(view);

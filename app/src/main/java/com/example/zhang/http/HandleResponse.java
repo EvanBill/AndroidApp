@@ -1,5 +1,6 @@
 package com.example.zhang.http;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -18,11 +19,13 @@ import retrofit2.Response;
 
 
 /**
- * Created by Administrator on 2018/1/10.
+ * @author zzh
+ * @date 2018/1/10
  */
 
 public class HandleResponse {
     //对应HTTP的状态码
+
     private static final int SUCCESS_200 = 200;
     private static final int SUCCESS_201 = 201;
     private static final int SUCCESS_204 = 204;
@@ -35,6 +38,7 @@ public class HandleResponse {
     private static final int SERVICE_UNAVAILABLE = 503;
     private static final int GATEWAY_TIMEOUT = 504;
     //解析错误
+
     private static final int PARSE_ERROR = 1001;
     /**
      * 未知错误
@@ -49,13 +53,13 @@ public class HandleResponse {
     /**
      * 处理异常，统一封装返回结果
      *
-     * @param e
-     * @return
+     * @param e 异常信息
+     * @return ResponseBean
      */
-    public static ResponseBean handleException(Throwable e) {
+    static ResponseBean handleException(Throwable e) {
         ResponseBean responseBean = new ResponseBean();
-
-        if (e instanceof HttpException) {             //HTTP错误
+        //HTTP错误
+        if (e instanceof HttpException) {
             HttpException httpException = null;
             try {
                 httpException = (HttpException) e;
@@ -67,15 +71,12 @@ public class HandleResponse {
                 Log.e("HandleResponse", e.toString());
             }
             if (TextUtils.isEmpty(responseBean.getMessage())) {
-                switch (httpException.code()) {
-                    case NOT_FOUND:
-                        responseBean.setCustomCode(httpException.code());
-                        responseBean.setMessage("服务器竟然制障了");
-                        break;
-                    default: {
-                        responseBean.setCustomCode(httpException.code());
-                        responseBean.setMessage("网络竟然崩溃了");
-                    }
+                if (httpException.code() == NOT_FOUND) {
+                    responseBean.setCustomCode(httpException.code());
+                    responseBean.setMessage("服务器竟然制障了");
+                } else {
+                    responseBean.setCustomCode(httpException.code());
+                    responseBean.setMessage("网络竟然崩溃了");
                 }
             }
         } else if (e instanceof JsonParseException
@@ -98,10 +99,10 @@ public class HandleResponse {
     /**
      * 封装返回结果
      *
-     * @param response
-     * @return
+     * @param response HTTP响应
+     * @return ResponseBean 响应信息
      */
-    public static ResponseBean handleResponse(Response<Void> response) {
+    private static ResponseBean handleResponse(Response<Void> response) {
         ResponseBean responseBean = new ResponseBean();
         responseBean.setCustomCode(response.code());
         responseBean.setMessage("");
@@ -111,7 +112,7 @@ public class HandleResponse {
                 String str = responseBody.string();
                 if (!TextUtils.isEmpty(str)) {
                     Gson gson = new Gson();
-                    responseBean  = gson.fromJson(str, ResponseBean.class);
+                    responseBean = gson.fromJson(str, ResponseBean.class);
                 }
             }
 
@@ -127,8 +128,10 @@ public class HandleResponse {
     /**
      * 处理返回结果
      *
-     * @param e
+     * @param e                异常
+     * @param responseListener 响应监听
      */
+    @SuppressLint("all")
     public static void processException(Throwable e, ResponseListener responseListener) {
         ResponseBean responseBean = handleException(e);
         processResponse(responseBean, responseListener);
@@ -137,9 +140,10 @@ public class HandleResponse {
     /**
      * 处理返回结果
      *
-     * @param e
-     * @param responseErrorListener
+     * @param e                     异常
+     * @param responseErrorListener 错误响应监听
      */
+    @SuppressLint("all")
     public static void processException(Throwable e, ResponseErrorListener responseErrorListener) {
         ResponseBean responseBean = handleException(e);
         processResponse(responseBean, responseErrorListener);
@@ -148,8 +152,10 @@ public class HandleResponse {
     /**
      * 处理返回结果
      *
-     * @param response
+     * @param response         空响应
+     * @param responseListener 响应监听
      */
+    @SuppressLint("all")
     public static void processResponse(Response<Void> response, ResponseListener responseListener) {
         ResponseBean responseBean = handleResponse(response);
         processResponse(responseBean, responseListener);
@@ -158,8 +164,10 @@ public class HandleResponse {
     /**
      * 处理返回结果
      *
-     * @param response
+     * @param response              空响应
+     * @param responseErrorListener 错误响应监听
      */
+    @SuppressLint("all")
     public static void processResponse(Response<Void> response, ResponseErrorListener responseErrorListener) {
         ResponseBean responseBean = handleResponse(response);
         processResponse(responseBean, responseErrorListener);
@@ -168,9 +176,10 @@ public class HandleResponse {
     /**
      * 处理返回结果
      *
-     * @param responseBean
+     * @param responseBean     响应数据
+     * @param responseListener 响应监听
      */
-    public static void processResponse(ResponseBean responseBean, ResponseListener responseListener) {
+    private static void processResponse(ResponseBean responseBean, ResponseListener responseListener) {
         if (responseBean != null) {
             switch (responseBean.getCustomCode()) {
                 case SUCCESS_200:
@@ -189,9 +198,10 @@ public class HandleResponse {
     /**
      * 处理返回结果
      *
-     * @param responseErrorListener
+     * @param responseBean          响应数据
+     * @param responseErrorListener 错误响应监听
      */
-    public static void processResponse(ResponseBean responseBean, ResponseErrorListener responseErrorListener) {
+    private static void processResponse(ResponseBean responseBean, ResponseErrorListener responseErrorListener) {
         if (responseBean != null) {
             switch (responseBean.getCustomCode()) {
                 case SUCCESS_200:
@@ -207,12 +217,27 @@ public class HandleResponse {
     }
 
     public interface ResponseErrorListener {
+        /**
+         * 错误监听
+         *
+         * @param code 错误码
+         * @param msg  错误信息
+         */
         void onError(int code, String msg);
     }
 
     public interface ResponseListener {
+        /**
+         * 成功监听
+         */
         void onSuccess();
 
+        /**
+         * 错误监听
+         *
+         * @param code 错误码
+         * @param msg  错误信息
+         */
         void onError(int code, String msg);
     }
 

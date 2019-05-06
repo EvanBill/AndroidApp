@@ -1,38 +1,42 @@
 package com.example.zhang.http;
 
+import android.support.annotation.NonNull;
+
 /**
- * Created by Administrator on 2018/1/10.
+ * @author zzh
+ * @date 2018/1/10
  */
 
 public class ResponseBean {
 
-    public int customCode;
-    public String message;
+    private int customCode;
+    private String message;
 
-    public ResponseBean() {
+    ResponseBean() {
     }
 
-    public ResponseBean(int customCode, String message) {
+    ResponseBean(int customCode, String message) {
         this.customCode = customCode;
         this.message = message;
     }
 
-    public int getCustomCode() {
+    int getCustomCode() {
         return customCode;
     }
 
-    public void setCustomCode(int customCode) {
+    void setCustomCode(int customCode) {
         this.customCode = customCode;
     }
 
-    public String getMessage() {
+    String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    void setMessage(String message) {
         this.message = message;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "ResponseBean{" +

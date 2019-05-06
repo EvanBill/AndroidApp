@@ -14,11 +14,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @author zzh
+ */
 public class GlideActivity extends BaseActivity<GlidePresenter> implements GlideContract.IGlideView {
-    private static final String TAG = GlideActivity.class.getSimpleName();
-    private String url = "http://www.wanandroid.com/blogimgs/50c115c2-cf6c-4802-aa7b-a4334de444cd.png";
     @BindView(R.id.iv_glide)
-    ImageView iv_glide;
+    ImageView ivGlide;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class GlideActivity extends BaseActivity<GlidePresenter> implements Glide
 
     @OnClick(R.id.btn_glide_test)
     public void onClick() {
-//        Glide.with(this).load(url).into(iv_glide);
-        GlideApp.with(this).load(url).placeholder(R.mipmap.ic_launcher).circleCrop().into(iv_glide);
+        String url = "http://www.wanandroid.com/blogimgs/50c115c2-cf6c-4802-aa7b-a4334de444cd.png";
+        GlideApp.with(this).load(url).placeholder(R.mipmap.ic_launcher).circleCrop().into(ivGlide);
     }
 }

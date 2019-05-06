@@ -1,12 +1,19 @@
 package com.example.zhang.mvp.model.bean;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
+
+/**
+ * @author zzh
+ */
 
 public class MainDataBean {
     private DataBean data;
     private int errorCode;
     private String errorMsg;
 
+    @NonNull
     @Override
     public String toString() {
         return "MainDataBean{" +
@@ -49,6 +56,7 @@ public class MainDataBean {
         private int total;
         private List<DatasBean> datas;
 
+        @NonNull
         @Override
         public String toString() {
             return "DataBean{" +
@@ -143,6 +151,7 @@ public class MainDataBean {
             private int zan;
             private List<TagsBean> tags;
 
+            @NonNull
             @Override
             public String toString() {
                 return "DatasBean{" +

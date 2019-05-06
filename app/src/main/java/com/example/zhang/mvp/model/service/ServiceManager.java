@@ -1,5 +1,7 @@
 package com.example.zhang.mvp.model.service;
 
+import android.support.annotation.NonNull;
+
 import com.blankj.utilcode.util.NetworkUtils;
 import com.example.zhang.app.Constants;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -23,7 +25,15 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * @author zzh
+ */
 public class ServiceManager {
+    private final String GET = "GET";
+    private final String HEAD = "HEAD";
+    private final String POST = "POST";
+    private final String PATCH = "PATCH";
+    private final String PUT = "PUT";
     private static volatile ServiceManager instance;
     public Retrofit retrofit;
 
@@ -77,7 +87,7 @@ public class ServiceManager {
     /**
      * 获取HTTP 打印log的拦截器
      *
-     * @return
+     * @return HttpLoggingInterceptor
      */
     private HttpLoggingInterceptor getHttpLoggingInterceptor() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -88,12 +98,12 @@ public class ServiceManager {
     /**
      * 获取HTTP 添加header的拦截器
      *
-     * @return
+     * @return Interceptor
      */
     private Interceptor getHttpHeaderInterceptor() {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
                 Request request = chain.request();
                 request = request.newBuilder()
                         .addHeader("User-Agent", "Android")
@@ -108,15 +118,15 @@ public class ServiceManager {
      * 获取HTTP 添加公共参数的拦截器
      * 暂时支持get、head请求&Post put patch的表单数据请求
      *
-     * @return
+     * @return Interceptor
      */
     private Interceptor getHttpParamsInterceptor() {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
                 Request request = chain.request();
 
-                if (request.method().equalsIgnoreCase("GET") || request.method().equalsIgnoreCase("HEAD")) {
+                if (request.method().equalsIgnoreCase(GET) || request.method().equalsIgnoreCase(HEAD)) {
                     HttpUrl httpUrl = request.url().newBuilder()
                             .addQueryParameter("version", "1.1.0")
                             .addQueryParameter("devices", "android")
@@ -133,11 +143,11 @@ public class ServiceManager {
                         FormBody newFormBody = builder.addEncoded("version", "1.1.0")
                                 .addEncoded("devices", "android")
                                 .build();
-                        if (request.method().equalsIgnoreCase("POST")) {
+                        if (request.method().equalsIgnoreCase(POST)) {
                             request = request.newBuilder().post(newFormBody).build();
-                        } else if (request.method().equalsIgnoreCase("PATCH")) {
+                        } else if (request.method().equalsIgnoreCase(PATCH)) {
                             request = request.newBuilder().patch(newFormBody).build();
-                        } else if (request.method().equalsIgnoreCase("PUT")) {
+                        } else if (request.method().equalsIgnoreCase(PUT)) {
                             request = request.newBuilder().put(newFormBody).build();
                         }
 
@@ -154,12 +164,12 @@ public class ServiceManager {
     /**
      * 获得HTTP 缓存的拦截器
      *
-     * @return
+     * @return Interceptor
      */
-    public Interceptor getHttpCacheInterceptor() {
+    private Interceptor getHttpCacheInterceptor() {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
                 Request request = chain.request();
                 // 无网络时，始终使用本地Cache
                 if (!NetworkUtils.isConnected()) {

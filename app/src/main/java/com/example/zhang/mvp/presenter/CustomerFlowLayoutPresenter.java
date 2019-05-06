@@ -1,13 +1,16 @@
 package com.example.zhang.mvp.presenter;
 
 import com.example.zhang.base.BasePresenter;
-import com.example.zhang.http.CustomerSubscribe;
+import com.example.zhang.http.AbstractCustomerSubscribe;
 import com.example.zhang.mvp.contract.CustomerFlowLayoutContract;
 import com.example.zhang.mvp.model.CustomerFlowLayoutModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * @author zzh
+ */
 public class CustomerFlowLayoutPresenter extends BasePresenter<CustomerFlowLayoutContract.ICustomerFlowLayoutView, CustomerFlowLayoutModel> {
     public CustomerFlowLayoutPresenter(CustomerFlowLayoutContract.ICustomerFlowLayoutView view) {
         super(view);
@@ -18,7 +21,7 @@ public class CustomerFlowLayoutPresenter extends BasePresenter<CustomerFlowLayou
         model.getContent()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CustomerSubscribe<String>() {
+                .subscribe(new AbstractCustomerSubscribe<String>() {
                     @Override
                     public void onNext(String content) {
                         view.setContent(content);

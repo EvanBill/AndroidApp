@@ -5,10 +5,12 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by Administrator on 2018/1/10.
+ *
+ * @author zzh
+ * @date 2018/1/10
  */
 
-public abstract class CustomerSubscribe<T> implements Observer<T> {
+public abstract class AbstractCustomerSubscribe<T> implements Observer<T> {
     @Override
     public void onSubscribe(Disposable d) {
 

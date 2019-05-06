@@ -14,6 +14,9 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @author zzh
+ */
 public class RxLifeCycleActivity extends BaseActivity<RxLifeCyclePresenter> implements RxLifeCycleContract.IRxLifeCycleView {
     private RxLifeCyclePresenter presenter;
 

@@ -12,5 +12,8 @@
     <string name="str_back_press_info">再按一次，就退出应用了!</string>
     <string name="str_main_aidl">aidl</string>
     <string name="str_main_customer_flow_layout">customer flowLayout</string>
+    <string name="button1">button1</string>
+    <string name="button2">button2</string>
+    <string name="string_click">click</string>
 
 </resources>

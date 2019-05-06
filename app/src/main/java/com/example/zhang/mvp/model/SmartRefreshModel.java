@@ -10,6 +10,9 @@ import java.util.List;
 import io.reactivex.Observable;
 
 
+/**
+ * @author zzh
+ */
 public class SmartRefreshModel {
     public Observable<List<SmartRefreshBean>> getSmartRefreshData() {
         return ServiceManager.getInstance().retrofit.create(SmartRefreshService.class).getSmartRefreshData();

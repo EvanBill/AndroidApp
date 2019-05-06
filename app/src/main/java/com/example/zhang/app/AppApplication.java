@@ -1,7 +1,9 @@
 package com.example.zhang.app;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.Utils;
@@ -21,6 +23,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+/**
+ * @author zzh
+ */
 public class AppApplication extends Application {
     private static AppApplication instance;
 
@@ -28,18 +33,23 @@ public class AppApplication extends Application {
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+            @NonNull
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-                layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);//全局设置主题颜色
-//                return new ClassicsHeader(context)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+                //全局设置主题颜色
+                layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
+                //指定为经典Header，默认是 贝塞尔雷达Header
+//                return new ClassicsHeader(context)
+//                        .setTimeFormat(new DynamicTimeFormat("更新于 %s"));
 //                        .setTimeFormat(new SimpleDateFormat("上次更新 yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
                 return new MaterialHeader(instance);
             }
         });
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
+            @NonNull
             @Override
-            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
+            public RefreshFooter createRefreshFooter(@NonNull Context context, @NonNull RefreshLayout layout) {
                 //指定为经典Footer，默认是 BallPulseFooter
                 return new ClassicsFooter(context).setDrawableSize(20);
             }
@@ -56,9 +66,11 @@ public class AppApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        Utils.init(this);//AndroidUtils初始化
+        //AndroidUtils初始化
+        Utils.init(this);
         Stetho.initializeWithDefaults(this);
-        Bugly.init(instance, "9ebbf090a8", false);//测试阶段建议设置成true，发布时设置为false
+        //测试阶段建议设置成true，发布时设置为false
+        Bugly.init(instance, "9ebbf090a8", false);
         closeAndroidPDialog();
     }
 
@@ -69,16 +81,16 @@ public class AppApplication extends Application {
     /**
      * 在MIUI 10升级到 Android P 后 每次进入程序都会弹一个提醒弹窗
      */
-    private void closeAndroidPDialog(){
+    private void closeAndroidPDialog() {
         try {
-            Class aClass = Class.forName("android.content.pm.PackageParser$Package");
+            @SuppressLint("PrivateApi") Class aClass = Class.forName("android.content.pm.PackageParser$Package");
             Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);
             declaredConstructor.setAccessible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            Class cls = Class.forName("android.app.ActivityThread");
+            @SuppressLint("PrivateApi") Class cls = Class.forName("android.app.ActivityThread");
             Method declaredMethod = cls.getDeclaredMethod("currentActivityThread");
             declaredMethod.setAccessible(true);
             Object activityThread = declaredMethod.invoke(null);

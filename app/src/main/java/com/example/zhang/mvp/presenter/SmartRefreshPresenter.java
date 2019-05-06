@@ -1,7 +1,7 @@
 package com.example.zhang.mvp.presenter;
 
 import com.example.zhang.base.BasePresenter;
-import com.example.zhang.http.CustomerSubscribe;
+import com.example.zhang.http.AbstractCustomerSubscribe;
 import com.example.zhang.mvp.contract.SmartRefreshContract;
 import com.example.zhang.mvp.model.SmartRefreshModel;
 import com.example.zhang.mvp.model.bean.SmartRefreshBean;
@@ -14,6 +14,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * @author zzh
+ */
 public class SmartRefreshPresenter extends BasePresenter<SmartRefreshContract.ISmartRefreshView, SmartRefreshModel> {
     public SmartRefreshPresenter(SmartRefreshContract.ISmartRefreshView view) {
         super(view);
@@ -28,7 +31,7 @@ public class SmartRefreshPresenter extends BasePresenter<SmartRefreshContract.IS
                 .compose(RxLifeCycleUtils.<List<SmartRefreshBean>>bindToLifecycle(view))
                 .map(new Function<List<SmartRefreshBean>, List<SmartRefreshBean>>() {
                     @Override
-                    public List<SmartRefreshBean> apply(List<SmartRefreshBean> smartRefreshBeanList) throws Exception {
+                    public List<SmartRefreshBean> apply(List<SmartRefreshBean> smartRefreshBeanList) {
                         List<SmartRefreshBean> list = new ArrayList<>();
                         for (int i = 0; i < smartRefreshBeanList.size(); i++) {
                             if (i % 2 == 0) {
@@ -41,7 +44,7 @@ public class SmartRefreshPresenter extends BasePresenter<SmartRefreshContract.IS
                         return list;
                     }
                 })
-                .subscribe(new CustomerSubscribe<List<SmartRefreshBean>>() {
+                .subscribe(new AbstractCustomerSubscribe<List<SmartRefreshBean>>() {
                     @Override
                     public void onNext(List<SmartRefreshBean> smartRefreshBeans) {
                         view.showContent(smartRefreshBeans);

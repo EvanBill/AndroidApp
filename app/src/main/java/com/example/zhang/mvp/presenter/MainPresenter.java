@@ -2,6 +2,8 @@ package com.example.zhang.mvp.presenter;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.zhang.base.BasePresenter;
@@ -22,9 +24,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * @author zzh
+ */
 public class MainPresenter extends BasePresenter<MainContract.IMainView, MainModel> {
-    private String TAG = MainPresenter.class.getSimpleName();
-
+    private final String TAG = MainPresenter.class.getSimpleName();
 
     public MainPresenter(MainContract.IMainView view) {
         super(view);
@@ -32,7 +36,7 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
     }
 
 
-
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void getData() {
         model.getProductData()
@@ -57,6 +61,8 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
      * 当有一个拒绝时返回false
      */
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("CheckResult")
     public void checkPermissionsRequest(FragmentActivity activity) {
         RxPermissions permissions = new RxPermissions(activity);
@@ -65,7 +71,7 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void accept(Boolean aBoolean) throws Exception {
+                    public void accept(Boolean aBoolean) {
                         LogUtils.error(TAG, "checkPermission22--:" + aBoolean);
                     }
                 });
@@ -74,6 +80,8 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
     /**
      * 申请权限
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("CheckResult")
     public void checkPermissionsRequestEach(FragmentActivity activity) {
         RxPermissions permissions = new RxPermissions(activity);
@@ -82,14 +90,17 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR)
                 .subscribe(new Consumer<Permission>() {
                     @Override
-                    public void accept(Permission permission) throws Exception {
+                    public void accept(Permission permission) {
                         LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-permission-:" + permission.name + "---------------");
                         if (permission.name.equalsIgnoreCase(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                            if (permission.granted) {//同意后调用
+                            if (permission.granted) {
+                                //同意后调用
                                 LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_EXTERNAL_STORAGE-:" + true);
-                            } else if (permission.shouldShowRequestPermissionRationale) {//禁止，但没有选择“以后不再询问”，以后申请权限，会继续弹出提示
+                            } else if (permission.shouldShowRequestPermissionRationale) {
+                                //禁止，但没有选择“以后不再询问”，以后申请权限，会继续弹出提示
                                 LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_EXTERNAL_STORAGE-shouldShowRequestPermissionRationale:" + false);
-                            } else {//禁止，但选择“以后不再询问”，以后申请权限，不会继续弹出提示
+                            } else {
+                                //禁止，但选择“以后不再询问”，以后申请权限，不会继续弹出提示
                                 LogUtils.error(TAG, "checkPermissionRequestEach--:" + "-READ_EXTERNAL_STORAGE-:" + false);
                             }
                         }
@@ -115,6 +126,8 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
                 });
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("CheckResult")
     public void checkPermissionsRequestEachCombined(FragmentActivity activity) {
         RxPermissions permissions = new RxPermissions(activity);
@@ -123,19 +136,24 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR)
                 .subscribe(new Consumer<Permission>() {
                     @Override
-                    public void accept(Permission permission) throws Exception {
+                    public void accept(Permission permission) {
                         LogUtils.error(TAG, "checkPermissionRequestEachCombined--:" + "-permission-:" + permission.name + "---------------");
-                        if (permission.granted) {//全部同意后调用
+                        if (permission.granted) {
+                            //全部同意后调用
                             LogUtils.error(TAG, "checkPermissionRequestEachCombined--:" + "-READ_EXTERNAL_STORAGE-:" + true);
-                        } else if (permission.shouldShowRequestPermissionRationale) {//只要有一个选择：禁止，但没有选择“以后不再询问”，以后申请权限，会继续弹出提示
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            //只要有一个选择：禁止，但没有选择“以后不再询问”，以后申请权限，会继续弹出提示
                             LogUtils.error(TAG, "checkPermissionRequestEachCombined--:" + "-READ_EXTERNAL_STORAGE-shouldShowRequestPermissionRationale:" + false);
-                        } else {//只要有一个选择：禁止，但选择“以后不再询问”，以后申请权限，不会继续弹出提示
+                        } else {
+                            //只要有一个选择：禁止，但选择“以后不再询问”，以后申请权限，不会继续弹出提示
                             LogUtils.error(TAG, "checkPermissionRequestEachCombined--:" + "-READ_EXTERNAL_STORAGE-:" + false);
                         }
                     }
                 });
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("CheckResult")
     public void checkPermissionsEnsure(FragmentActivity activity) {
         final RxPermissions permissions = new RxPermissions(activity);
@@ -144,7 +162,7 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
                 .compose(permissions.ensure(Manifest.permission.READ_EXTERNAL_STORAGE))
                 .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void accept(Boolean aBoolean) throws Exception {
+                    public void accept(Boolean aBoolean) {
                         LogUtils.error(TAG, "checkPermissionsEnsure--:" + "-READ_EXTERNAL_STORAGE-:" + aBoolean);
                     }
                 });
@@ -153,6 +171,8 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
     /**
      * 检查权限
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("CheckResult")
     public void checkPermissionsEnsureEach(FragmentActivity activity) {
         final RxPermissions permissions = new RxPermissions(activity);
@@ -162,7 +182,7 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
                         Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR))
                 .subscribe(new Consumer<Permission>() {
                     @Override
-                    public void accept(Permission permission) throws Exception {
+                    public void accept(Permission permission) {
                         LogUtils.error(TAG, "checkPermissionsEnsureEach--:" + "-permission-:" + permission.name + "---------------");
                         if (permission.name.equalsIgnoreCase(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                             if (permission.granted) {
@@ -192,8 +212,9 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView, MainMod
     /**
      * 检查某个权限是否被申请
      *
-     * @param activity
+     * @param activity FragmentActivity
      */
+    @SuppressLint("CheckResult")
     public void checkPermissionsIsGranted(FragmentActivity activity) {
         RxPermissions permissions = new RxPermissions(activity);
         permissions.setLogging(true);

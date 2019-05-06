@@ -1,6 +1,12 @@
 package com.example.zhang.mvp.model.bean;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
+
+/**
+ * @author zzh
+ */
 
 public class BannerBean {
 
@@ -14,6 +20,7 @@ public class BannerBean {
     private String errorMsg;
     private List<DataBean> data;
 
+    @NonNull
     @Override
     public String toString() {
         return "BannerBean{" +
@@ -68,6 +75,11 @@ public class BannerBean {
         private int type;
         private String url;
 
+        public DataBean(String desc) {
+            this.desc = desc;
+        }
+
+        @NonNull
         @Override
         public String toString() {
             return "DataBean{" +
@@ -82,13 +94,6 @@ public class BannerBean {
                     '}';
         }
 
-        public String getDesc() {
-            return desc;
-        }
-
-        public void setDesc(String desc) {
-            this.desc = desc;
-        }
 
         public int getId() {
             return id;

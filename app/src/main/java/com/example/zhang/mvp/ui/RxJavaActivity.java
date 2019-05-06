@@ -11,6 +11,9 @@ import com.example.zhang.mvp.presenter.RxJavaPresenter;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @author zzh
+ */
 public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJavaContract.IRxJavaView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class RxJavaActivity extends BaseActivity<RxJavaPresenter> implements RxJ
 //        presenter.rxJavaSchedulersExample();
 //        presenter.rxJavaFlowableCreateExample();
 //        presenter.rxJavaFlowableSizeExample();
-//        presenter.rxJavaFlowableRealExample();
+//       presenter.rxJavaFlowableRealExample();
         presenter.rxJavaFlowableConsumeExample();
 //        presenter.getMainData(TimeUtils.getNowString(), 2);
 //        presenter.postRegisterBy("zzz123456", "123456", "123456");

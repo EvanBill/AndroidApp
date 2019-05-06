@@ -8,7 +8,7 @@
         android:id="@+id/btn_aidl_client"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="click" />
+        android:text="@string/string_click" />
 
     <TextView
         android:id="@+id/tv_aidl_client"
