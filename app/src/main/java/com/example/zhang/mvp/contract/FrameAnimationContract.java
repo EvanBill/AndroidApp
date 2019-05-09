@@ -11,7 +11,7 @@ public interface FrameAnimationContract {
     /**
      * 页面接口
      */
-    interface IFrameAnimationContractView extends BaseView {
+    interface IFrameAnimationView extends BaseView {
 
     }
 }

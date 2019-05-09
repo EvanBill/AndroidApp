@@ -9,6 +9,7 @@
     <string name="str_main_web_view">WebView实例</string>
     <string name="str_main_touch">touch实例</string>
     <string name="str_main_frame_animation">帧动画</string>
+    <string name="str_main_time_count_down">倒计时</string>
     <string name="str_test">测试</string>
     <string name="str_back_press_info">再按一次，就退出应用了!</string>
     <string name="str_main_aidl">aidl</string>
@@ -26,5 +27,8 @@
     <string name="str_flow_content_3">发了啥3</string>
     <string name="str_flow_content_4">发了啥444444444444444444444</string>
     <string name="str_flow_content_45">发了啥44445554</string>
+    <string name="str_start">开始</string>
+    <string name="str_stop">结束</string>
+    <string name="str_time_count_down">%1$d秒</string>
 
 </resources>

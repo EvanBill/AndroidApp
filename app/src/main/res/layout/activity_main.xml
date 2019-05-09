@@ -96,4 +96,12 @@
         app:layout_constraintTop_toBottomOf="@id/btn_main_touch"
         android:text="@string/str_main_frame_animation"
         android:textAllCaps="false" />
+    <Button
+        android:id="@+id/btn_main_time_count_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_frame_animation"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_touch"
+        android:text="@string/str_main_time_count_down"
+        android:textAllCaps="false" />
 </android.support.constraint.ConstraintLayout>

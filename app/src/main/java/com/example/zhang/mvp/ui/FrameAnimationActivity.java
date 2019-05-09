@@ -19,7 +19,7 @@ import butterknife.OnClick;
  * @date : 2019/5/9
  * @desc :帧动画
  */
-public class FrameAnimationActivity extends BaseActivity<FrameAnimationPresenter> implements FrameAnimationContract.IFrameAnimationContractView {
+public class FrameAnimationActivity extends BaseActivity<FrameAnimationPresenter> implements FrameAnimationContract.IFrameAnimationView {
     @BindView(R.id.iv_frame)
     ImageView ivFrame;
 

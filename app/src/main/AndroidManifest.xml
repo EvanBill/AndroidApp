@@ -76,6 +76,10 @@
             android:name=".mvp.ui.FrameAnimationActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.TimeCountDownActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:screenOrientation="portrait" />
 
     </application>
 

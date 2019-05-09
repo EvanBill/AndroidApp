@@ -14,10 +14,10 @@ import com.example.zhang.utils.FrameAnimationUtils;
  * @date : 2019/5/9
  * @desc :
  */
-public class FrameAnimationPresenter extends BasePresenter<FrameAnimationContract.IFrameAnimationContractView, FrameAnimationModel> {
+public class FrameAnimationPresenter extends BasePresenter<FrameAnimationContract.IFrameAnimationView, FrameAnimationModel> {
     private FrameAnimationUtils.FramesAnimation animation;
 
-    public FrameAnimationPresenter(FrameAnimationContract.IFrameAnimationContractView view) {
+    public FrameAnimationPresenter(FrameAnimationContract.IFrameAnimationView view) {
         super(view);
         model = new FrameAnimationModel();
     }
