@@ -73,6 +73,11 @@ dependencies {
     // Stetho
     implementation rootProject.ext.dependencies["stetho"]
     implementation rootProject.ext.dependencies["stetho-okhttp3"]
+    //视频录制
+    implementation 'com.otaliastudios:cameraview:2.0.0-beta04'
+
+    implementation 'androidx.lifecycle:lifecycle-common:2.2.0-alpha01'
+    implementation 'androidx.annotation:annotation:1.0.2'
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
