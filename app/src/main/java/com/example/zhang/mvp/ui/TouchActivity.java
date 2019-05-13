@@ -2,17 +2,20 @@ package com.example.zhang.mvp.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.annotation.Nullable;
+
 import com.example.zhang.R;
+import com.example.zhang.app.AppApplication;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.TouchContract;
 import com.example.zhang.mvp.presenter.TouchPresenter;
 import com.example.zhang.utils.LogUtils;
+import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +61,17 @@ public class TouchActivity extends BaseActivity<TouchPresenter> implements Touch
                 break;
             case R.id.button2:
                 LogUtils.debug(TAG, "button2");
+                new Thread("zhangsan111111111") {
+                    @Override
+                    public void run() {
+                        super.run();
+                        try {
+                            Thread.sleep(100000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
                 break;
             default:
                 break;

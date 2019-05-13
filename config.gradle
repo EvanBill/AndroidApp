@@ -16,7 +16,7 @@ ext {
             butterknife: "10.1.0",
             smart      : "1.0.5.1",
             glide      : "4.8.0",
-            leakcanary : "2.0-alpha-1",
+            leakcanary : "1.6.3",
     ]
 
     dependencies = [
@@ -81,5 +81,6 @@ ext {
             "blockcanary-android"            : "com.github.moduth:blockcanary-android:${dependVersion.blockcanary}",
             "blockcanary-no-op"              : "com.github.moduth:blockcanary-no-op:${dependVersion.blockcanary}",
             "leakcanary-android"             : "com.squareup.leakcanary:leakcanary-android:${dependVersion.leakcanary}",
+            "leakcanary-no-op"               : "com.squareup.leakcanary:leakcanary-android-no-op:${dependVersion.leakcanary}",
     ]
 }
