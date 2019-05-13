@@ -1,6 +1,6 @@
 package com.example.zhang.mvp.model.service;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.NetworkUtils;
 import com.example.zhang.app.Constants;

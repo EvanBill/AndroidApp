@@ -1,6 +1,6 @@
 package com.example.zhang.http;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * @author zzh

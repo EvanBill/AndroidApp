@@ -3,8 +3,8 @@ package com.example.zhang.mvp.presenter;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.zhang.base.BasePresenter;
 import com.example.zhang.mvp.contract.MainContract;

@@ -1,6 +1,6 @@
 package com.example.zhang.mvp.model.bean;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * @author zzh

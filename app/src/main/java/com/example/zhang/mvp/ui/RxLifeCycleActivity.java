@@ -2,7 +2,7 @@ package com.example.zhang.mvp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;

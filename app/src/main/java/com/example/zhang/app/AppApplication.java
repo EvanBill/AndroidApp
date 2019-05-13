@@ -3,8 +3,8 @@ package com.example.zhang.app;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.multidex.MultiDex;
+import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
 
 import com.blankj.utilcode.util.Utils;
 import com.example.zhang.R;

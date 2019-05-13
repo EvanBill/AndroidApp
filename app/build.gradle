@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 28
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
+        compileSdkVersion rootProject.ext.android.compileSdkVersion
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
             // 设置支持的SO库架构
@@ -22,7 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '28.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -74,14 +77,15 @@ dependencies {
     implementation rootProject.ext.dependencies["stetho"]
     implementation rootProject.ext.dependencies["stetho-okhttp3"]
     //视频录制
-    implementation 'com.otaliastudios:cameraview:2.0.0-beta04'
-
-    implementation 'androidx.lifecycle:lifecycle-common:2.2.0-alpha01'
-    implementation 'androidx.annotation:annotation:1.0.2'
+    implementation rootProject.ext.dependencies["cameraview"]
+    implementation rootProject.ext.dependencies["lifecycle"]
+    implementation rootProject.ext.dependencies["annotation"]
+    //内存泄漏
+    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
     //test
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
 }
 
