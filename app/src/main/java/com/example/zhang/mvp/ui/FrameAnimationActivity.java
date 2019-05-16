@@ -1,7 +1,9 @@
 package com.example.zhang.mvp.ui;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import android.view.View;
 import android.widget.ImageView;
 
@@ -36,5 +38,11 @@ public class FrameAnimationActivity extends BaseActivity<FrameAnimationPresenter
         if (v.getId() == R.id.btn_frame) {
             presenter.startFrameAnimation(this, ivFrame);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.stopFrameAnimation();
     }
 }

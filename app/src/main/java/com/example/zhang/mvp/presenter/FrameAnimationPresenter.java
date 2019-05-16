@@ -32,4 +32,13 @@ public class FrameAnimationPresenter extends BasePresenter<FrameAnimationContrac
         animation = FrameAnimationUtils.getInstance().createFramesAnimation(context, imageView, R.array.face_scan_anim, 66, false);
         animation.start();
     }
+
+    /**
+     * 停止动画
+     */
+    public void stopFrameAnimation() {
+        if (animation != null) {
+            animation.stop();
+        }
+    }
 }
