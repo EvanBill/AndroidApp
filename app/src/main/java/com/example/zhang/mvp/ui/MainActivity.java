@@ -32,6 +32,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
         presenter = new MainPresenter(this);
 //        StringLogUtils.Companion.logString();
     }
