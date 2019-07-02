@@ -86,7 +86,10 @@
             android:name=".mvp.ui.VideoRecordingActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".mvp.ui.EventBusActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-        defaultConfig {
+    defaultConfig {
         applicationId rootProject.ext.android.applicationId
         compileSdkVersion rootProject.ext.android.compileSdkVersion
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -82,7 +82,7 @@ dependencies {
     implementation rootProject.ext.dependencies["annotation"]
     //内存泄漏
     debugImplementation rootProject.ext.dependencies["leakcanary-android"]
-    releaseImplementation  rootProject.ext.dependencies["leakcanary-no-op"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

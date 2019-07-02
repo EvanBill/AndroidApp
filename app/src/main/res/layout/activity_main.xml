@@ -112,4 +112,22 @@
         app:layout_constraintTop_toBottomOf="@id/btn_main_touch"
         android:text="@string/str_main_video_recording"
         android:textAllCaps="false" />
+    <Button
+        android:id="@+id/btn_main_event_bus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_video_recording"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_touch"
+        android:text="@string/str_main_event_bus"
+        android:textAllCaps="false" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+     >
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
