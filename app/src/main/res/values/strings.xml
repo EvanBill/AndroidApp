@@ -12,6 +12,7 @@
     <string name="str_main_time_count_down">倒计时</string>
     <string name="str_main_video_recording">视频录制</string>
     <string name="str_main_event_bus">event bus</string>
+    <string name="str_main_file_provider">file provider</string>
     <string name="str_test">测试</string>
     <string name="str_back_press_info">再按一次，就退出应用了!</string>
     <string name="str_main_aidl">aidl</string>

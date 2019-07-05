@@ -32,7 +32,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation rootProject.ext.dependencies["support-v4"]
-    implementation rootProject.ext.dependencies["support-v13"]
+    implementation rootProject.ext.dependencies["androidx-support-v4"]
+    implementation rootProject.ext.dependencies["androidx-support-v13"]
     implementation rootProject.ext.dependencies["support-annotations"]
     //UI
     implementation rootProject.ext.dependencies["appcompat-v7"]

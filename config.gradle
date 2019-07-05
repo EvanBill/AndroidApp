@@ -10,25 +10,28 @@ ext {
 
     ]
     def dependVersion = [
-            support    : "1.0.0",
-            retrofit   : "2.4.0",
-            okhttp     : "3.11.0",
-            butterknife: "10.1.0",
-            smart      : "1.0.5.1",
-            glide      : "4.8.0",
-            leakcanary : "1.6.3",
+            support        : "28.0.0",
+            supportAndroidx: "1.0.0",
+            retrofit       : "2.4.0",
+            okhttp         : "3.11.0",
+            butterknife    : "10.1.0",
+            smart          : "1.0.5.1",
+            glide          : "4.8.0",
+            leakcanary     : "1.6.3",
     ]
 
     dependencies = [
             //base
-            "support-v4"                     : "androidx.legacy:legacy-support-v4:${dependVersion.support}",
-            "support-v13"                    : "androidx.legacy:legacy-support-v13:${dependVersion.support}",
-            "support-annotations"            : "androidx.annotation:annotation:${dependVersion.support}",
 
-            "appcompat-v7"                   : "androidx.appcompat:appcompat:${dependVersion.support}",
-            "cardview-v7"                    : "androidx.cardview:cardview-v7:${dependVersion.support}",
-            "recyclerview-v7"                : "androidx.recyclerview:recyclerview:${dependVersion.support}",
-            "design"                         : "com.google.android.material:material:${dependVersion.support}",
+            "support-v4"                     : "com.android.support:support-v4:${dependVersion.support}",
+            "androidx-support-v4"            : "androidx.legacy:legacy-support-v4:${dependVersion.supportAndroidx}",
+            "androidx-support-v13"           : "androidx.legacy:legacy-support-v13:${dependVersion.supportAndroidx}",
+            "support-annotations"            : "androidx.annotation:annotation:${dependVersion.supportAndroidx}",
+
+            "appcompat-v7"                   : "androidx.appcompat:appcompat:${dependVersion.supportAndroidx}",
+            "cardview-v7"                    : "androidx.cardview:cardview-v7:${dependVersion.supportAndroidx}",
+            "recyclerview-v7"                : "androidx.recyclerview:recyclerview:${dependVersion.supportAndroidx}",
+            "design"                         : "com.google.android.material:material:${dependVersion.supportAndroidx}",
 
             //ui
             "constraint"                     : 'androidx.constraintlayout:constraintlayout:1.1.3',
