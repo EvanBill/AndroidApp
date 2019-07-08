@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <paths>
-        <external-path path="" name="camera_photos" />
-    </paths>
-</resources>
+
+<paths>
+    <external-path
+        name="external"
+        path="camera_photos" />
+</paths>

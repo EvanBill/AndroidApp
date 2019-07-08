@@ -10,4 +10,11 @@
         android:layout_height="wrap_content"
         android:text="点击" />
 
+    <ImageView
+        android:id="@+id/iv_file_provider"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop" />
+
 </LinearLayout>
