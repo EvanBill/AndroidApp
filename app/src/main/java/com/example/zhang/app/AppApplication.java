@@ -18,8 +18,6 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 
 import java.lang.reflect.Constructor;
@@ -32,8 +30,6 @@ import java.lang.reflect.Method;
 
 public class AppApplication extends Application {
     private static AppApplication instance;
-    private RefWatcher refWatcher;
-
     //static 代码段可以防止内存泄露
     static {
         //设置全局的Header构建器
@@ -79,7 +75,6 @@ public class AppApplication extends Application {
         //测试阶段建议设置成true，发布时设置为false
         Bugly.init(instance, "9ebbf090a8", false);
         closeAndroidPDialog();
-        refWatcher = setUpLeakCanary();
     }
 
     public static AppApplication getInstance() {
@@ -109,23 +104,6 @@ public class AppApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private RefWatcher setUpLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return RefWatcher.DISABLED;
-        }
-        return LeakCanary.install(this);
-    }
-
-    /**
-     * 获得检测对象工具
-     *
-     * @param context 上下文
-     */
-    public static RefWatcher getRefWatcher(Context context) {
-        AppApplication leakApplication = (AppApplication) context.getApplicationContext();
-        return leakApplication.refWatcher;
     }
 
 }

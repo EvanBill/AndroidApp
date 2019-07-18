@@ -10,12 +10,10 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 
 import com.example.zhang.R;
-import com.example.zhang.app.AppApplication;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.TouchContract;
 import com.example.zhang.mvp.presenter.TouchPresenter;
 import com.example.zhang.utils.LogUtils;
-import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

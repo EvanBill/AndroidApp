@@ -89,7 +89,7 @@ dependencies {
     implementation rootProject.ext.dependencies["annotation"]
     //内存泄漏
     debugImplementation rootProject.ext.dependencies["leakcanary-android"]
-    releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]
+    releaseImplementation  rootProject.ext.dependencies["leaksentry"]
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
