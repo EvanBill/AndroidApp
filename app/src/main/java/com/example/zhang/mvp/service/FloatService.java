@@ -23,7 +23,7 @@ public class FloatService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtils.error(TAT, "onStartCommand");
-        return super.onStartCommand(intent, flags, startId);
+        return START_REDELIVER_INTENT;
 
     }
 

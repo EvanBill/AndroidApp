@@ -9,6 +9,7 @@ import androidx.multidex.MultiDex;
 
 import com.blankj.utilcode.util.Utils;
 import com.example.zhang.R;
+import com.example.zhang.utils.LeakCanaryUtil;
 import com.facebook.stetho.Stetho;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -30,6 +31,7 @@ import java.lang.reflect.Method;
 
 public class AppApplication extends Application {
     private static AppApplication instance;
+
     //static 代码段可以防止内存泄露
     static {
         //设置全局的Header构建器

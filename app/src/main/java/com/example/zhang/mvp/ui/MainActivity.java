@@ -13,7 +13,6 @@ import com.example.zhang.client.AidlClientActivity;
 import com.example.zhang.mvp.contract.MainContract;
 import com.example.zhang.mvp.model.bean.ProductBean;
 import com.example.zhang.mvp.presenter.MainPresenter;
-import com.example.zhang.utils.StringLogUtils;
 
 import java.util.List;
 
@@ -25,6 +24,7 @@ import butterknife.OnClick;
  * @author zzh
  */
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.IMainView {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private long backTime = 0;
 
     @Override

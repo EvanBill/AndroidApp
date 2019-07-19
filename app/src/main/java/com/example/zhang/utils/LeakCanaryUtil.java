@@ -1,7 +1,5 @@
 package com.example.zhang.utils;
 
-import com.example.zhang.mvp.ui.MainActivity;
-
 import leakcanary.LeakSentry;
 import leakcanary.RefWatcher;
 
@@ -13,8 +11,18 @@ public class LeakCanaryUtil {
         return LeakSentry.INSTANCE.getRefWatcher();
     }
 
-    public static void setLeakCanary() {
-//        LeakSentry.config = LeakSentry.config.copy(watchFragmentViews = false)
+    /**
+     * 设置默认配置--检测内存泄漏
+     */
+    public static void setLeakSentryConfig() {
         LeakSentry.INSTANCE.getConfig().copy(true, true, true, true, 100);
     }
+
+    /**
+     * 设置默认配置-检测堆信息
+     */
+    public static void setLeakCanaryConfig() {
+//        LeakCanary.INSTANCE.getConfig().copy()
+    }
+
 }
