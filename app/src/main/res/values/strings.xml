@@ -34,7 +34,7 @@
     <string name="str_start">开始</string>
     <string name="str_stop">结束</string>
     <string name="str_time_count_down">%1$d秒</string>
-    <string name="str_main">主页</string>
+    <string name="str_video">主页</string>
     <string name="str_image">照片</string>
     <string name="str_tools">工具</string>
     <string name="str_setting">设置</string>
