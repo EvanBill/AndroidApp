@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/btn_main_rxJava"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_rxJava"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_main_lifecycle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_toEndOf="@id/btn_main_rxJava"
+        android:layout_toRightOf="@id/btn_main_rxJava"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_rxLifecycle"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_rxJava"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_main_permissions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_permission"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_lifecycle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_main_glide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_glide"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxJava" />
+
+    <TextView
+        android:id="@+id/btn_main_smart_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_smart_refresh"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_glide"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxJava" />
+
+    <TextView
+        android:id="@+id/btn_main_web_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_web_view"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_smart_refresh"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_rxJava" />
+
+    <TextView
+        android:id="@+id/btn_main_touch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_touch"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_glide" />
+
+    <TextView
+        android:id="@+id/btn_main_aidl_client"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_aidl"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_touch"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_glide" />
+
+    <TextView
+        android:id="@+id/btn_main_customer_flow_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_customer_flow_layout"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_aidl_client"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_glide" />
+
+    <TextView
+        android:id="@+id/btn_main_frame_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_frame_animation"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_touch" />
+
+    <TextView
+        android:id="@+id/btn_main_time_count_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_time_count_down"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_frame_animation"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_touch" />
+
+    <TextView
+        android:id="@+id/btn_main_video_recording"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_video_recording"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_time_count_down"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_touch" />
+
+    <TextView
+        android:id="@+id/btn_main_event_bus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_event_bus"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_video_recording"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_touch" />
+
+    <TextView
+        android:id="@+id/btn_main_file_provider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_file_provider"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_time_count_down" />
+
+    <TextView
+        android:id="@+id/btn_main_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_service"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_file_provider"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_time_count_down" />
+</androidx.constraintlayout.widget.ConstraintLayout>

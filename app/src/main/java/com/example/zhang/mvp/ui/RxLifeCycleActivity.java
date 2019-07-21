@@ -2,12 +2,14 @@ package com.example.zhang.mvp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 
 import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.RxLifeCycleContract;
 import com.example.zhang.mvp.presenter.RxLifeCyclePresenter;
+import com.example.zhang.utils.IntentUtils;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import butterknife.ButterKnife;
@@ -37,8 +39,7 @@ public class RxLifeCycleActivity extends BaseActivity<RxLifeCyclePresenter> impl
 
     @OnClick(R.id.btn_rxLifecycle_click)
     public void onClick() {
-        Intent intent = new Intent(this, PermissionsActivity.class);
-        startActivity(intent);
+        IntentUtils.startPermissionsActivity(this);
     }
 
     @Override
