@@ -2,6 +2,7 @@ package com.example.zhang.mvp.ui;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -37,6 +38,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private static final String TAG = MainActivity.class.getSimpleName();
     private long backTime = 0;
     private Fragment currentFragment;
+    @BindView(R.id.iv_main_navigation_video)
+    ImageView iv_main_navigation_video;
+    @BindView(R.id.iv_main_navigation_image)
+    ImageView iv_main_navigation_image;
+    @BindView(R.id.iv_main_navigation_tools)
+    ImageView iv_main_navigation_tools;
+    @BindView(R.id.iv_main_navigation_setting)
+    ImageView iv_main_navigation_setting;
     @BindView(R.id.tv_main_navigation_video)
     TextView tv_main_navigation_video;
     @BindView(R.id.tv_main_navigation_image)
@@ -55,6 +64,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         presenter = new MainPresenter(this);
 //        StringLogUtils.Companion.logString();
         showFragment(0);
+        setNavigationSelect(0);
     }
 
 
@@ -68,22 +78,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_activity_video_list:
-                if (showFragment(0)){
+                if (showFragment(0)) {
                     setNavigationSelect(0);
                 }
                 break;
             case R.id.ll_activity_image_list:
-                if (showFragment(1)){
+                if (showFragment(1)) {
                     setNavigationSelect(1);
                 }
                 break;
             case R.id.ll_activity_tools:
-                if (showFragment(2)){
+                if (showFragment(2)) {
                     setNavigationSelect(2);
                 }
                 break;
             case R.id.ll_activity_setting:
-                if (showFragment(3)){
+                if (showFragment(3)) {
                     setNavigationSelect(3);
                 }
                 break;
@@ -164,24 +174,40 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private void setNavigationSelect(int position) {
         switch (position) {
             case 0:
+                iv_main_navigation_video.setSelected(true);
+                iv_main_navigation_image.setSelected(false);
+                iv_main_navigation_tools.setSelected(false);
+                iv_main_navigation_setting.setSelected(false);
                 tv_main_navigation_video.setTextColor(ContextCompat.getColor(this, R.color.color_theme));
                 tv_main_navigation_image.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 tv_main_navigation_tools.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 tv_main_navigation_setting.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 break;
             case 1:
+                iv_main_navigation_video.setSelected(false);
+                iv_main_navigation_image.setSelected(true);
+                iv_main_navigation_tools.setSelected(false);
+                iv_main_navigation_setting.setSelected(false);
                 tv_main_navigation_video.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 tv_main_navigation_image.setTextColor(ContextCompat.getColor(this, R.color.color_theme));
                 tv_main_navigation_tools.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 tv_main_navigation_setting.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 break;
             case 2:
+                iv_main_navigation_video.setSelected(false);
+                iv_main_navigation_image.setSelected(false);
+                iv_main_navigation_tools.setSelected(true);
+                iv_main_navigation_setting.setSelected(false);
                 tv_main_navigation_video.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 tv_main_navigation_image.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 tv_main_navigation_tools.setTextColor(ContextCompat.getColor(this, R.color.color_theme));
                 tv_main_navigation_setting.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 break;
             case 3:
+                iv_main_navigation_video.setSelected(false);
+                iv_main_navigation_image.setSelected(false);
+                iv_main_navigation_tools.setSelected(false);
+                iv_main_navigation_setting.setSelected(true);
                 tv_main_navigation_video.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 tv_main_navigation_image.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
                 tv_main_navigation_tools.setTextColor(ContextCompat.getColor(this, R.color.color_navigation_text));
