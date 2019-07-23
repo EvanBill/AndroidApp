@@ -15,4 +15,10 @@ public class Constants {
      * http://www.wanandroid.com/
      */
     public static final String HOST = "http://baobab.kaiyanapp.com/api/";
+    /**********************************Intent action start*******************************************/
+    /**
+     * Intent-action-创建notification
+     */
+    public static final String INTENT_ACTION_CREATE_NOTIFICATION = "intent_action_create_notification";
+    /**********************************Intent action end*******************************************/
 }
