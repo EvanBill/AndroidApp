@@ -30,14 +30,13 @@ public class FloatService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtils.error(TAT, "onStartCommand");
-        if (intent!=null){
+        if (intent != null) {
             String action = intent.getAction();
-            if (!TextUtils.isEmpty(action)){
+            if (!TextUtils.isEmpty(action)) {
                 switch (action) {
                     case Constants.INTENT_ACTION_CREATE_NOTIFICATION:
-                        Notification channelId_1 = NotificationUtils.getCommonNotification(getApplicationContext(), "channelId_1");
-                        NotificationManagerCompat.from(getApplicationContext());
-
+                        Notification channelId_1 = NotificationUtils.getInstance().getCommonNotification("channelId_1");
+                        this.startForeground(NotificationUtils.NOTIFICATION_ID, channelId_1);
                         break;
                 }
             }
