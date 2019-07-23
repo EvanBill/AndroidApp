@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.example.zhang.app.Constants;
 import com.example.zhang.client.AidlClientActivity;
 import com.example.zhang.mvp.service.FloatService;
 import com.example.zhang.mvp.ui.CustomerFlowLayoutActivity;
@@ -197,6 +198,7 @@ public class IntentUtils {
     public static void startFloatService(Context context) {
         Intent intent = new Intent(context, FloatService.class);
 //        ContextCompat.startForegroundService(this,intent);
+        intent.setAction(Constants.INTENT_ACTION_CREATE_NOTIFICATION);
         context.startService(intent);
     }
 
