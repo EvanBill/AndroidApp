@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.text.TextUtils;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
 import com.example.zhang.app.Constants;
 import com.example.zhang.utils.LogUtils;
 import com.example.zhang.utils.NotificationUtils;
@@ -34,9 +31,13 @@ public class FloatService extends Service {
             String action = intent.getAction();
             if (!TextUtils.isEmpty(action)) {
                 switch (action) {
-                    case Constants.INTENT_ACTION_CREATE_NOTIFICATION:
-                        Notification channelId_1 = NotificationUtils.getInstance().getCommonNotification("channelId_1");
-                        this.startForeground(NotificationUtils.NOTIFICATION_ID, channelId_1);
+                    case Constants.INTENT_ACTION_NOTIFICATION_CREATE:
+                        Notification notification = NotificationUtils.getInstance().getDefaultChannelNotification();
+                        this.startForeground(NotificationUtils.NOTIFICATION_ID, notification);
+                        break;
+                    case Constants.INTENT_ACTION_NOTIFICATION_UPDATE:
+                        Notification notification_update = NotificationUtils.getInstance().getDefaultChannelNotification("999");
+                        NotificationUtils.getInstance().updateNotification(NotificationUtils.NOTIFICATION_ID, notification_update);
                         break;
                 }
             }

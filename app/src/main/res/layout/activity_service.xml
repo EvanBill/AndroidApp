@@ -9,4 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/str_start" />
+
+    <Button
+        android:id="@+id/btn_service_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_update" />
 </LinearLayout>

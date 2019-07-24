@@ -6,7 +6,6 @@ import android.view.View;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseSimpleActivity;
 import com.example.zhang.utils.IntentUtils;
-import com.example.zhang.utils.LogUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,11 +19,19 @@ public class ServiceActivity extends BaseSimpleActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_service_start})
+    @OnClick({R.id.btn_service_start, R.id.btn_service_update})
     public void onClick(View view) {
-        if (R.id.btn_service_start == view.getId()) {
-            LogUtils.error("ddd", "onCreate");
-            IntentUtils.startFloatService(this);
+        switch (view.getId()) {
+            //创建服务，并创建notification
+            case R.id.btn_service_start:
+                IntentUtils.startFloatService(this);
+                break;
+            //更新notification
+            case R.id.btn_service_update:
+             IntentUtils.startFloatServiceForUpdateNotification(this);
+                break;
+            default:
+                break;
         }
     }
 

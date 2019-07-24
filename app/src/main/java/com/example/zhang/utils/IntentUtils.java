@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.zhang.app.Constants;
 import com.example.zhang.client.AidlClientActivity;
 import com.example.zhang.mvp.service.FloatService;
@@ -191,16 +193,28 @@ public class IntentUtils {
     }
 
     /**
-     * 开启FloatService
+     * 开启FloatService 并创建notification
      *
      * @param context
      */
     public static void startFloatService(Context context) {
         Intent intent = new Intent(context, FloatService.class);
-//        ContextCompat.startForegroundService(this,intent);
-        intent.setAction(Constants.INTENT_ACTION_CREATE_NOTIFICATION);
-        context.startService(intent);
+        intent.setAction(Constants.INTENT_ACTION_NOTIFICATION_CREATE);
+        ContextCompat.startForegroundService(context, intent);
+//        context.startService(intent);
     }
+
+    /**
+     * 更新通知
+     *
+     * @param context
+     */
+    public static void startFloatServiceForUpdateNotification(Context context) {
+        Intent intent = new Intent(context, FloatService.class);
+        intent.setAction(Constants.INTENT_ACTION_NOTIFICATION_UPDATE);
+        ContextCompat.startForegroundService(context, intent);
+    }
+
 
     /**
      * 开启系统照相机

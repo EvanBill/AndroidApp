@@ -32,10 +32,15 @@
     <string name="str_flow_content_4">发了啥444444444444444444444</string>
     <string name="str_flow_content_45">发了啥44445554</string>
     <string name="str_start">开始</string>
+    <string name="str_update">更新</string>
     <string name="str_stop">结束</string>
     <string name="str_time_count_down">%1$d秒</string>
     <string name="str_video">主页</string>
     <string name="str_image">照片</string>
     <string name="str_tools">工具</string>
     <string name="str_setting">设置</string>
+    /********************************** Notification start ****************************************/
+    <string name="str_notification_title">MyApp准备就绪</string>
+    <string name="str_notification_content_start">点击开始录制</string>
+    /********************************** Notification end ****************************************/
 </resources>

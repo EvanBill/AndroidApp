@@ -77,6 +77,7 @@ public class AppApplication extends Application {
         //测试阶段建议设置成true，发布时设置为false
         Bugly.init(instance, "9ebbf090a8", false);
         closeAndroidPDialog();
+        LeakCanaryUtil.setLeakSentryConfig(false);
     }
 
     public static AppApplication getInstance() {

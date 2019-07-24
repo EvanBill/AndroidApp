@@ -19,6 +19,10 @@ public class Constants {
     /**
      * Intent-action-创建notification
      */
-    public static final String INTENT_ACTION_CREATE_NOTIFICATION = "intent_action_create_notification";
+    public static final String INTENT_ACTION_NOTIFICATION_CREATE = "intent_action_notification_create";
+    /**
+     * Intent-action-更新notification
+     */
+    public static final String INTENT_ACTION_NOTIFICATION_UPDATE = "intent_action_notification_update";
     /**********************************Intent action end*******************************************/
 }
