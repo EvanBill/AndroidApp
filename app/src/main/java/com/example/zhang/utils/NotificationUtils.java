@@ -8,6 +8,7 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.zhang.BuildConfig;
 import com.example.zhang.R;
@@ -55,6 +56,16 @@ public class NotificationUtils {
             notificationChannel.enableVibration(true);
             // 设置显示模式
             notificationChannel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            // 开启指示灯，如果设备有的话
+            notificationChannel.enableLights(true);
+            // 设置指示灯颜色
+            notificationChannel.setLightColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            // 是否在久按桌面图标时显示此渠道的通知
+            notificationChannel.setShowBadge(true);
+            // 设置是否应在锁定屏幕上显示此频道的通知
+            notificationChannel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PRIVATE);
+            // 设置绕过免打扰模式
+            notificationChannel.setBypassDnd(true);
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(notificationChannel);
