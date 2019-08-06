@@ -1,4 +1,4 @@
-package com.example.zhang.mvp.ui;
+package com.example.zhang.mvp.ui.activity;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -14,6 +14,7 @@ import com.example.zhang.R;
 import com.example.zhang.base.BaseActivity;
 import com.example.zhang.mvp.contract.PermissionsContract;
 import com.example.zhang.mvp.presenter.PermissionsPresenter;
+
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -1,4 +1,4 @@
-package com.example.zhang.mvp.ui;
+package com.example.zhang.mvp.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

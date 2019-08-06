@@ -2,58 +2,42 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <padding
-                android:top="2px" />
+            <padding android:top="2px" />
             <solid android:color="#0DCCCCCC" />
-
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <padding
-                android:top="2px" />
+            <padding android:top="2px" />
             <solid android:color="#10CCCCCC" />
 
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <padding
-                android:top="2px" />
+            <padding android:top="2px" />
             <solid android:color="#15CCCCCC" />
 
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <padding
-                android:top="2px" />
+            <padding android:top="2px" />
             <solid android:color="#20CCCCCC" />
 
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <padding
-                android:top="2px" />
+            <padding android:top="2px" />
             <solid android:color="#30CCCCCC" />
 
         </shape>
     </item>
     <item>
+        <!--     <padding android:top="2px" /> 值 取最大的-->
         <shape android:shape="rectangle">
-            <solid android:color="#14898989" />
-
-            <padding
-                android:top="2px" />
-        </shape>
-    </item>
-    <item>
-        <shape android:shape="rectangle">
-
             <solid android:color="#FFFFFF" />
-            <padding
-                android:top="3px" />
         </shape>
     </item>
 </layer-list>

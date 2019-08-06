@@ -7,4 +7,5 @@
     <color name="color_navigation_text">#131314</color>
     <color name="colorGray">#C9C9C9</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorRipple">#24000000</color>
 </resources>

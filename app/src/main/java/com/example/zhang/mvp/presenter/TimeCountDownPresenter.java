@@ -5,7 +5,7 @@ import android.os.CountDownTimer;
 import com.example.zhang.base.BasePresenter;
 import com.example.zhang.mvp.contract.TimeCountDownContract;
 import com.example.zhang.mvp.model.TimeCountDownModel;
-import com.example.zhang.mvp.ui.TimeCountDownActivity;
+import com.example.zhang.mvp.ui.activity.TimeCountDownActivity;
 
 /**
  * @author : zzh

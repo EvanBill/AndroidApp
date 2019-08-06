@@ -13,7 +13,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
+    <!--谷歌商店应用内购买结算需要的权限-->
+    <uses-permission android:name="com.android.vending.BILLING" />
     <application
         android:name=".app.AppApplication"
         android:allowBackup="false"
@@ -24,7 +25,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".mvp.ui.SplashActivity"
+            android:name=".mvp.ui.activity.SplashActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme">
@@ -49,35 +50,35 @@
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.RxJavaActivity"
+            android:name=".mvp.ui.activity.RxJavaActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.PermissionsActivity"
+            android:name=".mvp.ui.activity.PermissionsActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.RxLifeCycleActivity"
+            android:name=".mvp.ui.activity.RxLifeCycleActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.GlideActivity"
+            android:name=".mvp.ui.activity.GlideActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.SmartRefreshActivity"
+            android:name=".mvp.ui.activity.SmartRefreshActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.WebViewActivity"
+            android:name=".mvp.ui.activity.WebViewActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.TouchActivity"
+            android:name=".mvp.ui.activity.TouchActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.CustomerFlowLayoutActivity"
+            android:name=".mvp.ui.activity.CustomerFlowLayoutActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
@@ -85,27 +86,31 @@
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.FrameAnimationActivity"
+            android:name=".mvp.ui.activity.FrameAnimationActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.TimeCountDownActivity"
+            android:name=".mvp.ui.activity.TimeCountDownActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.VideoRecordingActivity"
+            android:name=".mvp.ui.activity.VideoRecordingActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.EventBusActivity"
+            android:name=".mvp.ui.activity.EventBusActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.FileProviderActivity"
+            android:name=".mvp.ui.activity.FileProviderActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.ServiceActivity"
+            android:name=".mvp.ui.activity.ServiceActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.activity.RippleActivity"
             android:configChanges="orientation|keyboard|screenSize"
             android:screenOrientation="portrait" />
     </application>

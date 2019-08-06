@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import com.example.zhang.base.BasePresenter;
 import com.example.zhang.mvp.contract.RxLifeCycleContract;
 import com.example.zhang.mvp.model.RxLifeCycleModel;
-import com.example.zhang.mvp.ui.RxLifeCycleActivity;
+import com.example.zhang.mvp.ui.activity.RxLifeCycleActivity;
 import com.example.zhang.utils.LogUtils;
 import com.example.zhang.utils.RxLifeCycleUtils;
 import com.trello.rxlifecycle2.android.ActivityEvent;

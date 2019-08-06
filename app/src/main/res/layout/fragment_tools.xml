@@ -239,4 +239,19 @@
         android:textAllCaps="false"
         app:layout_constraintLeft_toRightOf="@id/btn_main_file_provider"
         app:layout_constraintTop_toBottomOf="@id/btn_main_time_count_down" />
+    <TextView
+        android:id="@+id/btn_main_ripple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_item_shadow"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_8"
+        android:text="@string/str_main_ripple"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toRightOf="@id/btn_main_service"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_time_count_down" />
 </androidx.constraintlayout.widget.ConstraintLayout>

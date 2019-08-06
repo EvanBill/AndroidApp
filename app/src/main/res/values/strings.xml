@@ -14,6 +14,7 @@
     <string name="str_main_event_bus">event bus</string>
     <string name="str_main_file_provider">file provider</string>
     <string name="str_main_service">service</string>
+    <string name="str_main_ripple">ripple</string>
     <string name="str_test">测试</string>
     <string name="str_back_press_info">再按一次，就退出应用了!</string>
     <string name="str_main_aidl">aidl</string>

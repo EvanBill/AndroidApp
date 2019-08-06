@@ -1,4 +1,4 @@
-package com.example.zhang.mvp.ui;
+package com.example.zhang.mvp.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;

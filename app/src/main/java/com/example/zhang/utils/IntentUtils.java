@@ -11,21 +11,22 @@ import androidx.core.content.ContextCompat;
 import com.example.zhang.app.Constants;
 import com.example.zhang.client.AidlClientActivity;
 import com.example.zhang.mvp.service.FloatService;
-import com.example.zhang.mvp.ui.CustomerFlowLayoutActivity;
-import com.example.zhang.mvp.ui.EventBusActivity;
-import com.example.zhang.mvp.ui.FileProviderActivity;
-import com.example.zhang.mvp.ui.FrameAnimationActivity;
-import com.example.zhang.mvp.ui.GlideActivity;
+import com.example.zhang.mvp.ui.activity.CustomerFlowLayoutActivity;
+import com.example.zhang.mvp.ui.activity.EventBusActivity;
+import com.example.zhang.mvp.ui.activity.FileProviderActivity;
+import com.example.zhang.mvp.ui.activity.FrameAnimationActivity;
+import com.example.zhang.mvp.ui.activity.GlideActivity;
 import com.example.zhang.mvp.ui.MainActivity;
-import com.example.zhang.mvp.ui.PermissionsActivity;
-import com.example.zhang.mvp.ui.RxJavaActivity;
-import com.example.zhang.mvp.ui.RxLifeCycleActivity;
-import com.example.zhang.mvp.ui.ServiceActivity;
-import com.example.zhang.mvp.ui.SmartRefreshActivity;
-import com.example.zhang.mvp.ui.TimeCountDownActivity;
-import com.example.zhang.mvp.ui.TouchActivity;
-import com.example.zhang.mvp.ui.VideoRecordingActivity;
-import com.example.zhang.mvp.ui.WebViewActivity;
+import com.example.zhang.mvp.ui.activity.PermissionsActivity;
+import com.example.zhang.mvp.ui.activity.RippleActivity;
+import com.example.zhang.mvp.ui.activity.RxJavaActivity;
+import com.example.zhang.mvp.ui.activity.RxLifeCycleActivity;
+import com.example.zhang.mvp.ui.activity.ServiceActivity;
+import com.example.zhang.mvp.ui.activity.SmartRefreshActivity;
+import com.example.zhang.mvp.ui.activity.TimeCountDownActivity;
+import com.example.zhang.mvp.ui.activity.TouchActivity;
+import com.example.zhang.mvp.ui.activity.VideoRecordingActivity;
+import com.example.zhang.mvp.ui.activity.WebViewActivity;
 
 /**
  * Intent开始工具类
@@ -191,7 +192,15 @@ public class IntentUtils {
         Intent serviceIntent = new Intent(context, ServiceActivity.class);
         context.startActivity(serviceIntent);
     }
-
+    /**
+     * 开启SRippleActivity
+     *
+     * @param context
+     */
+    public static void startRippleActivity(Context context) {
+        Intent serviceIntent = new Intent(context, RippleActivity.class);
+        context.startActivity(serviceIntent);
+    }
     /**
      * 开启FloatService 并创建notification
      *

@@ -3,7 +3,7 @@ package com.example.zhang.mvp.presenter;
 import com.example.zhang.base.BaseModel;
 import com.example.zhang.base.BasePresenter;
 import com.example.zhang.mvp.contract.VideoRecordingContract;
-import com.example.zhang.mvp.ui.VideoRecordingActivity;
+import com.example.zhang.mvp.ui.activity.VideoRecordingActivity;
 import com.otaliastudios.cameraview.CameraView;
 
 import java.io.File;
