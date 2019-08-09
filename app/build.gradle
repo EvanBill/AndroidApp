@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
 android {
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
@@ -42,6 +43,7 @@ dependencies {
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["support-v13"]
     implementation rootProject.ext.dependencies["support-annotations"]
+    implementation 'com.google.firebase:firebase-core:17.0.0'
     //UI
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["design"]
@@ -60,6 +62,7 @@ dependencies {
     //Permissions
     implementation rootProject.ext.dependencies["rxpermissions"]
     implementation rootProject.ext.dependencies["permissionsdispatcher"]
+
     annotationProcessor rootProject.ext.dependencies["permissionsdispatcher-processor"]
     //network
     implementation rootProject.ext.dependencies["retrofit"]
@@ -97,4 +100,3 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
 }
-

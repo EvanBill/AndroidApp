@@ -23,6 +23,7 @@ import com.example.zhang.mvp.ui.fragment.SettingFragment;
 import com.example.zhang.mvp.ui.fragment.ToolsFragment;
 import com.example.zhang.mvp.ui.fragment.VideoListFragment;
 import com.example.zhang.utils.LogUtils;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
 
@@ -65,8 +66,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //        StringLogUtils.Companion.logString();
         showFragment(0);
         setNavigationSelect(0);
+        setGoogleAnalysic();
     }
 
+    private void setGoogleAnalysic() {
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "111");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name11");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
 
     @Override
     public void showContent(List<ProductBean> productBeanList) {
