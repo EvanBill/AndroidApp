@@ -10,13 +10,14 @@ ext {
 
     ]
     def dependVersion = [
-            support    : "1.0.0",
-            retrofit   : "2.4.0",
-            okhttp     : "3.11.0",
-            butterknife: "10.1.0",
-            smart      : "1.0.5.1",
-            glide      : "4.8.0",
-            leakcanary : "2.0-alpha-3",
+            support     : "1.0.0",
+            retrofit    : "2.4.0",
+            okhttp      : "3.11.0",
+            butterknife : "10.1.0",
+            smart       : "1.0.5.1",
+            glide       : "4.8.0",
+            leakcanary  : "2.0-alpha-3",
+            firebasecore: "17.0.0"
     ]
 
     dependencies = [
@@ -82,5 +83,6 @@ ext {
             "blockcanary-no-op"              : "com.github.moduth:blockcanary-no-op:${dependVersion.blockcanary}",
             "leakcanary-android"             : "com.squareup.leakcanary:leakcanary-android:${dependVersion.leakcanary}",
             "leaksentry"                     : "com.squareup.leakcanary:leaksentry:${dependVersion.leakcanary}",
+            "firebase-core"                  : "com.google.firebase:firebase-core:${dependVersion.firebasecore}"
     ]
 }

@@ -43,7 +43,7 @@ dependencies {
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["support-v13"]
     implementation rootProject.ext.dependencies["support-annotations"]
-    implementation 'com.google.firebase:firebase-core:17.0.0'
+
     //UI
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["design"]
@@ -94,6 +94,8 @@ dependencies {
     //内存泄漏
     debugImplementation rootProject.ext.dependencies["leakcanary-android"]
 //    releaseImplementation  rootProject.ext.dependencies["leaksentry"]
+    //firebase数据分析
+    implementation rootProject.ext.dependencies["firebase-core"]
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
