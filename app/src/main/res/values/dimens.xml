@@ -6,11 +6,14 @@
     <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_10">10dp</dimen>
     <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_35">35dp</dimen>
     <dimen name="dp_40">40dp</dimen>
     <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
+    <dimen name="dp_200">200dp</dimen>
     <dimen name="sp_14">14sp</dimen>
     <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_18">18sp</dimen>
     <dimen name="sp_20">20sp</dimen>
-
+    <dimen name="dp_dialog_margin">10dp</dimen>
 </resources>

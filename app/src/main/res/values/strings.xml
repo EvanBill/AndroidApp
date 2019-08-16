@@ -40,6 +40,8 @@
     <string name="str_image">照片</string>
     <string name="str_tools">工具</string>
     <string name="str_setting">设置</string>
+    <string name="str_cancel">取消</string>
+    <string name="str_ok">确定</string>
     /********************************** Notification start ****************************************/
     <string name="str_notification_title">MyApp准备就绪</string>
     <string name="str_notification_content_start">点击开始录制</string>
