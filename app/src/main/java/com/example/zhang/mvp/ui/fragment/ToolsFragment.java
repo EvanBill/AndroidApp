@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,30 +12,50 @@ import androidx.annotation.Nullable;
 import com.example.zhang.R;
 import com.example.zhang.base.BaseFragment;
 import com.example.zhang.utils.IntentUtils;
+import com.example.zhang.utils.LogUtils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class ToolsFragment extends BaseFragment {
+    @BindView(R.id.btn_main_rxJava)
+    TextView btn_main_rxJava;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_tools, container, false);
         ButterKnife.bind(this, view);
-
+        btn_main_rxJava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.error("ddd","----onClick");
+            }
+        });
+        btn_main_rxJava.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                LogUtils.error("ddd","----onLongClick");
+                return false;
+            }
+        });
         return view;
 
     }
+
+
 
     @OnClick({R.id.btn_main_rxJava, R.id.btn_main_lifecycle, R.id.btn_main_permissions, R.id.btn_main_glide
             , R.id.btn_main_smart_refresh, R.id.btn_main_web_view, R.id.btn_main_touch, R.id.btn_main_aidl_client
             , R.id.btn_main_customer_flow_layout, R.id.btn_main_frame_animation, R.id.btn_main_time_count_down,
             R.id.btn_main_video_recording, R.id.btn_main_event_bus, R.id.btn_main_file_provider
-            , R.id.btn_main_service,R.id.btn_main_ripple})
+            , R.id.btn_main_service, R.id.btn_main_ripple})
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_rxJava:
-                IntentUtils.startRxJavaActivity(getContext());
+                LogUtils.error("ddd","----onClick");
+//                IntentUtils.startRxJavaActivity(getContext());
                 break;
             case R.id.btn_main_lifecycle:
                 IntentUtils.startRxLifeCycleActivity(getContext());
